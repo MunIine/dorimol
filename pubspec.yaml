@@ -23,4 +23,11 @@ flutter:
   fonts:
     - family: AppIcons
       fonts:
-        - asset: assets/fonts/icomoon.ttf
+        - asset: lib/assets/fonts/icomoon.ttf
+
+    - family: Rostelecom
+      fonts:
+        - asset: lib/assets/fonts/Rostelecom-Medium.otf
+          weight: 500
+        - asset: lib/assets/fonts/Rostelecom-Bold.otf
+          weight: 700
