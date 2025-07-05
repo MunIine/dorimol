@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SvgIcons {
-  static const String _fontFamily = 'MyIcons';
+  static const String _fontFamily = 'AppIcons';
 
   static const IconData bookmark = IconData(0xe900, fontFamily: _fontFamily);
   static const IconData filter = IconData(0xe901, fontFamily: _fontFamily);
