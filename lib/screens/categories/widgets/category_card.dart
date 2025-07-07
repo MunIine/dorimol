@@ -1,4 +1,4 @@
-import 'package:dorimol/theme/theme.dart';
+import 'package:dorimol/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -9,12 +9,14 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = Theme.of(context).extension<AppColors>()!;
+
     return Container(
       height: 112,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: image == null ? blockColor : null,
+        color: image == null ? colorTheme.block : null,
         image: image == null ? null : DecorationImage(
           image: AssetImage(image!),
           fit: BoxFit.cover
