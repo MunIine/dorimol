@@ -1,3 +1,4 @@
+import 'package:dorimol/data/constants/category_data.dart';
 import 'package:dorimol/screens/categories/widgets/category_card.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:dorimol/widgets/app_search_bar.dart';
@@ -20,7 +21,7 @@ class CategoriesScreen extends StatelessWidget {
             Text("Категории", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
             Expanded(
               child: ListView.separated(
-                itemBuilder: (BuildContext context, int index) => CategoryCard(child: Text("Овощи", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+                itemBuilder: (BuildContext context, int index) => CategoryCard(image: CATEGORIESIMG[index],child: Text(CATEGORIES[index], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),),
                 separatorBuilder: (BuildContext context, int index) => SizedBox(height: 10),
                 itemCount: 4,
               )

@@ -31,3 +31,6 @@ flutter:
           weight: 500
         - asset: lib/assets/fonts/Rostelecom-Bold.otf
           weight: 700
+
+  assets:
+    - lib/assets/images/categories/fruits.png
