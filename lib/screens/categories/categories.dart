@@ -34,7 +34,7 @@ class CategoriesScreen extends StatelessWidget {
         child: Container(
           height: 50,
           width: double.infinity,
-          color: brandColor,
+          color: seedColor,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16).copyWith(top: 8, bottom: 8),
             child: Row(
