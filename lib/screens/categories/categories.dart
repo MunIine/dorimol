@@ -11,15 +11,17 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 45),
+        padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppSearchBar(sliders: false),
-            SizedBox(height: 20),
+            SizedBox(height: 16),
             Text("Категории", style: AppText.h1),
+            SizedBox(height: 16),
             Expanded(
               child: ListView.separated(
+                padding: EdgeInsets.zero,
                 itemBuilder: (BuildContext context, int index) => CategoryCard(
                   image: CATEGORIESIMG[index],
                   child: Text(CATEGORIES[index], style: AppText.h2)

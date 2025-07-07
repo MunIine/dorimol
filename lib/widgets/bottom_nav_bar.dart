@@ -12,9 +12,9 @@ class BottomNavBar extends StatelessWidget {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 60),
+      padding: const EdgeInsets.only(bottom: 20),
       child: Container(
-        height: 50,
+        height: 60,
         width: double.infinity,
         color: colorTheme.seedColor,
         child: Padding(
