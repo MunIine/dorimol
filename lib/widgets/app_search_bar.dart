@@ -3,9 +3,9 @@ import 'package:dorimol/widgets/svg_icons.dart';
 import 'package:flutter/material.dart';
 
 class AppSearchBar extends StatelessWidget {
-  const AppSearchBar({super.key, this.bookmark = false});
+  const AppSearchBar({super.key, this.sliders = false});
 
-  final bool bookmark;
+  final bool sliders;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +36,9 @@ class AppSearchBar extends StatelessWidget {
             ),
           )
         ),
-        SizedBox(width: 4),
-        BoxIconButton(icon: SvgIcons.filter),
-        if(bookmark)...[
+        if(sliders)...[
           SizedBox(width: 4),
-          BoxIconButton(icon: SvgIcons.bookmark)
+          BoxIconButton(icon: SvgIcons.sliders)
         ],
       ],
     );

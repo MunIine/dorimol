@@ -9,6 +9,11 @@ class SvgIcons {
   static const IconData minus = IconData(0xe903, fontFamily: _fontFamily);
   static const IconData plus = IconData(0xe904, fontFamily: _fontFamily);
   static const IconData shoppingCart = IconData(0xe905, fontFamily: _fontFamily);
+  static const IconData shoppingCartFilled = IconData(0xe908, fontFamily: _fontFamily);
   static const IconData sliders = IconData(0xe906, fontFamily: _fontFamily);
   static const IconData trash = IconData(0xe907, fontFamily: _fontFamily);
+  static const IconData x = IconData(0xe909, fontFamily: _fontFamily);
+  static const IconData back = IconData(0xe910, fontFamily: _fontFamily);
+  static const IconData xCirle = IconData(0xe912, fontFamily: _fontFamily);
+  static const IconData xCirleFilled = IconData(0xe911, fontFamily: _fontFamily);
 }

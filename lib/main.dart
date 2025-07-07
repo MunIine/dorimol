@@ -1,4 +1,4 @@
-import 'package:dorimol/screens/catalog/catalog.dart';
+import 'package:dorimol/screens/categories/categories.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: lightTheme,
-      home: Catalog(),
+      home: CategoriesScreen(),
     );
   }
 }
