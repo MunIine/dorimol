@@ -25,20 +25,44 @@ class ItemCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: height*0.44,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("lib/assets/images/items/item.png"),
-                fit: BoxFit.cover
+          Stack(
+            children: [
+              Container(
+                height: height*0.44,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("lib/assets/images/items/item.png"),
+                    fit: BoxFit.cover
+                  )
+                ),
+              ),
+              Positioned(
+                top: height*0.44-15,
+                left: 8,
+                child: Container(
+                  padding: EdgeInsets.only(top: 2).copyWith(right: 8, left: 4),
+                  decoration: BoxDecoration(
+                    color: colorTheme.background,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(3),
+                      topRight: Radius.circular(3)
+                    )
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.star_rounded, color: colorTheme.yellow, size: 10,),
+                      Text("4.5", style: AppText.t09,)
+                    ],
+                  ),
+                )
               )
-            ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 10),
             child: RichText(
               text: TextSpan(
-                style: TextStyle(fontFamily: "Rostelecom"),
+                style: AppText.rostelecom,
                 children: [
                   TextSpan(text: "В наличии 5шт\n", style: AppText.t0.copyWith(color: colorTheme.seedColor)),
                   TextSpan(text: "Томат розовый\n", style: AppText.t3.copyWith(color: colorTheme.textBlack)),
@@ -49,68 +73,64 @@ class ItemCard extends StatelessWidget {
           ),
           ... getPriceBlock(colorTheme, atr),
           Spacer(),
-          if (!inCart) ... {
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
-              child: SizedBox(
-                width: double.infinity,
-                height: cartHeight,
-                child: TextButton(
-                  onPressed: (){},
-                  style: TextButton.styleFrom(
-                    backgroundColor: colorTheme.seedColor,
-                    padding: EdgeInsets.symmetric(vertical: 9),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 7,
-                    children: [
-                      Icon(SvgIcons.shoppingCart, size: 14),
-                      Text("В корзину", style: AppText.t2.copyWith(color: colorTheme.background)),
-                    ],
-                  ),
+          if (!inCart) Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
+            child: SizedBox(
+              width: double.infinity,
+              height: cartHeight,
+              child: TextButton(
+                onPressed: (){},
+                style: TextButton.styleFrom(
+                  backgroundColor: colorTheme.seedColor,
+                  padding: EdgeInsets.symmetric(vertical: 9),
                 ),
-              ),
-            )
-          }
-          else ... {
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12)
-                ),
-                clipBehavior: Clip.hardEdge,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 7,
                   children: [
-                    CartButton(icon: SvgIcons.minus, cartHeight: cartHeight),
-                    SizedBox(width: 1),
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        height: cartHeight,
-                        color: colorTheme.seedColor,
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(vertical: 4),
-                        child: RichText(
-                          text: TextSpan(
-                            style: TextStyle(fontFamily: "Rostelecom"),
-                            children: [
-                              TextSpan(text: "0.54 кг\n", style: AppText.t1.copyWith(color: colorTheme.background)),
-                              TextSpan(text: "162.54Р", style: AppText.t0.copyWith(color: colorTheme.accint))
-                            ]
-                          )
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 1),
-                    CartButton(icon: SvgIcons.plus, cartHeight: cartHeight),
+                    Icon(SvgIcons.shoppingCart, size: 14),
+                    Text("В корзину", style: AppText.t2.copyWith(color: colorTheme.background)),
                   ],
                 ),
               ),
-            )
-          }
+            ),
+          )
+          else Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12)
+              ),
+              clipBehavior: Clip.hardEdge,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CartButton(icon: SvgIcons.minus, cartHeight: cartHeight),
+                  SizedBox(width: 1),
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      height: cartHeight,
+                      color: colorTheme.seedColor,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(vertical: 4),
+                      child: RichText(
+                        text: TextSpan(
+                          style: AppText.rostelecom,
+                          children: [
+                            TextSpan(text: "0.54 кг\n", style: AppText.t1.copyWith(color: colorTheme.background)),
+                            TextSpan(text: "162.54Р", style: AppText.t0.copyWith(color: colorTheme.accint))
+                          ]
+                        )
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 1),
+                  CartButton(icon: SvgIcons.plus, cartHeight: cartHeight),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

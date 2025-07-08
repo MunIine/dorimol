@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppText {
+  static const TextStyle rostelecom = TextStyle(fontFamily: "Rostelecom");
   static const TextStyle h1 = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
   static const TextStyle h2 = TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
   static const TextStyle t09 = TextStyle(fontSize: 9, fontWeight: FontWeight.w500);

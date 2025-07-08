@@ -27,7 +27,7 @@ class BottomNavBar extends StatelessWidget {
               SizedBox(width: 20),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(fontFamily: "Rostelecom", color: colorTheme.background),
+                  style: AppText.rostelecom.copyWith(color: colorTheme.background),
                   children: [
                     TextSpan(text: "Корзина ", style: AppText.h2),
                     TextSpan(text: "750Р\n", style: AppText.t5),
