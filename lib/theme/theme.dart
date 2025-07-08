@@ -30,6 +30,13 @@ final lightTheme = ThemeData(
       padding: EdgeInsets.zero,
     )
   ),
+  textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(
+      iconColor: backgroundColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
+      minimumSize: Size.zero,
+    )
+  ),
   extensions: <ThemeExtension<dynamic>>[
     AppColors(
       seedColor: seedColor,
