@@ -4,7 +4,7 @@ import 'package:dorimol/widgets/svg_icons.dart';
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({super.key, required this.inCart, this.atr = "new"});
+  const ItemCard({super.key, required this.inCart, this.atr});
   final bool inCart;
   final String? atr;
 
