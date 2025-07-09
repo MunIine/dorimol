@@ -1,6 +1,6 @@
 import 'package:dorimol/theme/app_colors.dart';
 import 'package:dorimol/theme/app_text.dart';
-import 'package:dorimol/widgets/svg_icons.dart';
+import 'package:dorimol/widgets/cart/adaptive_cart.dart';
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
@@ -62,151 +62,81 @@ class ItemCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("В наличии 5шт", style: AppText.t0.copyWith(color: colorTheme.seedColor)),
-                      Text("арт. 86000106", style: AppText.t09.copyWith(color: colorTheme.iconGray)),
-                    ],
-                  ),
-                  SizedBox(height: 2),
-                  Text("Томат розовый", style: AppText.t3.copyWith(color: colorTheme.textBlack, height: 1)),
-                  Text("100г", style: AppText.t2.copyWith(color: colorTheme.tips)),
-                ]
-              )
-          ),
-          ... getPriceBlock(colorTheme, atr),
-          Spacer(),
-          if (!inCart) Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
-            child: SizedBox(
-              width: double.infinity,
-              height: cartHeight,
-              child: TextButton(
-                onPressed: (){},
-                style: TextButton.styleFrom(
-                  backgroundColor: colorTheme.seedColor,
-                  padding: EdgeInsets.symmetric(vertical: 9),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 7,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(SvgIcons.shoppingCart, size: 14),
-                    Text("В корзину", style: AppText.t2.copyWith(color: colorTheme.background)),
+                    Text("В наличии 5шт", style: AppText.t0.copyWith(color: colorTheme.seedColor)),
+                    Text("арт. 86000106", style: AppText.t09.copyWith(color: colorTheme.iconGray)),
                   ],
                 ),
-              ),
-            ),
-          )
-          else Padding(
+                SizedBox(height: 2),
+                Text("Томат розовый", style: AppText.t3.copyWith(color: colorTheme.textBlack, height: 1)),
+                Text("100г", style: AppText.t2.copyWith(color: colorTheme.tips)),
+              ]
+            )
+          ),
+          PriceBlock(atr: atr),
+          Spacer(),
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12)
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CartButton(icon: SvgIcons.minus, cartHeight: cartHeight),
-                  SizedBox(width: 1),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      height: cartHeight,
-                      color: colorTheme.seedColor,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(vertical: 4),
-                      child: RichText(
-                        text: TextSpan(
-                          style: AppText.rostelecom,
-                          children: [
-                            TextSpan(text: "0.54 кг\n", style: AppText.t1.copyWith(color: colorTheme.background)),
-                            TextSpan(text: "162.54Р", style: AppText.t0.copyWith(color: colorTheme.accint))
-                          ]
-                        )
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 1),
-                  CartButton(icon: SvgIcons.plus, cartHeight: cartHeight),
-                ],
-              ),
-            ),
+            child: AdaptiveCart(inCart: inCart, cartHeight: cartHeight),
           )
         ],
       ),
     );
   }
+}
 
-  List<Widget> getPriceBlock(AppColors colorTheme, String? atr){
-    if (atr == null){
-      return [
+
+class PriceBlock extends StatelessWidget {
+  const PriceBlock({super.key, required this.atr});
+
+  final String? atr;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorTheme = Theme.of(context).extension<AppColors>()!;
+    Color textColor;
+    Color blockColor;
+    String? text;
+
+    if (atr == "new"){
+      textColor = colorTheme.background;
+      blockColor = colorTheme.blue;
+      text = "Новинка";
+    }
+    else if(atr == "sale"){
+      textColor = colorTheme.textGray;
+      blockColor = colorTheme.yellow;
+      text = "Скидка";
+    }
+    else{
+      textColor = colorTheme.textGray;
+      blockColor = Color(0xFFF2F2F2);
+    }
+
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8).copyWith(top: 2, bottom: 2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Color(0xFFF2F2F2)
+              color: blockColor
             ),
-            child: Text("150Р/шт", style: AppText.b4.copyWith(color: colorTheme.textGray)),
+            child: Text("150Р/шт", style: AppText.b4.copyWith(color: textColor),),
           ),
         ),
-      ];
-    }
-    final bool isNew = atr == "new";
-    return [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8).copyWith(top: 2, bottom: 2),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: isNew ? colorTheme.blue : colorTheme.yellow
-          ),
-          child: Text("150Р/шт", style: AppText.b4.copyWith(color: isNew ? colorTheme.background : colorTheme.textGray),),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Text(isNew ? "Новинка" : "Скидка", style: AppText.t0.copyWith(color: isNew ? colorTheme.blue : colorTheme.yellow)),
-      )
-    ];
-  }
-}
-
-class CartButton extends StatelessWidget {
-  const CartButton({
-    super.key,
-    required this.icon,
-    required this.cartHeight, 
-  });
-
-  final double cartHeight;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorTheme = Theme.of(context).extension<AppColors>()!;
-
-    return SizedBox(
-      height: cartHeight,
-      child: IconButton(
-        onPressed: (){},
-        padding: EdgeInsets.symmetric(vertical: 7).copyWith(left: 9, right: 9),
-        icon: Icon(
-          icon,
-          color: colorTheme.background,
-          size: 16,
-        ),
-        style: IconButton.styleFrom(
-          backgroundColor: colorTheme.seedColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.zero)
-        ),
-      ),
+        if (text != null) Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Text(text, style: AppText.t0.copyWith(color: blockColor)),
+        )
+      ]
     );
   }
 }
