@@ -60,16 +60,21 @@ class ItemCard extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 10),
-            child: RichText(
-              text: TextSpan(
-                style: AppText.rostelecom,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextSpan(text: "В наличии 5шт\n", style: AppText.t0.copyWith(color: colorTheme.seedColor)),
-                  TextSpan(text: "Томат розовый\n", style: AppText.t3.copyWith(color: colorTheme.textBlack)),
-                  TextSpan(text: "100г", style: AppText.t2.copyWith(color: colorTheme.tips)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("В наличии 5шт", style: AppText.t0.copyWith(color: colorTheme.seedColor)),
+                      Text("арт. 86000106", style: AppText.t09.copyWith(color: colorTheme.iconGray)),
+                    ],
+                  ),
+                  SizedBox(height: 2),
+                  Text("Томат розовый", style: AppText.t3.copyWith(color: colorTheme.textBlack, height: 1)),
+                  Text("100г", style: AppText.t2.copyWith(color: colorTheme.tips)),
                 ]
               )
-            ),
           ),
           ... getPriceBlock(colorTheme, atr),
           Spacer(),
@@ -167,7 +172,7 @@ class ItemCard extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Text("Новинка", style: AppText.t0.copyWith(color: isNew ? colorTheme.blue : colorTheme.yellow)),
+        child: Text(isNew ? "Новинка" : "Скидка", style: AppText.t0.copyWith(color: isNew ? colorTheme.blue : colorTheme.yellow)),
       )
     ];
   }
