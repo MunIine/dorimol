@@ -18,4 +18,5 @@ class SvgIcons {
   static const IconData xCirleFilled = IconData(0xe912, fontFamily: _fontFamily);
   static const IconData radioButtonOff = IconData(0xe913, fontFamily: _fontFamily);
   static const IconData radioButtonOn = IconData(0xe914, fontFamily: _fontFamily);
+  static const IconData package = IconData(0xe915, fontFamily: _fontFamily);
 }

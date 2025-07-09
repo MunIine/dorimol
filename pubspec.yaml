@@ -34,4 +34,4 @@ flutter:
 
   assets:
     - lib/assets/images/categories/fruits.png
-    - lib/assets/images/items/item.png
+    - lib/assets/images/items/

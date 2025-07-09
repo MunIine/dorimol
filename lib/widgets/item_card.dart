@@ -1,6 +1,8 @@
+import 'package:dorimol/screens/item/item.dart';
 import 'package:dorimol/theme/app_colors.dart';
 import 'package:dorimol/theme/app_text.dart';
 import 'package:dorimol/widgets/cart/adaptive_cart.dart';
+import 'package:dorimol/widgets/helpers/rating_block.dart';
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
@@ -14,80 +16,72 @@ class ItemCard extends StatelessWidget {
     const double height = 285;
     const double cartHeight = 36;
 
-    return Container(
-      height: height,
-      width: 185,
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: colorTheme.background
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: height*0.44,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("lib/assets/images/items/item.png"),
-                    fit: BoxFit.cover
-                  )
-                ),
-              ),
-              Positioned(
-                top: height*0.44-15,
-                left: 8,
-                child: Container(
-                  padding: EdgeInsets.only(top: 2).copyWith(right: 8, left: 4),
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ItemScreen())),
+      child: Container(
+        height: height,
+        width: 185,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: colorTheme.background
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: height*0.44,
                   decoration: BoxDecoration(
-                    color: colorTheme.background,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(3),
-                      topRight: Radius.circular(3)
+                    image: DecorationImage(
+                      image: AssetImage("lib/assets/images/items/item.png"),
+                      fit: BoxFit.cover
                     )
                   ),
-                  child: Row(
+                ),
+                Positioned(
+                  top: height*0.44-15,
+                  left: 8,
+                  child: RatingBlock(
+                    padding: EdgeInsets.only(top: 2).copyWith(right: 8, left: 4),
+                    style: AppText.t09, 
+                    iconSize: 10,
+                    borderRadius: 3,
+                  )
+                )
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.star_rounded, color: colorTheme.yellow, size: 10,),
-                      Text("4.5", style: AppText.t09,)
+                      Text("В наличии 5шт", style: AppText.t0.copyWith(color: colorTheme.seedColor)),
+                      Text("арт. 86000106", style: AppText.t09.copyWith(color: colorTheme.iconGray)),
                     ],
                   ),
-                )
+                  SizedBox(height: 2),
+                  Text("Томат розовый", style: AppText.t3.copyWith(color: colorTheme.textBlack, height: 1)),
+                  Text("100г", style: AppText.t2.copyWith(color: colorTheme.tips)),
+                ]
               )
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("В наличии 5шт", style: AppText.t0.copyWith(color: colorTheme.seedColor)),
-                    Text("арт. 86000106", style: AppText.t09.copyWith(color: colorTheme.iconGray)),
-                  ],
-                ),
-                SizedBox(height: 2),
-                Text("Томат розовый", style: AppText.t3.copyWith(color: colorTheme.textBlack, height: 1)),
-                Text("100г", style: AppText.t2.copyWith(color: colorTheme.tips)),
-              ]
+            ),
+            PriceBlock(atr: atr),
+            Spacer(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
+              child: AdaptiveCart(inCart: inCart, cartHeight: cartHeight),
             )
-          ),
-          PriceBlock(atr: atr),
-          Spacer(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
-            child: AdaptiveCart(inCart: inCart, cartHeight: cartHeight),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-
 
 class PriceBlock extends StatelessWidget {
   const PriceBlock({super.key, required this.atr});
