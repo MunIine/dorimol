@@ -1,11 +1,11 @@
 import 'dart:math';
 
+import 'package:dorimol/screens/catalog/catalog.dart';
 import 'package:dorimol/theme/app_colors.dart';
 import 'package:dorimol/theme/app_text.dart';
 import 'package:dorimol/widgets/export.dart';
 import 'package:dorimol/widgets/helpers/rating_block.dart';
 import 'package:dorimol/widgets/helpers/return_button.dart';
-import 'package:dorimol/widgets/svg_icons.dart';
 import 'package:flutter/material.dart';
 
 class ItemScreen extends StatelessWidget {
@@ -20,11 +20,10 @@ class ItemScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
-          SizedBox(height: 50),
           Stack(
             children: [
               Container(
-                height: 280,
+                height: 280+50,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("lib/assets/images/items/item2.png"),
@@ -34,7 +33,7 @@ class ItemScreen extends StatelessWidget {
               ),
               Positioned(
                 left: 20,
-                top: 259,
+                top: 259+50,
                 child: RatingBlock(
                   padding: EdgeInsets.only(left: 8).copyWith(right: 10).copyWith(top: 2),
                   useStarTextColor: true,
@@ -45,76 +44,99 @@ class ItemScreen extends StatelessWidget {
               ),
               Positioned(
                 left: 16,
-                top: 4,
+                top: 4+36,
                 child: ReturnButton()
               )
             ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16).copyWith(top: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("арт. 12345678", style: AppText.t0.copyWith(color: colorTheme.tips)),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Томат розовый", style: AppText.h1.copyWith(color: colorTheme.textBlack)),
-                          Row(
-                            children: [
-                              Icon(SvgIcons.package, size: 16, color: colorTheme.iconGray),
-                              SizedBox(width: 6),
-                              Text("Оптовая цена от 50 кг", style: AppText.t2.copyWith(color: colorTheme.iconGray))
-                            ],
-                          )
-                        ],
-                      ),
-                      Spacer(),
-                      DoublePriceBlock(atr: "new"),
-                    ],
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 10),
+                child: Text("арт. 12345678", style: AppText.t0.copyWith(color: colorTheme.tips)),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 6),
+                        Text("Томат розовый", style: AppText.h1.copyWith(color: colorTheme.textBlack)),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Icon(SvgIcons.package, size: 16, color: colorTheme.iconGray),
+                            SizedBox(width: 6),
+                            Text("Оптовая цена от 50 кг", style: AppText.t2.copyWith(color: colorTheme.iconGray))
+                          ],
+                        )
+                      ],
+                    ),
+                    Spacer(),
+                    DoublePriceBlock(atr: "new"),
+                  ],
                 ),
-                SizedBox(height: 20),
-                ChangeItemInCart(
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ChangeItemInCart(
                   cartHeight: 50, 
                   iconSize: 24, 
                   equalWidth: true,
                   weightTextStyle: AppText.h2,
                   priceTextStyle: AppText.t3,
                 ),
-                SizedBox(height: 15),
-                Text("Производитель", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
-                SizedBox(height: 15),
-                SizedBox(
-                  height: 35,
-                  child: ListView.separated(
-                    itemCount: vendors.length,
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (context, index) => SizedBox(width: 10),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: colorTheme.block,
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Text(
-                          vendors[index],
-                          style: AppText.t2.copyWith(color: colorTheme.textGray),
-                        ),
-                      );
-                    },
-                  ),
+              ),
+              Divider(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text("Описание", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  "Помидор (или томат) — это однолетнее травянистое растение из семейства паслёновых.", 
+                  style: AppText.t3.copyWith(color: colorTheme.iconGray)
                 ),
-                SizedBox(height: 20),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
+              ),
+              Divider(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text("Производитель", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
+              ),
+              SizedBox(height: 15),
+              SizedBox(
+                height: 35,
+                child: ListView.separated(
+                  itemCount: vendors.length,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  scrollDirection: Axis.horizontal,
+                  separatorBuilder: (context, index) => SizedBox(width: 10),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: colorTheme.block,
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Text(
+                        vendors[index],
+                        style: AppText.t2.copyWith(color: colorTheme.textGray),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Divider(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
                   children: [
                     Text("Отзывы", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
                     Spacer(),
@@ -127,35 +149,47 @@ class ItemScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 15),
-                SizedBox(
-                  height: 65,
-                  child: ListView.separated(
-                    itemCount: 3,
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (context, index) => SizedBox(width: 10), 
-                    itemBuilder: (context, index) => SizedBox(height: 65,width: 275, child: FeedbackCard()), 
-                  ),
+              ),
+              SizedBox(height: 15),
+              SizedBox(
+                height: 65,
+                child: ListView.separated(
+                  itemCount: 3,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  separatorBuilder: (context, index) => SizedBox(width: 10), 
+                  itemBuilder: (context, index) => SizedBox(height: 65,width: 275, child: FeedbackCard()), 
                 ),
-                SizedBox(height: 20),
-                Divider(),
-                SizedBox(height: 15),
-                Text("Похожие товары", style: AppText.h2.copyWith(color: colorTheme.textBlack)),
-                GridView.builder(
-                  itemCount: 6,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 185/285
-                  ), 
-                  itemBuilder: (context, index) => ItemCard(inCart: [false, true][Random().nextInt(2)], atr: [null, "new", "sale"][Random().nextInt(3)])
+              ),
+              Divider(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Text("Похожие товары", style: AppText.h2.copyWith(color: colorTheme.textBlack)),
+                    Spacer(),
+                    IconButton(
+                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => CatalogScreen())),
+                      icon: Icon(SvgIcons.back),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            ),
-          )
+              ),
+              SizedBox(height: 15),
+              SizedBox(
+                height: 285,
+                child: ListView.separated(
+                  itemCount: 3,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  separatorBuilder: (context, index) => SizedBox(width: 10), 
+                  itemBuilder: (context, index) => SizedBox(width: 175.4, child: ItemCard(inCart: [false, true][Random().nextInt(2)], atr: [null, "new", "sale"][Random().nextInt(3)]))), 
+                ),
+            ],
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavBar(),
@@ -173,8 +207,8 @@ class FeedbackCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Color(0xFFF2F2F2),
-        border: Border.all(color: Color(0xFFE9E9E9), width: 1),
+        color: colorTheme.background,
+        border: Border.all(color: Color(0xFFDEDEDE), width: 0.5),
         borderRadius: BorderRadius.circular(12)
       ),
       child: Row(
@@ -270,11 +304,11 @@ class DoublePriceBlock extends StatelessWidget {
               color: blockColor
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 7, bottom: 6),
+              padding: const EdgeInsets.only(top: 6, bottom: 6),
               child: Center(child: Text("150Р/кг", style: AppText.h1.copyWith(color: textColor))),
             ),
           ),
-          SizedBox(height: 2),
+          SizedBox(height: 1),
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -282,7 +316,7 @@ class DoublePriceBlock extends StatelessWidget {
               color: blockColor
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 3),
+              padding: const EdgeInsets.symmetric(vertical: 2),
               child: Center(child: Text("109Р/кг", style: AppText.t3.copyWith(color: secondTextColor))),
             ),
           ),
