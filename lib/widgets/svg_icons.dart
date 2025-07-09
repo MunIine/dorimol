@@ -14,6 +14,8 @@ class SvgIcons {
   static const IconData trash = IconData(0xe907, fontFamily: _fontFamily);
   static const IconData x = IconData(0xe909, fontFamily: _fontFamily);
   static const IconData back = IconData(0xe910, fontFamily: _fontFamily);
-  static const IconData xCirle = IconData(0xe912, fontFamily: _fontFamily);
-  static const IconData xCirleFilled = IconData(0xe911, fontFamily: _fontFamily);
+  static const IconData xCirle = IconData(0xe911, fontFamily: _fontFamily);
+  static const IconData xCirleFilled = IconData(0xe912, fontFamily: _fontFamily);
+  static const IconData radioButtonOff = IconData(0xe913, fontFamily: _fontFamily);
+  static const IconData radioButtonOn = IconData(0xe914, fontFamily: _fontFamily);
 }

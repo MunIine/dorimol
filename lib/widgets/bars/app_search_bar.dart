@@ -1,5 +1,6 @@
 import 'package:dorimol/theme/app_colors.dart';
 import 'package:dorimol/theme/app_text.dart';
+import 'package:dorimol/widgets/bars/sorting_bottom_sheet.dart';
 import 'package:dorimol/widgets/svg_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +61,13 @@ class BoxIconButton extends StatelessWidget {
         icon,
         size: 18.5,
       ),
-      onPressed: (){},
+      onPressed: () => showModalBottomSheet(
+        backgroundColor: Theme.of(context).extension<AppColors>()!.background,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
+        context: context,
+        builder: (context) => SortingBottomSheet()
+      ),
       padding: EdgeInsets.all(15),
       style: IconButton.styleFrom(
         shape: RoundedRectangleBorder(
