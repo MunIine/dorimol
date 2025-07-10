@@ -1,4 +1,5 @@
 import 'package:dorimol/theme/app_colors.dart';
+import 'package:dorimol/theme/app_text.dart';
 import 'package:flutter/material.dart';
 
 const seedColor = Color(0xFF00b956);
@@ -12,6 +13,7 @@ const blueColor = Color(0xFF5992E8);
 const redColor = Color(0xFFFF0032);
 const yellowColor = Color(0xFFFFC300);
 const accintColor = Color(0xFFA7DDBC);
+const formInputColor = Color(0xFFF7F7F7);
 
 
 final lightTheme = ThemeData(
@@ -37,6 +39,13 @@ final lightTheme = ThemeData(
       minimumSize: Size.zero,
     )
   ),
+  inputDecorationTheme: InputDecorationTheme(
+    contentPadding: const EdgeInsets.symmetric(horizontal: 18),
+    enabledBorder: InputBorder.none,
+    border: InputBorder.none,
+    focusedBorder: InputBorder.none,
+    hintStyle: AppText.t3.copyWith(color: tipsColor),
+  ),
   extensions: <ThemeExtension<dynamic>>[
     AppColors(
       seedColor: seedColor,
@@ -49,7 +58,8 @@ final lightTheme = ThemeData(
       yellow: yellowColor,
       accint: accintColor,
       background: backgroundColor,
-      block: blockColor
+      block: blockColor, 
+      formInput: formInputColor
     )
   ]
 );

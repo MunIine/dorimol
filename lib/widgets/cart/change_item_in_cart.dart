@@ -6,16 +6,24 @@ class ChangeItemInCart extends StatelessWidget {
     super.key,
     required this.cartHeight, 
     this.equalWidth = false,
+    this.dividers = true,
     this.iconSize = 16, 
-    this.weightTextStyle = AppText.t1, 
-    this.priceTextStyle = AppText.t0, 
+    this.borderRadius = 12, 
+    this.weightTextStyle, 
+    this.priceTextStyle,
+    this.iconColor,
+    this.color,
   });
 
   final double cartHeight;
   final double iconSize;
+  final double borderRadius;
   final bool equalWidth;
-  final TextStyle weightTextStyle;
-  final TextStyle priceTextStyle;
+  final bool dividers;
+  final TextStyle? weightTextStyle;
+  final TextStyle? priceTextStyle;
+  final Color? color;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +31,7 @@ class ChangeItemInCart extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12)
+        borderRadius: BorderRadius.circular(borderRadius)
       ),
       clipBehavior: Clip.hardEdge,
       child: LayoutBuilder(
@@ -33,27 +41,43 @@ class ChangeItemInCart extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CartButton(icon: SvgIcons.minus, iconSize: iconSize, cartHeight: cartHeight, width: equalWidth ? width : null,),
-              SizedBox(width: 1),
+              _CartButton(
+                icon: SvgIcons.minus, 
+                iconSize: iconSize, 
+                cartHeight: cartHeight, 
+                width: equalWidth ? width : null, 
+                colorTheme: colorTheme,
+                iconColor: iconColor,
+                color: color,
+              ),
+              if (dividers) SizedBox(width: 1),
               Expanded(
                 child: Container(
                   height: cartHeight,
-                  color: colorTheme.seedColor,
+                  color: color ?? colorTheme.seedColor,
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(vertical: 4),
                   child: RichText(
                     text: TextSpan(
                       style: AppText.rostelecom,
                       children: [
-                        TextSpan(text: "0.54 кг\n", style: weightTextStyle.copyWith(color: colorTheme.background)),
-                        TextSpan(text: "162.54Р", style: priceTextStyle.copyWith(color: colorTheme.accint))
+                        TextSpan(text: "0.54 кг\n", style: priceTextStyle ?? AppText.t1.copyWith(color: colorTheme.background)),
+                        TextSpan(text: "162.54Р", style: weightTextStyle ?? AppText.t0.copyWith(color: colorTheme.accint))
                       ]
                     )
                   ),
                 ),
               ),
-              SizedBox(width: 1),
-              CartButton(icon: SvgIcons.plus, iconSize: iconSize, cartHeight: cartHeight, width: equalWidth ? width : null),
+              if (dividers) SizedBox(width: 1),
+              _CartButton(
+                icon: SvgIcons.plus, 
+                iconSize: iconSize, 
+                cartHeight: cartHeight, 
+                width: equalWidth ? width : null,
+                colorTheme: colorTheme,
+                iconColor: iconColor,
+                color: color,
+              ),
             ],
           );
         }
@@ -62,24 +86,27 @@ class ChangeItemInCart extends StatelessWidget {
   }
 }
 
-class CartButton extends StatelessWidget {
-  const CartButton({
-    super.key,
+class _CartButton extends StatelessWidget {
+  const _CartButton({
+    required this.colorTheme, 
     required this.icon,
     required this.iconSize, 
     required this.cartHeight, 
-    this.width, 
+    this.iconColor,
+    this.color,
+    this.width
   });
 
+  final AppColors colorTheme;
   final double cartHeight;
   final double iconSize;
-  final double? width;
   final IconData icon;
+  final Color? iconColor;
+  final Color? color;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
-    final colorTheme = Theme.of(context).extension<AppColors>()!;
-
     return SizedBox(
       height: cartHeight,
       width: width,
@@ -88,11 +115,11 @@ class CartButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 9),
         icon: Icon(
           icon,
-          color: colorTheme.background,
+          color: iconColor ?? colorTheme.background,
           size: iconSize,
         ),
         style: IconButton.styleFrom(
-          backgroundColor: colorTheme.seedColor,
+          backgroundColor: color ?? colorTheme.seedColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.zero)
         ),
       ),

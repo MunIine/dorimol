@@ -1,5 +1,6 @@
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/bars/sorting_bottom_sheet.dart';
+import 'package:dorimol/widgets/helpers/block_text_field.dart';
 import 'package:flutter/material.dart';
 
 class AppSearchBar extends StatelessWidget {
@@ -15,25 +16,7 @@ class AppSearchBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              color: colorTheme.block,
-              borderRadius: BorderRadius.circular(12)
-            ),
-            child: TextField(
-              style: TextStyle(
-                fontSize: 15
-              ),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 18),
-                enabledBorder: InputBorder.none,
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                hintText: "Найти продукты",
-                hintStyle: AppText.t5.copyWith(color: colorTheme.tips)
-              ),
-            ),
-          )
+          child: BlockTextField(colorTheme: colorTheme, hint: "Найти продукты",)
         ),
         if(sliders)...[
           SizedBox(width: 4),

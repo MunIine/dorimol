@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class ReturnButton extends StatelessWidget {
   const ReturnButton({
-    super.key, this.size, 
+    super.key, this.size, this.icon = SvgIcons.back, this.color, 
   });
 
   final double? size;
+  final IconData icon;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class ReturnButton extends StatelessWidget {
       ),
       icon: Transform.rotate(
         angle: 3.14159,
-        child: Icon(SvgIcons.back, size: size,)
+        child: Icon(icon, size: size, color: color,)
       )
     );
   }

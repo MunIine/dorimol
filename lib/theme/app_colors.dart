@@ -14,7 +14,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.accint,
     required this.background,
     required this.block,
-    
+    required this.formInput,
   });
 
     final Color seedColor;
@@ -28,6 +28,7 @@ class AppColors extends ThemeExtension<AppColors> {
     final Color accint;
     final Color background;
     final Color block;
+    final Color formInput;
 
   @override
   AppColors copyWith({
@@ -42,6 +43,7 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? accint,
     Color? background,
     Color? block,
+    Color? formInput,
   }) {
     return AppColors(
       seedColor: seedColor ?? this.seedColor,
@@ -55,6 +57,7 @@ class AppColors extends ThemeExtension<AppColors> {
       accint: accint ?? this.accint,
       background: background ?? this.background,
       block: block ?? this.block,
+      formInput: formInput ?? this.formInput,
     );
   }
 
@@ -73,6 +76,7 @@ class AppColors extends ThemeExtension<AppColors> {
       accint: Color.lerp(accint, other.accint, t)!,
       background: Color.lerp(background, other.background, t)!,
       block: Color.lerp(block, other.block, t)!,
+      formInput: Color.lerp(formInput, other.formInput, t)!,
     );
   }
 }
