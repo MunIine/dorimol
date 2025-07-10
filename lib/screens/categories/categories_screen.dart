@@ -1,6 +1,6 @@
 import 'package:dorimol/data/constants/category_data.dart';
 import 'package:dorimol/screens/categories/widgets/category_card.dart';
-import 'package:dorimol/theme/app_text.dart';
+import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/export.dart';
 import 'package:flutter/material.dart';
 

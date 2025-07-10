@@ -1,4 +1,4 @@
-import 'package:dorimol/screens/categories/categories.dart';
+import 'package:dorimol/screens/categories/categories_screen.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,5 @@
-import 'package:dorimol/theme/app_colors.dart';
-import 'package:dorimol/theme/app_text.dart';
+import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/bars/sorting_bottom_sheet.dart';
-import 'package:dorimol/widgets/svg_icons.dart';
 import 'package:flutter/material.dart';
 
 class AppSearchBar extends StatelessWidget {

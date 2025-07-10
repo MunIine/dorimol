@@ -1,7 +1,6 @@
 import 'dart:math';
 
-import 'package:dorimol/theme/app_colors.dart';
-import 'package:dorimol/theme/app_text.dart';
+import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/export.dart';
 import 'package:dorimol/widgets/helpers/return_button.dart';
 import 'package:flutter/material.dart';

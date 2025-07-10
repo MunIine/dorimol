@@ -1,5 +1,5 @@
-import 'package:dorimol/screens/catalog/catalog.dart';
-import 'package:dorimol/theme/app_colors.dart';
+import 'package:dorimol/screens/catalog/catalog_screen.dart';
+import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {

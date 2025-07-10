@@ -1,0 +1,53 @@
+import 'dart:math';
+
+import 'package:dorimol/screens/catalog/catalog_screen.dart';
+import 'package:dorimol/theme/export.dart';
+import 'package:dorimol/widgets/item_card.dart';
+import 'package:flutter/material.dart';
+
+class ItemSimilar extends StatelessWidget {
+  const ItemSimilar({
+    super.key,
+    required this.colorTheme, 
+    required this.padding,
+  });
+
+  final AppColors colorTheme;
+  final EdgeInsets padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: padding,
+          child: Row(
+            children: [
+              Text("Похожие товары", style: AppText.h2.copyWith(color: colorTheme.textBlack)),
+              Spacer(),
+              IconButton(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => CatalogScreen())),
+                icon: Icon(SvgIcons.back),
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: 15),
+        SizedBox(
+          height: 285,
+          child: ListView.separated(
+            itemCount: 3,
+            scrollDirection: Axis.horizontal,
+            padding: padding,
+            separatorBuilder: (context, index) => SizedBox(width: 10), 
+            itemBuilder: (context, index) => SizedBox(width: 175.4, child: ItemCard(inCart: [false, true][Random().nextInt(2)], atr: [null, "new", "sale"][Random().nextInt(3)]))
+          ), 
+        ),
+      ],
+    );
+  }
+}

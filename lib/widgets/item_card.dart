@@ -1,6 +1,5 @@
-import 'package:dorimol/screens/item/item.dart';
-import 'package:dorimol/theme/app_colors.dart';
-import 'package:dorimol/theme/app_text.dart';
+import 'package:dorimol/screens/item/item_screen.dart';
+import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/cart/adaptive_cart.dart';
 import 'package:dorimol/widgets/helpers/rating_block.dart';
 import 'package:flutter/material.dart';
