@@ -2,8 +2,8 @@ import 'package:dorimol/screens/order_form/widgets/export.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
-class OrderFormScreen extends StatelessWidget {
-  const OrderFormScreen({super.key});
+class OrderScreen extends StatelessWidget {
+  const OrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

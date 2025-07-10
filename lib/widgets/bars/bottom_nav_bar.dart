@@ -1,4 +1,4 @@
-import 'package:dorimol/screens/order_form/order_form_screen.dart';
+import 'package:dorimol/screens/order_form/order_screen.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class BottomNavBar extends StatelessWidget {
         onTap: () => showModalBottomSheet(
           context: context,
           isScrollControlled: true,
-          builder: (context) => OrderFormScreen()
+          builder: (context) => OrderScreen()
         ),
         child: Container(
           height: 60,
