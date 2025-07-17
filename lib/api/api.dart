@@ -16,5 +16,5 @@ abstract class DorimolApiClient {
   }
 
   @GET('/categories')
-  Future<List<Category>> getCategories();
+  Future<List<Category>> fetchCategories();
 }

@@ -1,11 +1,23 @@
-import 'package:dorimol/data/constants/category_data.dart';
+import 'package:dorimol/screens/categories/bloc/categories_bloc.dart';
 import 'package:dorimol/screens/categories/widgets/category_card.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
+
+  @override
+  State<CategoriesScreen> createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<CategoriesBloc>(context).add(const FetchCategories());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +31,28 @@ class CategoriesScreen extends StatelessWidget {
             SizedBox(height: 16),
             Text("Категории", style: AppText.h1),
             SizedBox(height: 16),
-            Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.zero,
-                itemBuilder: (BuildContext context, int index) => CategoryCard(
-                  image: CATEGORIESIMG[index],
-                  child: Text(CATEGORIES[index], style: AppText.h2)
-                ),
-                separatorBuilder: (BuildContext context, int index) => SizedBox(height: 10),
-                itemCount: CATEGORIES.length,
-              )
+            BlocBuilder<CategoriesBloc, CategoriesState>(
+              bloc: BlocProvider.of<CategoriesBloc>(context),
+              builder: (context, state) {
+                if (state is CategoriesLoaded){
+                  return Expanded(
+                    child: ListView.separated(
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (BuildContext context, int index) => CategoryCard(
+                        image: state.categories[index].imageUrl,
+                        child: Text(state.categories[index].name, style: AppText.h2),
+                      ),
+                      separatorBuilder: (BuildContext context, int index) => SizedBox(height: 10),
+                      itemCount: state.categories.length,
+                    ),
+                  );
+                }
+                return Expanded(
+                  child: Center(
+                    child: Text("Ошибка загрузки категорий"),
+                  ),
+                );
+              },
             ),
           ],
         ),

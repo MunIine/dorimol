@@ -1,3 +1,4 @@
+import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/screens/catalog/catalog_screen.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class CategoryCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           color: image == null ? colorTheme.block : null,
           image: image == null ? null : DecorationImage(
-            image: AssetImage(image!),
+            image: NetworkImage(Uri.parse(AppConfig.apiUrl).resolve(image!).toString()),
             fit: BoxFit.cover
           )
         ),

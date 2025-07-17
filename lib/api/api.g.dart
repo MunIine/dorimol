@@ -18,7 +18,7 @@ class _DorimolApiClient implements DorimolApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<Category>> getCategories() async {
+  Future<List<Category>> fetchCategories() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
