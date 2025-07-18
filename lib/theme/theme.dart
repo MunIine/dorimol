@@ -46,6 +46,9 @@ final lightTheme = ThemeData(
     focusedBorder: InputBorder.none,
     hintStyle: AppText.t3.copyWith(color: tipsColor),
   ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(
+    color: seedColor,
+  ),
   extensions: <ThemeExtension<dynamic>>[
     AppColors(
       seedColor: seedColor,

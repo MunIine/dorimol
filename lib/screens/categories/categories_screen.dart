@@ -47,11 +47,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     ),
                   );
                 }
-                return Expanded(
-                  child: Center(
-                    child: Text("Ошибка загрузки категорий"),
-                  ),
-                );
+                if (state is CategoriesLoading) {
+                  return Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                return Center(child: Text("Ошибка загрузки категорий"));
               },
             ),
           ],
