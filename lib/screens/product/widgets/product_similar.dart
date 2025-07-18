@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:dorimol/screens/catalog/catalog_screen.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ class ProductSimilar extends StatelessWidget {
               Text("Похожие товары", style: AppText.h2.copyWith(color: colorTheme.textBlack)),
               Spacer(),
               IconButton(
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => CatalogScreen())),
+                onPressed: (){},
                 icon: Icon(SvgIcons.back),
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,

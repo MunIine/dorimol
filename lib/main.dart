@@ -1,15 +1,41 @@
+import 'package:dio/dio.dart';
 import 'package:dorimol/api/api.dart';
 import 'package:dorimol/data/app_config.dart';
+import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/categories/bloc/categories_bloc.dart';
-import 'package:dorimol/screens/categories/categories_screen.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get_it/get_it.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await dotenv.load(fileName: ".env");
+
+  final dio = Dio();
+  final talker = TalkerFlutter.init();
+
+  talker.debug("Talker initialized");
+  
+  Bloc.observer = TalkerBlocObserver(talker: talker);
+  dio.interceptors.add(
+    TalkerDioLogger(
+      talker: talker,
+      settings: const TalkerDioLoggerSettings(
+        printResponseData: false
+      )
+    )
+  );
+
+  GetIt.I.registerSingleton(talker);
+  GetIt.I.registerSingleton(dio);
+  GetIt.I.registerSingleton(DorimolApiClient.create(dio: dio, apiUrl: AppConfig.apiUrl));
+
   runApp(const MyApp());
 }
 
@@ -24,8 +50,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CategoriesBloc(apiClient: DorimolApiClient.create(apiUrl: AppConfig.apiUrl)),
-      child: MaterialApp(theme: lightTheme, home: CategoriesScreen()),
+      create: (context) => CategoriesBloc(apiClient: GetIt.I<DorimolApiClient>()),
+      child: MaterialApp(
+        theme: lightTheme,
+        routes: routes,
+        navigatorObservers: [
+          TalkerRouteObserver(GetIt.I<Talker>()),
+        ],
+      ),
     );
   }
 }

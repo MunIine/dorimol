@@ -1,4 +1,3 @@
-import 'package:dorimol/screens/product/product_screen.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/cart/adaptive_cart.dart';
 import 'package:dorimol/widgets/helpers/rating_block.dart';
@@ -16,7 +15,7 @@ class ProductCard extends StatelessWidget {
     const double cartHeight = 36;
 
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductScreen())),
+      onTap: () => Navigator.of(context).pushNamed("/product"),
       child: Container(
         height: height,
         width: 185,

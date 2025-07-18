@@ -7,8 +7,7 @@ part 'api.g.dart';
 @RestApi(baseUrl: "")
 abstract class DorimolApiClient {
   factory DorimolApiClient(Dio dio, {String baseUrl}) = _DorimolApiClient;
-  factory DorimolApiClient.create({String? apiUrl}){
-    final dio = Dio();
+  factory DorimolApiClient.create({required Dio dio, String? apiUrl}){
     if (apiUrl != null) {
       return DorimolApiClient(dio, baseUrl: apiUrl);
     }

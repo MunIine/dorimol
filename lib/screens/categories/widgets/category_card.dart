@@ -1,5 +1,4 @@
 import 'package:dorimol/data/app_config.dart';
-import 'package:dorimol/screens/catalog/catalog_screen.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,7 @@ class CategoryCard extends StatelessWidget {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
 
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => CatalogScreen())),
+      onTap: () => Navigator.of(context).pushNamed("/catalog"),
       child: Container(
         height: 120,
         width: double.infinity,
