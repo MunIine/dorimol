@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:dorimol/api/api.dart';
 import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/router/router.dart';
+import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/screens/categories/bloc/categories_bloc.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -21,15 +22,10 @@ void main() async {
   final talker = TalkerFlutter.init();
 
   talker.debug("Talker initialized");
-  
+
   Bloc.observer = TalkerBlocObserver(talker: talker);
   dio.interceptors.add(
-    TalkerDioLogger(
-      talker: talker,
-      settings: const TalkerDioLoggerSettings(
-        printResponseData: false
-      )
-    )
+    TalkerDioLogger(talker: talker, settings: const TalkerDioLoggerSettings(printResponseData: false)),
   );
 
   GetIt.I.registerSingleton(talker);
@@ -49,14 +45,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CategoriesBloc(apiClient: GetIt.I<DorimolApiClient>()),
+    final apiClient = GetIt.I<DorimolApiClient>();
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => CategoriesBloc(apiClient: apiClient)),
+        BlocProvider(create: (context) => CatalogBloc(apiClient: apiClient)),
+      ],
       child: MaterialApp(
         theme: lightTheme,
         routes: routes,
-        navigatorObservers: [
-          TalkerRouteObserver(GetIt.I<Talker>()),
-        ],
+        navigatorObservers: [TalkerRouteObserver(GetIt.I<Talker>())],
       ),
     );
   }

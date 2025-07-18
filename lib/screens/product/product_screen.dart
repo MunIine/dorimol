@@ -17,7 +17,7 @@ class ProductScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
-          ProductImage(),
+          ProductImage(rating: 4.5),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dorimol/api/models/product.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,18 @@ class ProductSimilar extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: padding,
             separatorBuilder: (context, index) => SizedBox(width: 10), 
-            itemBuilder: (context, index) => SizedBox(width: 175.4, child: ProductCard(inCart: [false, true][Random().nextInt(2)], atr: [null, "new", "sale"][Random().nextInt(3)]))
+            itemBuilder: (context, index) => SizedBox(width: 175.4, child: ProductCard(inCart: [false, true][Random().nextInt(2)], product: Product(
+              id: "10193131",
+              categoryId: 1,
+              name: "Товар ${index + 1}",
+              imageUrl: "https://via.placeholder.com/150",
+              price: Random().nextDouble() * 100,
+              unit: "шт",
+              stock: Random().nextInt(20),
+              rating: Random().nextDouble() * 5,
+              orderCount: 1,
+              status: "new"
+            ),))
           ), 
         ),
       ],

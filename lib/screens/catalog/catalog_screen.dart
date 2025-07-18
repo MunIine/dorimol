@@ -1,12 +1,28 @@
 import 'dart:math';
 
+import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/export.dart';
 import 'package:dorimol/widgets/helpers/return_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CatalogScreen extends StatelessWidget {
+class CatalogScreen extends StatefulWidget {
   const CatalogScreen({super.key});
+
+  @override
+  State<CatalogScreen> createState() => _CatalogScreenState();
+}
+
+class _CatalogScreenState extends State<CatalogScreen> {
+  int? categoryId;
+
+  @override
+  void didChangeDependencies() {
+    categoryId = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
+    BlocProvider.of<CatalogBloc>(context).add(FetchCatalog(categoryId: categoryId!));
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +43,36 @@ class CatalogScreen extends StatelessWidget {
             AppSearchBar(sliders: true),
             SizedBox(height: 20),
             Expanded(
-              child: GridView.builder(
-                itemCount: 6,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: 185/285
-                ), 
-                itemBuilder: (context, index) => ProductCard(inCart: [false, true][Random().nextInt(2)], atr: [null, "new", "sale"][Random().nextInt(3)],)
+              child: BlocBuilder<CatalogBloc, CatalogState>(
+                bloc: BlocProvider.of<CatalogBloc>(context),
+                builder: (context, state) {
+                  if (state is CatalogLoaded){
+                    final products = state.products;
+                    return GridView.builder(
+                      itemCount: products.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 185 / 285,
+                      ),
+                      itemBuilder: (context, index) => ProductCard(
+                        inCart: [false, true][Random().nextInt(2)],
+                        product: products[index],
+                      ),
+                    );
+                  }
+                  if (state is CatalogLoading) {
+                    return Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  return Center(child: Text("Ошибка загрузки товаров"));
+                },
               ),
-            )
+            ),
           ],
         ),
       ),

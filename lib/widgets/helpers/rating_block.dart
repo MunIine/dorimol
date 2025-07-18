@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 class RatingBlock extends StatelessWidget {
   const RatingBlock({
     super.key, 
-    this.useStarTextColor = false, 
+    this.useStarTextColor = false,
+    required this.rating, 
     required this.borderRadius,
     required this.style, 
     required this.iconSize, 
     required this.padding, 
   });
 
+  final double rating;
   final bool useStarTextColor;
   final double borderRadius;
   final EdgeInsets padding;
@@ -34,7 +36,7 @@ class RatingBlock extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(Icons.star_rounded, color: colorTheme.yellow, size: iconSize),
-          Text("4.5", style: style.copyWith(color: useStarTextColor ? colorTheme.yellow : colorTheme.textBlack),)
+          Text(rating.toString(), style: style.copyWith(color: useStarTextColor ? colorTheme.yellow : colorTheme.textBlack),)
         ],
       ),
     );

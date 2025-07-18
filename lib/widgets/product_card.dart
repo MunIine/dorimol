@@ -1,12 +1,15 @@
+import 'package:dorimol/api/models/product.dart';
+import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/cart/adaptive_cart.dart';
 import 'package:dorimol/widgets/helpers/rating_block.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.inCart, this.atr});
+  const ProductCard({super.key, required this.inCart, required this.product});
+
+  final Product product;
   final bool inCart;
-  final String? atr;
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +36,16 @@ class ProductCard extends StatelessWidget {
                   height: height*0.44,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("lib/assets/images/items/item.png"),
+                      image: NetworkImage(Uri.parse(AppConfig.apiUrl).resolve(product.imageUrl).toString()),
                       fit: BoxFit.cover
                     )
                   ),
                 ),
-                Positioned(
+                if (product.rating != null) Positioned(
                   top: height*0.44-15,
                   left: 8,
                   child: RatingBlock(
+                    rating: product.rating!,
                     padding: EdgeInsets.only(top: 2).copyWith(right: 8, left: 4),
                     style: AppText.t09, 
                     iconSize: 10,
@@ -58,17 +62,17 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("В наличии 5шт", style: AppText.t0.copyWith(color: colorTheme.seedColor)),
-                      Text("арт. 86000106", style: AppText.t09.copyWith(color: colorTheme.iconGray)),
+                      getStock(colorTheme, product.stock),
+                      Text("арт. ${product.id}", style: AppText.t09.copyWith(color: colorTheme.iconGray)),
                     ],
                   ),
                   SizedBox(height: 2),
-                  Text("Томат розовый", style: AppText.t3.copyWith(color: colorTheme.textBlack, height: 1)),
+                  Text(product.name, style: AppText.t3.copyWith(color: colorTheme.textBlack, height: 1)),
                   Text("100г", style: AppText.t2.copyWith(color: colorTheme.tips)),
                 ]
               )
             ),
-            PriceBlock(atr: atr),
+            PriceBlock(status: product.status, price: product.price, unit: product.unit),
             Spacer(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
@@ -79,12 +83,24 @@ class ProductCard extends StatelessWidget {
       ),
     );
   }
+
+  Text getStock(AppColors colorTheme, int stock) {
+    if (product.stock > 10) {
+      return Text("В наличии", style: AppText.t0.copyWith(color: colorTheme.seedColor));
+    }
+    if (product.stock < 10 && product.stock > 0) {
+      return Text("В наличии ${product.stock}${product.unit}", style: AppText.t0.copyWith(color: colorTheme.seedColor));
+    }
+    return Text("Нет в наличии", style: AppText.t1.copyWith(color: colorTheme.textGray));
+  }
 }
 
 class PriceBlock extends StatelessWidget {
-  const PriceBlock({super.key, required this.atr});
+  const PriceBlock({super.key, required this.price, required this.unit, required this.status});
 
-  final String? atr;
+  final double price;
+  final String unit;
+  final String status;
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +109,12 @@ class PriceBlock extends StatelessWidget {
     Color blockColor;
     String? text;
 
-    if (atr == "new"){
+    if (status == "new"){
       textColor = colorTheme.background;
       blockColor = colorTheme.blue;
       text = "Новинка";
     }
-    else if(atr == "sale"){
+    else if(status == "sale"){
       textColor = colorTheme.textGray;
       blockColor = colorTheme.yellow;
       text = "Скидка";
@@ -121,7 +137,7 @@ class PriceBlock extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               color: blockColor
             ),
-            child: Text("150Р/шт", style: AppText.b4.copyWith(color: textColor),),
+            child: Text("$priceР/$unit", style: AppText.b4.copyWith(color: textColor)),
           ),
         ),
         if (text != null) Padding(

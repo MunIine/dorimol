@@ -39,6 +39,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     child: ListView.separated(
                       padding: EdgeInsets.zero,
                       itemBuilder: (BuildContext context, int index) => CategoryCard(
+                        id: state.categories[index].id,
                         image: state.categories[index].imageUrl,
                         child: Text(state.categories[index].name, style: AppText.h2),
                       ),

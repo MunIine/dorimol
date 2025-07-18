@@ -4,7 +4,9 @@ import 'package:dorimol/widgets/helpers/return_button.dart';
 import 'package:flutter/material.dart';
 
 class ProductImage extends StatelessWidget {
-  const ProductImage({super.key});
+  const ProductImage({super.key, required this.rating});
+
+  final double rating;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class ProductImage extends StatelessWidget {
           left: 20,
           top: 259+50,
           child: RatingBlock(
+            rating: rating,
             padding: EdgeInsets.only(left: 8).copyWith(right: 10).copyWith(top: 2),
             useStarTextColor: true,
             style: AppText.t5,
