@@ -1,8 +1,8 @@
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
-class AddItemToCart extends StatelessWidget {
-  const AddItemToCart({
+class AddProductToCart extends StatelessWidget {
+  const AddProductToCart({
     super.key,
     required this.cartHeight,
   });

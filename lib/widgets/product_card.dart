@@ -1,11 +1,11 @@
-import 'package:dorimol/screens/item/item_screen.dart';
+import 'package:dorimol/screens/product/product_screen.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/cart/adaptive_cart.dart';
 import 'package:dorimol/widgets/helpers/rating_block.dart';
 import 'package:flutter/material.dart';
 
-class ItemCard extends StatelessWidget {
-  const ItemCard({super.key, required this.inCart, this.atr});
+class ProductCard extends StatelessWidget {
+  const ProductCard({super.key, required this.inCart, this.atr});
   final bool inCart;
   final String? atr;
 
@@ -16,7 +16,7 @@ class ItemCard extends StatelessWidget {
     const double cartHeight = 36;
 
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ItemScreen())),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductScreen())),
       child: Container(
         height: height,
         width: 185,

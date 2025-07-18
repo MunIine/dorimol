@@ -35,7 +35,7 @@ class CatalogScreen extends StatelessWidget {
                   crossAxisSpacing: 10,
                   childAspectRatio: 185/285
                 ), 
-                itemBuilder: (context, index) => ItemCard(inCart: [false, true][Random().nextInt(2)], atr: [null, "new", "sale"][Random().nextInt(3)],)
+                itemBuilder: (context, index) => ProductCard(inCart: [false, true][Random().nextInt(2)], atr: [null, "new", "sale"][Random().nextInt(3)],)
               ),
             )
           ],

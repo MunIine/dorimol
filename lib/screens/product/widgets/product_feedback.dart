@@ -1,8 +1,8 @@
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
-class ItemFeedback extends StatelessWidget {
-  const ItemFeedback({
+class ProductFeedback extends StatelessWidget {
+  const ProductFeedback({
     super.key,
     required this.colorTheme, 
     required this.padding,

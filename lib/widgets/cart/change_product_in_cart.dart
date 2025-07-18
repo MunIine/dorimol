@@ -1,8 +1,8 @@
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
-class ChangeItemInCart extends StatelessWidget {
-  const ChangeItemInCart({
+class ChangeProductInCart extends StatelessWidget {
+  const ChangeProductInCart({
     super.key,
     required this.cartHeight, 
     this.equalWidth = false,

@@ -1,5 +1,5 @@
-import 'package:dorimol/widgets/cart/add_item_to_cart.dart';
-import 'package:dorimol/widgets/cart/change_item_in_cart.dart';
+import 'package:dorimol/widgets/cart/add_product_to_cart.dart';
+import 'package:dorimol/widgets/cart/change_product_in_cart.dart';
 import 'package:flutter/material.dart';
 
 class AdaptiveCart extends StatelessWidget {
@@ -10,7 +10,7 @@ class AdaptiveCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(inCart) return AddItemToCart(cartHeight: cartHeight);
-    return ChangeItemInCart(cartHeight: cartHeight);
+    if(inCart) return AddProductToCart(cartHeight: cartHeight);
+    return ChangeProductInCart(cartHeight: cartHeight);
   }
 }

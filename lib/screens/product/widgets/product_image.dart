@@ -3,8 +3,8 @@ import 'package:dorimol/widgets/helpers/rating_block.dart';
 import 'package:dorimol/widgets/helpers/return_button.dart';
 import 'package:flutter/material.dart';
 
-class ItemImage extends StatelessWidget {
-  const ItemImage({super.key});
+class ProductImage extends StatelessWidget {
+  const ProductImage({super.key});
 
   @override
   Widget build(BuildContext context) {

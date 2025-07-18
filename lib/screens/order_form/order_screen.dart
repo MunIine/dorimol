@@ -24,7 +24,7 @@ class OrderScreen extends StatelessWidget {
                   SizedBox(height: 16),
                   OrderDeliveryBlock(colorTheme: colorTheme),
                   SizedBox(height: 16),
-                  OrderItemsCommentBlock(colorTheme: colorTheme),
+                  OrderProductsCommentBlock(colorTheme: colorTheme),
                   SizedBox(height: 16),
                 ],
               ),

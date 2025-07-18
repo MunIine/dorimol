@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:dorimol/screens/catalog/catalog_screen.dart';
 import 'package:dorimol/theme/export.dart';
-import 'package:dorimol/widgets/item_card.dart';
+import 'package:dorimol/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
-class ItemSimilar extends StatelessWidget {
-  const ItemSimilar({
+class ProductSimilar extends StatelessWidget {
+  const ProductSimilar({
     super.key,
     required this.colorTheme, 
     required this.padding,
@@ -44,7 +44,7 @@ class ItemSimilar extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: padding,
             separatorBuilder: (context, index) => SizedBox(width: 10), 
-            itemBuilder: (context, index) => SizedBox(width: 175.4, child: ItemCard(inCart: [false, true][Random().nextInt(2)], atr: [null, "new", "sale"][Random().nextInt(3)]))
+            itemBuilder: (context, index) => SizedBox(width: 175.4, child: ProductCard(inCart: [false, true][Random().nextInt(2)], atr: [null, "new", "sale"][Random().nextInt(3)]))
           ), 
         ),
       ],

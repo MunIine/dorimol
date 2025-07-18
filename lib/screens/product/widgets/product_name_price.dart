@@ -1,8 +1,8 @@
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
-class ItemNamePrice extends StatelessWidget {
-  const ItemNamePrice({
+class ProductNamePrice extends StatelessWidget {
+  const ProductNamePrice({
     super.key,
     required this.colorTheme,
   });
