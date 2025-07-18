@@ -4,6 +4,7 @@ import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/screens/categories/bloc/categories_bloc.dart';
+import 'package:dorimol/screens/product/bloc/product_details_bloc.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,6 +52,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(create: (context) => CategoriesBloc(apiClient: apiClient)),
         BlocProvider(create: (context) => CatalogBloc(apiClient: apiClient)),
+        BlocProvider(create: (context) => ProductDetailsBloc(apiClient: apiClient)),
       ],
       child: MaterialApp(
         theme: lightTheme,

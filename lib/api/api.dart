@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dorimol/api/models/category.dart';
 import 'package:dorimol/api/models/product.dart';
+import 'package:dorimol/api/models/product_details.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api.g.dart';
@@ -20,4 +21,10 @@ abstract class DorimolApiClient {
   
   @GET('/products/')
   Future<List<Product>> fetchProductsByCategory(@Query("category_id") int categoryId);
+  
+  @GET('/products')
+  Future<List<Product>> fetchSimilarProducts(@Query("similar") String id);
+
+  @GET('/products/{id}')
+  Future<ProductDetails> fetchProductDetails(@Path("id") String productId);
 }

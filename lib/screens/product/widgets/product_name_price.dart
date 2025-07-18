@@ -1,20 +1,23 @@
+import 'package:dorimol/api/models/product_details.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
 class ProductNamePrice extends StatelessWidget {
   const ProductNamePrice({
     super.key,
-    required this.colorTheme,
+    required this.colorTheme, 
+    required this.product,
   });
 
   final AppColors colorTheme;
+  final ProductDetails product;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("арт. 12345678", style: AppText.t0.copyWith(color: colorTheme.tips)),
+        Text("арт. ${product.id}", style: AppText.t0.copyWith(color: colorTheme.tips)),
         SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,19 +26,26 @@ class ProductNamePrice extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 6),
-                Text("Томат розовый", style: AppText.h1.copyWith(color: colorTheme.textBlack)),
+                Text(product.name, style: AppText.h1.copyWith(color: colorTheme.textBlack)),
                 SizedBox(height: 10),
                 Row(
                   children: [
                     Icon(SvgIcons.package, size: 16, color: colorTheme.iconGray),
                     SizedBox(width: 6),
-                    Text("Оптовая цена от 50 кг", style: AppText.t2.copyWith(color: colorTheme.iconGray))
+                    Text("Оптовая цена от 10 ${product.unit}", style: AppText.t2.copyWith(color: colorTheme.iconGray))
                   ],
                 )
               ],
             ),
             Spacer(),
-            _DoublePriceBlock(atr: "new", width: 110, borderRadius: 8),
+            _DoublePriceBlock(
+              status: product.status, 
+              price: product.price, 
+              wholesalePrice: product.wholesalePrice, 
+              unit: product.unit,
+              width: 110, 
+              borderRadius: 8, 
+            ),
           ],
         ),
       ],
@@ -45,12 +55,18 @@ class ProductNamePrice extends StatelessWidget {
 
 class _DoublePriceBlock extends StatelessWidget {
   const _DoublePriceBlock({
-    required this.atr,
+    required this.status,
     required this.width, 
     required this.borderRadius, 
+    required this.price, 
+    required this.wholesalePrice, 
+    required this.unit, 
   });
 
-  final String? atr;
+  final String? status;
+  final double price;
+  final double wholesalePrice;
+  final String unit;
   final double width;
   final double borderRadius;
 
@@ -62,13 +78,13 @@ class _DoublePriceBlock extends StatelessWidget {
     Color blockColor;
     String? text;
 
-    if (atr == "new"){
+    if (status == "new"){
       textColor = colorTheme.background;
       secondTextColor = colorTheme.background;
       blockColor = colorTheme.blue;
       text = "Новинка";
     }
-    else if(atr == "sale"){
+    else if(status == "sale"){
       textColor = colorTheme.background;
       secondTextColor = colorTheme.background;
       blockColor = colorTheme.yellow;
@@ -92,7 +108,7 @@ class _DoublePriceBlock extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.only(top: 6, bottom: 6),
-              child: Center(child: Text("150Р/кг", style: AppText.h1.copyWith(color: textColor))),
+              child: Center(child: Text("$priceР/$unit", style: AppText.h1.copyWith(color: textColor))),
             ),
           ),
           SizedBox(height: 1),
@@ -104,7 +120,7 @@ class _DoublePriceBlock extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Center(child: Text("109Р/кг", style: AppText.t3.copyWith(color: secondTextColor))),
+              child: Center(child: Text("$wholesalePriceР/$unit", style: AppText.t3.copyWith(color: secondTextColor))),
             ),
           ),
           if (text != null) Text(text, style: AppText.t0.copyWith(color: blockColor))

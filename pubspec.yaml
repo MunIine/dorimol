@@ -47,5 +47,3 @@ flutter:
 
   assets:
     - .env
-    - lib/assets/images/categories/fruits.png
-    - lib/assets/images/items/

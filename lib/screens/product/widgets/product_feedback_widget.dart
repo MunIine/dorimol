@@ -1,15 +1,18 @@
+import 'package:dorimol/api/models/product_feedback.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
-class ProductFeedback extends StatelessWidget {
-  const ProductFeedback({
+class ProductFeedbackWidget extends StatelessWidget {
+  const ProductFeedbackWidget({
     super.key,
     required this.colorTheme, 
-    required this.padding,
+    required this.padding, 
+    required this.feedbacks,
   });
 
   final AppColors colorTheme;
   final EdgeInsets padding;
+  final List<ProductFeedback> feedbacks;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +39,18 @@ class ProductFeedback extends StatelessWidget {
         SizedBox(
           height: 65,
           child: ListView.separated(
-            itemCount: 3,
+            itemCount: feedbacks.length,
             scrollDirection: Axis.horizontal,
             padding: padding,
             separatorBuilder: (context, index) => SizedBox(width: 10), 
-            itemBuilder: (context, index) => SizedBox(height: 65,width: 275, child: _FeedbackCard(colorTheme: colorTheme,)), 
+            itemBuilder: (context, index) => SizedBox(
+              height: 65,
+              width: 275, 
+              child: _FeedbackCard(
+                colorTheme: colorTheme, 
+                feedback: feedbacks[index]
+              )
+            ), 
           ),
         ),
       ],
@@ -49,12 +59,28 @@ class ProductFeedback extends StatelessWidget {
 }
 
 class _FeedbackCard extends StatelessWidget {
-  const _FeedbackCard({required this.colorTheme});
+  const _FeedbackCard({required this.colorTheme, required this.feedback});
 
   final AppColors colorTheme;
+  final ProductFeedback feedback;
 
   @override
   Widget build(BuildContext context) {
+    const List<String> monthNames = [
+      'января',
+      'февраля',
+      'марта',
+      'апреля',
+      'мая',
+      'июня',
+      'июля',
+      'августа',
+      'сентября',
+      'октября',
+      'ноября',
+      'декабря',
+    ];
+
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -77,21 +103,24 @@ class _FeedbackCard extends StatelessWidget {
           SizedBox(width: 8),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      children: List.generate(5, (index) => Icon(Icons.star_rounded, size: 12, color: colorTheme.yellow)),
+                      children: List.generate(feedback.rating, (index) => Icon(Icons.star_rounded, size: 12, color: colorTheme.yellow)),
                     ),
-                    Text("8 июля 2025", style: AppText.t0.copyWith(color: colorTheme.iconGray)),
+                    Text("${feedback.createdAt.day} ${monthNames[feedback.createdAt.month-1]} ${feedback.createdAt.year}", 
+                      style: AppText.t0.copyWith(color: colorTheme.iconGray)
+                    ),
                   ],
                 ),
                 SizedBox(height: 5),
                 Padding(
                   padding: const EdgeInsets.only(right: 15),
                   child: Text(
-                    "Помидоры спелые, без повреждений, огурцы хрустящие, зелень пахнет, как с грядки.", 
+                    feedback.comment, 
                     style: AppText.t0.copyWith(color: colorTheme.textBlack, height: 1.1),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

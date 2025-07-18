@@ -10,10 +10,12 @@ class ProductSimilar extends StatelessWidget {
     super.key,
     required this.colorTheme, 
     required this.padding,
+    required this.similars
   });
 
   final AppColors colorTheme;
   final EdgeInsets padding;
+  final List<Product> similars;
 
   @override
   Widget build(BuildContext context) {
@@ -40,22 +42,17 @@ class ProductSimilar extends StatelessWidget {
         SizedBox(
           height: 285,
           child: ListView.separated(
-            itemCount: 3,
+            itemCount: similars.length,
             scrollDirection: Axis.horizontal,
             padding: padding,
             separatorBuilder: (context, index) => SizedBox(width: 10), 
-            itemBuilder: (context, index) => SizedBox(width: 175.4, child: ProductCard(inCart: [false, true][Random().nextInt(2)], product: Product(
-              id: "10193131",
-              categoryId: 1,
-              name: "Товар ${index + 1}",
-              imageUrl: "https://via.placeholder.com/150",
-              price: Random().nextDouble() * 100,
-              unit: "шт",
-              stock: Random().nextInt(20),
-              rating: Random().nextDouble() * 5,
-              orderCount: 1,
-              status: "new"
-            ),))
+            itemBuilder: (context, index) => SizedBox(
+              width: 175.4, 
+              child: ProductCard(
+                inCart: [false, true][Random().nextInt(2)], 
+                product: similars[index]
+              )
+            )
           ), 
         ),
       ],

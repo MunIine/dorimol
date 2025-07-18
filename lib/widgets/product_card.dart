@@ -18,7 +18,7 @@ class ProductCard extends StatelessWidget {
     const double cartHeight = 36;
 
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed("/product"),
+      onTap: () => Navigator.of(context).pushNamed("/product", arguments: product.id),
       child: Container(
         height: height,
         width: 185,

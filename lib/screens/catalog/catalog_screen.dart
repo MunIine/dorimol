@@ -16,12 +16,14 @@ class CatalogScreen extends StatefulWidget {
 
 class _CatalogScreenState extends State<CatalogScreen> {
   int? categoryId;
-
+  
   @override
-  void didChangeDependencies() {
-    categoryId = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
-    BlocProvider.of<CatalogBloc>(context).add(FetchCatalog(categoryId: categoryId!));
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final categoryId = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
+      BlocProvider.of<CatalogBloc>(context).add(FetchCatalog(categoryId: categoryId));
+    });
   }
 
   @override
@@ -63,10 +65,8 @@ class _CatalogScreenState extends State<CatalogScreen> {
                     );
                   }
                   if (state is CatalogLoading) {
-                    return Expanded(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                    return Center(
+                      child: CircularProgressIndicator(),
                     );
                   }
                   return Center(child: Text("Ошибка загрузки товаров"));

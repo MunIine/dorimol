@@ -1,12 +1,14 @@
+import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/helpers/rating_block.dart';
 import 'package:dorimol/widgets/helpers/return_button.dart';
 import 'package:flutter/material.dart';
 
 class ProductImage extends StatelessWidget {
-  const ProductImage({super.key, required this.rating});
+  const ProductImage({super.key, required this.imageUrl, this.rating});
 
-  final double rating;
+  final String imageUrl;
+  final double? rating;
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +18,16 @@ class ProductImage extends StatelessWidget {
           height: 280+50,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("lib/assets/images/items/item2.png"),
+              image: NetworkImage(Uri.parse(AppConfig.apiUrl).resolve(imageUrl).toString()),
               fit: BoxFit.cover
             )
           ),
         ),
-        Positioned(
+        if (rating != null) Positioned(
           left: 20,
           top: 259+50,
           child: RatingBlock(
-            rating: rating,
+            rating: rating!,
             padding: EdgeInsets.only(left: 8).copyWith(right: 10).copyWith(top: 2),
             useStarTextColor: true,
             style: AppText.t5,
