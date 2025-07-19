@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:auto_route/annotations.dart';
+import 'package:dorimol/api/models/category.dart';
 import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/export.dart';
@@ -7,23 +9,21 @@ import 'package:dorimol/widgets/helpers/return_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
 class CatalogScreen extends StatefulWidget {
-  const CatalogScreen({super.key});
+  const CatalogScreen({super.key, required this.category});
+
+  final Category category;
 
   @override
   State<CatalogScreen> createState() => _CatalogScreenState();
 }
 
 class _CatalogScreenState extends State<CatalogScreen> {
-  int? categoryId;
-  
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final categoryId = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
-      BlocProvider.of<CatalogBloc>(context).add(FetchCatalog(categoryId: categoryId));
-    });
+    BlocProvider.of<CatalogBloc>(context).add(FetchCatalog(categoryId: widget.category.id));
   }
 
   @override
@@ -33,7 +33,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
       backgroundColor: Color(0xFFF9F9F9),
       appBar: AppBar(
         leading: ReturnButton(),
-        title: Text("Овощи", style: AppText.h2.copyWith(letterSpacing: 2.5, color: colorTheme.seedColor)),
+        title: Text(widget.category.name, style: AppText.h2.copyWith(letterSpacing: 2.5, color: colorTheme.seedColor)),
         backgroundColor: Color(0xFFF9F9F9),
         surfaceTintColor: Color(0xFFF9F9F9),
         centerTitle: true,

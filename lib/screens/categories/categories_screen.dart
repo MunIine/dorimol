@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:dorimol/screens/categories/bloc/categories_bloc.dart';
 import 'package:dorimol/screens/categories/widgets/category_card.dart';
 import 'package:dorimol/theme/export.dart';
@@ -5,6 +6,7 @@ import 'package:dorimol/widgets/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
 
@@ -39,9 +41,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     child: ListView.separated(
                       padding: EdgeInsets.zero,
                       itemBuilder: (BuildContext context, int index) => CategoryCard(
-                        id: state.categories[index].id,
-                        image: state.categories[index].imageUrl,
-                        child: Text(state.categories[index].name, style: AppText.h2),
+                        category: state.categories[index],
                       ),
                       separatorBuilder: (BuildContext context, int index) => SizedBox(height: 10),
                       itemCount: state.categories.length,

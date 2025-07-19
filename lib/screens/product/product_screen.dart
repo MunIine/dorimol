@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:dorimol/screens/product/bloc/product_details_bloc.dart';
 import 'package:dorimol/screens/product/widgets/export.dart';
 import 'package:dorimol/theme/export.dart';
@@ -5,8 +6,11 @@ import 'package:dorimol/widgets/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key});
+  const ProductScreen({super.key, required this.id});
+
+  final String id;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -16,10 +20,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final productId = ModalRoute.of(context)?.settings.arguments as String;
-      BlocProvider.of<ProductDetailsBloc>(context).add(FetchProductDetails(productId: productId));
-    });
+    BlocProvider.of<ProductDetailsBloc>(context).add(FetchProductDetails(productId: widget.id));
   }
 
   @override

@@ -44,6 +44,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     final apiClient = GetIt.I<DorimolApiClient>();
@@ -54,10 +56,11 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => CatalogBloc(apiClient: apiClient)),
         BlocProvider(create: (context) => ProductDetailsBloc(apiClient: apiClient)),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         theme: lightTheme,
-        routes: routes,
-        navigatorObservers: [TalkerRouteObserver(GetIt.I<Talker>())],
+        routerConfig: _appRouter.config(
+          navigatorObservers:() => [TalkerRouteObserver(GetIt.I<Talker>())],
+        ),
       ),
     );
   }

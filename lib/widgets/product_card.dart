@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/api/models/product.dart';
 import 'package:dorimol/data/app_config.dart';
+import 'package:dorimol/router/router.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/cart/adaptive_cart.dart';
 import 'package:dorimol/widgets/helpers/rating_block.dart';
@@ -18,7 +20,7 @@ class ProductCard extends StatelessWidget {
     const double cartHeight = 36;
 
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed("/product", arguments: product.id),
+      onTap: () => AutoRouter.of(context).push(ProductRoute(id: product.id)),
       child: Container(
         height: height,
         width: 185,
