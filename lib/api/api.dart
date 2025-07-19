@@ -20,10 +20,16 @@ abstract class DorimolApiClient {
   Future<List<Category>> fetchCategories();
   
   @GET('/products/')
-  Future<List<Product>> fetchProductsByCategory(@Query("category_id") int categoryId);
+  Future<List<Product>> fetchProductsByCategory(@Query("category_id") int categoryId, @Query("sorting") String sorting);
+  
+  @GET('/products/')
+  Future<List<Product>> fetchProductsById(@Query("id") String id, @Query("sorting") String sorting);
+  
+  @GET('/products/')
+  Future<List<Product>> fetchProductsByName(@Query("name") String name, @Query("sorting") String sorting);
   
   @GET('/products')
-  Future<List<Product>> fetchSimilarProducts(@Query("similar") String id);
+  Future<List<Product>> fetchSimilarProducts(@Query("similar") String id, @Query("sorting") String sorting);
 
   @GET('/products/{id}')
   Future<ProductDetails> fetchProductDetails(@Path("id") String productId);

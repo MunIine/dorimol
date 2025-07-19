@@ -1,7 +1,8 @@
-import 'dart:math';
-
+import 'package:dorimol/data/constants.dart';
+import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SortingBottomSheet extends StatelessWidget {
   const SortingBottomSheet({super.key});
@@ -9,6 +10,7 @@ class SortingBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
+    final selected = context.select<CatalogBloc, Sorting>((bloc) => bloc.state.sorting);
 
     return SizedBox(
       height: 430,
@@ -41,16 +43,17 @@ class SortingBottomSheet extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Divider(),
-            SortingListElement(text: "По возрастанию цены"),
-            Divider(),
-            SortingListElement(text: "По убыванию цены"),
-            Divider(),
-            SortingListElement(text: "По популярности"),
-            Divider(),
-            SortingListElement(text: "По новинкам"),
-            Divider(),
-            SortingListElement(text: "По скидкам"),
-            Divider(),
+            Expanded(
+              child: ListView.separated(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: Sorting.values.length,
+                separatorBuilder: (context, index) => Divider(),
+                itemBuilder: (context, index) => SortingListElement(
+                  sorting: Sorting.values[index],
+                  selected: selected == Sorting.values[index],
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -60,26 +63,26 @@ class SortingBottomSheet extends StatelessWidget {
 
 class SortingListElement extends StatelessWidget {
   const SortingListElement({
-    super.key, required this.text,
+    super.key, required this.sorting, required this.selected,
   });
 
-  final String text;
+  final Sorting sorting;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
 
     return GestureDetector(
-      onTap: () {
-        
-      },
-      child: Padding(
+      onTap: () => context.read<CatalogBloc>().add(ChangeSortingMethod(sorting: sorting)),
+      child: Container(
+        color: Colors.transparent,
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(text, style: AppText.t6.copyWith(color: Color(0xFF626262))),
-            [Icon(SvgIcons.radioButtonOn, color: colorTheme.seedColor), Icon(SvgIcons.radioButtonOff, color: colorTheme.block)][Random().nextInt(2)]
+            Text(sorting.presentationValue, style: AppText.t6.copyWith(color: Color(0xFF626262))),
+            selected ? Icon(SvgIcons.radioButtonOn, color: colorTheme.seedColor) : Icon(SvgIcons.radioButtonOff, color: colorTheme.block)
           ],
         ),
       ),

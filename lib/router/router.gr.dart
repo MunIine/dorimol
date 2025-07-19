@@ -13,33 +13,32 @@ part of 'router.dart';
 /// generated route for
 /// [CatalogScreen]
 class CatalogRoute extends PageRouteInfo<CatalogRouteArgs> {
-  CatalogRoute({
-    Key? key,
-    required Category category,
-    List<PageRouteInfo>? children,
-  }) : super(
-         CatalogRoute.name,
-         args: CatalogRouteArgs(key: key, category: category),
-         initialChildren: children,
-       );
+  CatalogRoute({Key? key, Category? category, List<PageRouteInfo>? children})
+    : super(
+        CatalogRoute.name,
+        args: CatalogRouteArgs(key: key, category: category),
+        initialChildren: children,
+      );
 
   static const String name = 'CatalogRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<CatalogRouteArgs>();
+      final args = data.argsAs<CatalogRouteArgs>(
+        orElse: () => const CatalogRouteArgs(),
+      );
       return CatalogScreen(key: args.key, category: args.category);
     },
   );
 }
 
 class CatalogRouteArgs {
-  const CatalogRouteArgs({this.key, required this.category});
+  const CatalogRouteArgs({this.key, this.category});
 
   final Key? key;
 
-  final Category category;
+  final Category? category;
 
   @override
   String toString() {

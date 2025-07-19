@@ -47,9 +47,15 @@ class _DorimolApiClient implements DorimolApiClient {
   }
 
   @override
-  Future<List<Product>> fetchProductsByCategory(int categoryId) async {
+  Future<List<Product>> fetchProductsByCategory(
+    int categoryId,
+    String sorting,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'category_id': categoryId};
+    final queryParameters = <String, dynamic>{
+      r'category_id': categoryId,
+      r'sorting': sorting,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<List<Product>>(
@@ -76,9 +82,73 @@ class _DorimolApiClient implements DorimolApiClient {
   }
 
   @override
-  Future<List<Product>> fetchSimilarProducts(String id) async {
+  Future<List<Product>> fetchProductsById(String id, String sorting) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'similar': id};
+    final queryParameters = <String, dynamic>{r'id': id, r'sorting': sorting};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<Product>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/products/',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<Product> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) => Product.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<List<Product>> fetchProductsByName(String name, String sorting) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'name': name,
+      r'sorting': sorting,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<Product>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/products/',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<Product> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) => Product.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<List<Product>> fetchSimilarProducts(String id, String sorting) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'similar': id,
+      r'sorting': sorting,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<List<Product>>(

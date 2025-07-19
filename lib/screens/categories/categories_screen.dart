@@ -29,7 +29,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppSearchBar(sliders: false),
+            AppSearchBar(sliders: true),
             SizedBox(height: 16),
             Text("Категории", style: AppText.h1),
             SizedBox(height: 16),

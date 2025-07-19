@@ -11,9 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class CatalogScreen extends StatefulWidget {
-  const CatalogScreen({super.key, required this.category});
+  const CatalogScreen({super.key, this.category});
 
-  final Category category;
+  final Category? category;
 
   @override
   State<CatalogScreen> createState() => _CatalogScreenState();
@@ -23,7 +23,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<CatalogBloc>(context).add(FetchCatalog(categoryId: widget.category.id));
+    if (widget.category != null) BlocProvider.of<CatalogBloc>(context).add(FetchCatalog(categoryId: widget.category!.id));
   }
 
   @override
@@ -33,7 +33,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
       backgroundColor: Color(0xFFF9F9F9),
       appBar: AppBar(
         leading: ReturnButton(),
-        title: Text(widget.category.name, style: AppText.h2.copyWith(letterSpacing: 2.5, color: colorTheme.seedColor)),
+        title: widget.category != null ? Text(widget.category!.name, style: AppText.h2.copyWith(letterSpacing: 2.5, color: colorTheme.seedColor)) : null,
         backgroundColor: Color(0xFFF9F9F9),
         surfaceTintColor: Color(0xFFF9F9F9),
         centerTitle: true,

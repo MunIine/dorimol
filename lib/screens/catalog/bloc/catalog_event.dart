@@ -15,3 +15,21 @@ class FetchCatalog extends CatalogEvent {
   @override
   List<Object> get props => [categoryId];
 }
+
+class FetchCatalogByQuery extends CatalogEvent {
+  final String idOrName;
+
+  const FetchCatalogByQuery({required this.idOrName});
+
+  @override
+  List<Object> get props => [idOrName];
+}
+
+class ChangeSortingMethod extends CatalogEvent {
+  final Sorting sorting;
+
+  const ChangeSortingMethod({required this.sorting});
+
+  @override
+  List<Object> get props => [sorting];
+}
