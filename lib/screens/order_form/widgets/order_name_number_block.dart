@@ -23,6 +23,7 @@ class OrderNameNumberBlock extends StatelessWidget {
             colorTheme: colorTheme,
             form: true,
             hint: "Укажите ваше ФИО",
+            onSubmitted: (value){},
             icon: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Icon(Icons.done_rounded, color: colorTheme.seedColor, size: 16),
@@ -34,7 +35,8 @@ class OrderNameNumberBlock extends StatelessWidget {
           BlockTextField(
             colorTheme: colorTheme,
             form: true,
-            hint: "Укажите ваш номер телефона"
+            hint: "Укажите ваш номер телефона",
+            onSubmitted: (value){},
           )
         ],
       ),

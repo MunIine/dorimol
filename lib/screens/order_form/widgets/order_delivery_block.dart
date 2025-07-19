@@ -19,7 +19,7 @@ class OrderDeliveryBlock extends StatelessWidget {
         children: [
           Text("Доставка", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
           SizedBox(height: 10),
-          BlockTextField(colorTheme: colorTheme, form: true, enabled: false, hint: "СКОРО!!!"),
+          BlockTextField(colorTheme: colorTheme, form: true, enabled: false, hint: "СКОРО!!!", onSubmitted: (value){},),
         ],
       ),
     );

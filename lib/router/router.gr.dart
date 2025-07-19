@@ -13,12 +13,16 @@ part of 'router.dart';
 /// generated route for
 /// [CatalogScreen]
 class CatalogRoute extends PageRouteInfo<CatalogRouteArgs> {
-  CatalogRoute({Key? key, Category? category, List<PageRouteInfo>? children})
-    : super(
-        CatalogRoute.name,
-        args: CatalogRouteArgs(key: key, category: category),
-        initialChildren: children,
-      );
+  CatalogRoute({
+    Key? key,
+    Category? category,
+    String? query,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CatalogRoute.name,
+         args: CatalogRouteArgs(key: key, category: category, query: query),
+         initialChildren: children,
+       );
 
   static const String name = 'CatalogRoute';
 
@@ -28,32 +32,40 @@ class CatalogRoute extends PageRouteInfo<CatalogRouteArgs> {
       final args = data.argsAs<CatalogRouteArgs>(
         orElse: () => const CatalogRouteArgs(),
       );
-      return CatalogScreen(key: args.key, category: args.category);
+      return CatalogScreen(
+        key: args.key,
+        category: args.category,
+        query: args.query,
+      );
     },
   );
 }
 
 class CatalogRouteArgs {
-  const CatalogRouteArgs({this.key, this.category});
+  const CatalogRouteArgs({this.key, this.category, this.query});
 
   final Key? key;
 
   final Category? category;
 
+  final String? query;
+
   @override
   String toString() {
-    return 'CatalogRouteArgs{key: $key, category: $category}';
+    return 'CatalogRouteArgs{key: $key, category: $category, query: $query}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! CatalogRouteArgs) return false;
-    return key == other.key && category == other.category;
+    return key == other.key &&
+        category == other.category &&
+        query == other.query;
   }
 
   @override
-  int get hashCode => key.hashCode ^ category.hashCode;
+  int get hashCode => key.hashCode ^ category.hashCode ^ query.hashCode;
 }
 
 /// generated route for

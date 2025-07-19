@@ -1,21 +1,23 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:dorimol/router/router.dart';
-import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlockTextField extends StatelessWidget {
   const BlockTextField({
     super.key,
     required this.colorTheme, 
-    required this.hint, 
+    required this.onSubmitted, 
+    required this.hint,
+    this.defaultText = "", 
+    this.controller, 
     this.form = false,
     this.enabled = true, 
     this.icon, 
   });
 
   final AppColors colorTheme;
+  final ValueChanged<String> onSubmitted;
+  final String defaultText;
+  final TextEditingController? controller;
   final bool form;
   final bool enabled;
   final String hint;
@@ -23,7 +25,7 @@ class BlockTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
+    if (controller != null) controller!.text = defaultText;
 
     return Container(
       decoration: BoxDecoration(
@@ -44,12 +46,7 @@ class BlockTextField extends StatelessWidget {
           ),
           suffixIcon: icon
         ),
-        onSubmitted: (value) {
-          if (value.isNotEmpty){
-            BlocProvider.of<CatalogBloc>(context).add(FetchCatalogByQuery(idOrName: value.trim()));
-            if (AutoRouter.of(context).current.name != CatalogRoute.name) AutoRouter.of(context).push(CatalogRoute());
-          } 
-        }
+        onSubmitted: onSubmitted
       ),
     );
   }

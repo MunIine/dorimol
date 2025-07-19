@@ -11,9 +11,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class CatalogScreen extends StatefulWidget {
-  const CatalogScreen({super.key, this.category});
+  const CatalogScreen({super.key, this.category, this.query});
 
   final Category? category;
+  final String? query;
 
   @override
   State<CatalogScreen> createState() => _CatalogScreenState();
@@ -42,7 +43,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            AppSearchBar(sliders: true),
+            AppSearchBar(sliders: true, defaultTextFieldText: widget.query,),
             SizedBox(height: 20),
             Expanded(
               child: BlocBuilder<CatalogBloc, CatalogState>(

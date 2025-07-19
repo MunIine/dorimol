@@ -46,7 +46,7 @@ class OrderProductsCommentBlock extends StatelessWidget {
           SizedBox(height: 40),
           Text("Комментарий сборщику", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
           SizedBox(height: 10),
-          BlockTextField(colorTheme: colorTheme, form: true, hint: "Напишите, что важно учесть при сборке"),
+          BlockTextField(colorTheme: colorTheme, form: true, hint: "Напишите, что важно учесть при сборке", onSubmitted: (value){},),
         ],
       ),
     );
