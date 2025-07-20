@@ -32,7 +32,7 @@ class ProductNamePrice extends StatelessWidget {
                   children: [
                     Icon(SvgIcons.package, size: 16, color: colorTheme.iconGray),
                     SizedBox(width: 6),
-                    Text("Оптовая цена от 10 ${product.unit}", style: AppText.t2.copyWith(color: colorTheme.iconGray))
+                    Text("Оптовая цена от ${product.wholesaleStartQuantity} ${product.unit}", style: AppText.t2.copyWith(color: colorTheme.iconGray))
                   ],
                 )
               ],

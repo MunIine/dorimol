@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dorimol/api/models/category.dart';
+import 'package:dorimol/api/models/order.dart';
 import 'package:dorimol/api/models/product.dart';
 import 'package:dorimol/api/models/product_details.dart';
 import 'package:retrofit/retrofit.dart';
@@ -33,4 +34,7 @@ abstract class DorimolApiClient {
 
   @GET('/products/{id}')
   Future<ProductDetails> fetchProductDetails(@Path("id") String productId);
+
+  @POST('/orders/add')
+  Future<HttpResponse> placeOrder(@Body() Order body);
 }

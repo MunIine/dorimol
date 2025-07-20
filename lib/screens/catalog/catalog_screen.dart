@@ -43,7 +43,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            AppSearchBar(sliders: true, defaultTextFieldText: widget.query,),
+            AppSearchBar(sliders: true, defaultTextFieldText: widget.query),
             SizedBox(height: 20),
             Expanded(
               child: BlocBuilder<CatalogBloc, CatalogState>(

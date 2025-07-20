@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => CategoriesBloc(apiClient: apiClient)),
         BlocProvider(create: (context) => CatalogBloc(apiClient: apiClient)),
         BlocProvider(create: (context) => ProductDetailsBloc(apiClient: apiClient)),
-        BlocProvider(create: (context) => CartBloc()),
+        BlocProvider(create: (context) => CartBloc(apiClient: apiClient)),
       ],
       child: MaterialApp.router(
         theme: lightTheme,

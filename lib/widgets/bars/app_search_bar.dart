@@ -27,7 +27,7 @@ class AppSearchBar extends StatelessWidget {
             defaultText: defaultTextFieldText ?? "",
             controller: controller,
             onSubmitted: (value) {
-              if (value.isNotEmpty){
+              if (value.trim().isNotEmpty){
                 BlocProvider.of<CatalogBloc>(context).add(FetchCatalogByQuery(idOrName: value.trim()));
                 if (AutoRouter.of(context).current.name != CatalogRoute.name) {
                   AutoRouter.of(context).push(CatalogRoute(query: value));

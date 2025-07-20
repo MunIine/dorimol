@@ -7,7 +7,7 @@ class BlockTextField extends StatelessWidget {
     required this.colorTheme, 
     required this.onSubmitted, 
     required this.hint,
-    this.defaultText = "", 
+    this.defaultText, 
     this.controller, 
     this.form = false,
     this.enabled = true, 
@@ -16,7 +16,7 @@ class BlockTextField extends StatelessWidget {
 
   final AppColors colorTheme;
   final ValueChanged<String> onSubmitted;
-  final String defaultText;
+  final String? defaultText;
   final TextEditingController? controller;
   final bool form;
   final bool enabled;
@@ -25,7 +25,7 @@ class BlockTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (controller != null) controller!.text = defaultText;
+    // if (controller != null && defaultText != null) controller!.text = defaultText!;
 
     return Container(
       decoration: BoxDecoration(

@@ -19,3 +19,16 @@ class CartUpdated extends CartState {
   @override
   List<Object> get props => [productsInCart, products, totalPrice];
 }
+
+final class OrderLoading extends CartState {}
+
+final class OrderPlaced extends CartState {}
+
+final class OrderFailure extends CartState {
+  final Object error;
+
+  const OrderFailure({required this.error});
+
+  @override
+  List<Object> get props => [error];
+}

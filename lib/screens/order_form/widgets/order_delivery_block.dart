@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 class OrderDeliveryBlock extends StatelessWidget {
   const OrderDeliveryBlock({
     super.key,
-    required this.colorTheme,
+    required this.colorTheme, 
+    required this.controller,
   });
 
   final AppColors colorTheme;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class OrderDeliveryBlock extends StatelessWidget {
         children: [
           Text("Доставка", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
           SizedBox(height: 10),
-          BlockTextField(colorTheme: colorTheme, form: true, enabled: false, hint: "СКОРО!!!", onSubmitted: (value){},),
+          BlockTextField(controller: controller, colorTheme: colorTheme, form: true, enabled: false, hint: "СКОРО!!!", onSubmitted: (value){},),
         ],
       ),
     );

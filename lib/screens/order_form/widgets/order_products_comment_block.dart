@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderProductsCommentBlock extends StatelessWidget {
-  const OrderProductsCommentBlock({super.key, required this.colorTheme});
+  const OrderProductsCommentBlock({super.key, required this.colorTheme, required this.controller});
 
   final AppColors colorTheme;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class OrderProductsCommentBlock extends StatelessWidget {
           Text("Комментарий сборщику", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
           SizedBox(height: 10),
           BlockTextField(
+            controller: controller,
             colorTheme: colorTheme,
             form: true,
             hint: "Напишите, что важно учесть при сборке",

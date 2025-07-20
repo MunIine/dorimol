@@ -1,3 +1,5 @@
+import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/models/order.dart';
 import 'package:dorimol/api/models/product.dart';
 import 'package:dorimol/api/models/product_in_cart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,17 +9,35 @@ part 'cart_event.dart';
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc() : super(CartInitial()) {
+  CartBloc({required this.apiClient}) : super(CartInitial()) {
     on<UpdateProductInCart>((event, emit) {
       updateProducts(event, emit);
     });
     on<ClearCart>((event, emit){
-      productsInCart.clear();
-      products.clear();
-      totalPrice = 0;
-
+      clearCart();
       emit(CartInitial());
     });
+    on<PlaceOrder>((event, emit) async {
+      try {
+        emit(OrderLoading());
+        await apiClient.placeOrder(Order(
+          fullName: event.fullName, 
+          phoneNumber: event.phoneNumber, 
+          deliveryAddress: event.deliveryAddress!.isNotEmpty ? event.comment : null, 
+          comment: event.comment!.isNotEmpty ? event.comment : null, 
+          items: productsInCart.values.toList()
+        ));
+        emit(OrderPlaced());
+      } catch (e) {
+        emit(OrderFailure(error: e));
+      }
+    });
+  }
+
+  void clearCart() {
+    productsInCart.clear();
+    products.clear();
+    totalPrice = 0;
   }
 
   void updateProducts(UpdateProductInCart event, Emitter<CartState> emit) {
@@ -39,6 +59,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(CartUpdated(productsInCart: Map.unmodifiable(productsInCart), products: Map.unmodifiable(products), totalPrice: totalPrice));
   }
 
+  final DorimolApiClient apiClient;
   final Map<String, ProductInCart> productsInCart = {};
   final Map<String, Product> products = {};
   double totalPrice = 0;
