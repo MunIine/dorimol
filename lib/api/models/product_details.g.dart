@@ -6,30 +6,30 @@ part of 'product_details.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProductDetails _$ProductDetailsFromJson(Map<String, dynamic> json) =>
-    ProductDetails(
-      id: json['id'] as String,
-      categoryId: (json['category_id'] as num).toInt(),
-      name: json['name'] as String,
-      description: json['description'] as String?,
-      imageUrl: json['image_url'] as String,
-      price: (json['price'] as num).toDouble(),
-      wholesalePrice: (json['wholesale_price'] as num).toDouble(),
-      unit: json['unit'] as String,
-      stock: (json['stock'] as num).toInt(),
-      status: json['status'] as String,
-      orderCount: (json['order_count'] as num).toInt(),
-      rating: (json['rating'] as num?)?.toDouble(),
-      vendors: (json['vendors'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      feedbacks: (json['feedbacks'] as List<dynamic>)
-          .map((e) => ProductFeedback.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      similars: (json['similars'] as List<dynamic>)
-          .map((e) => Product.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+ProductDetails _$ProductDetailsFromJson(
+  Map<String, dynamic> json,
+) => ProductDetails(
+  id: json['id'] as String,
+  categoryId: (json['category_id'] as num).toInt(),
+  name: json['name'] as String,
+  description: json['description'] as String?,
+  imageUrl: json['image_url'] as String,
+  price: (json['price'] as num).toDouble(),
+  wholesalePrice: (json['wholesale_price'] as num).toDouble(),
+  wholesaleStartQuantity: (json['wholesale_start_quantity'] as num).toDouble(),
+  unit: json['unit'] as String,
+  stock: (json['stock'] as num).toInt(),
+  status: json['status'] as String,
+  orderCount: (json['order_count'] as num).toInt(),
+  rating: (json['rating'] as num?)?.toDouble(),
+  vendors: (json['vendors'] as List<dynamic>).map((e) => e as String).toList(),
+  feedbacks: (json['feedbacks'] as List<dynamic>)
+      .map((e) => ProductFeedback.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  similars: (json['similars'] as List<dynamic>)
+      .map((e) => Product.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$ProductDetailsToJson(ProductDetails instance) =>
     <String, dynamic>{
@@ -46,6 +46,7 @@ Map<String, dynamic> _$ProductDetailsToJson(ProductDetails instance) =>
       'similars': instance.similars.map((e) => e.toJson()).toList(),
       'category_id': instance.categoryId,
       'wholesale_price': instance.wholesalePrice,
+      'wholesale_start_quantity': instance.wholesaleStartQuantity,
       'image_url': instance.imageUrl,
       'order_count': instance.orderCount,
     };

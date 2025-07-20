@@ -9,7 +9,9 @@ class Product {
     required this.categoryId, 
     required this.name, 
     required this.imageUrl, 
-    required this.price, 
+    required this.price,
+    required this.wholesalePrice,
+    required this.wholesaleStartQuantity,
     required this.unit, 
     required this.stock, 
     required this.status, 
@@ -30,11 +32,28 @@ class Product {
   @JsonKey(name: 'category_id')
   final int categoryId;
 
+  @JsonKey(name: 'wholesale_price')
+  final double wholesalePrice;
+
+  @JsonKey(name: 'wholesale_start_quantity')
+  final double wholesaleStartQuantity;
+
   @JsonKey(name: 'image_url')
   final String imageUrl;
   
   @JsonKey(name: 'order_count')
   final int orderCount;
+
+  double currentPrice (double quantity) => quantity >= wholesaleStartQuantity ? wholesalePrice : price;
+
+  double get step {
+    switch (unit.toLowerCase()) {
+      case 'кг':
+        return 0.5;
+      default:
+        return 1;
+    }
+  }
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 }

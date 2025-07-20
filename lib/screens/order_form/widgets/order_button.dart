@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class OrderButton extends StatelessWidget {
   const OrderButton({
     super.key,
-    required this.colorTheme,
+    required this.colorTheme, 
+    required this.price,
   });
 
   final AppColors colorTheme;
+  final double price;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class OrderButton extends StatelessWidget {
         child: Row(
           children: [
             Spacer(),
-            Text("273руб.", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
+            Text("$priceруб.", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
             SizedBox(width: 16),
             Text("|", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
             SizedBox(width: 16),

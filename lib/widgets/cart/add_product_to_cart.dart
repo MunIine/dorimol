@@ -1,12 +1,19 @@
+import 'package:dorimol/api/models/product.dart';
+import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddProductToCart extends StatelessWidget {
   const AddProductToCart({
     super.key,
-    required this.cartHeight,
+    required this.quantity, 
+    required this.product, 
+    required this.cartHeight, 
   });
 
+  final Product product;
+  final double quantity;
   final double cartHeight;
 
   @override
@@ -17,7 +24,15 @@ class AddProductToCart extends StatelessWidget {
       width: double.infinity,
       height: cartHeight,
       child: TextButton(
-        onPressed: (){},
+        onPressed: () {
+          if (quantity + product.step <= product.stock) {
+            BlocProvider.of<CartBloc>(context).add(UpdateProductInCart(
+              product: product, 
+              price: product.currentPrice(quantity+product.step), 
+              quantity: quantity+product.step
+            ));
+          }
+        },
         style: TextButton.styleFrom(
           backgroundColor: colorTheme.seedColor,
           padding: EdgeInsets.symmetric(vertical: 9),

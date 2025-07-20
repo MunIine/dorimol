@@ -1,5 +1,8 @@
+import 'package:dorimol/api/models/product.dart';
+import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChangeProductInCart extends StatelessWidget {
   const ChangeProductInCart({
@@ -13,6 +16,9 @@ class ChangeProductInCart extends StatelessWidget {
     this.priceTextStyle,
     this.iconColor,
     this.color,
+
+    required this.product, 
+    required this.quantity, 
   });
 
   final double cartHeight;
@@ -24,6 +30,9 @@ class ChangeProductInCart extends StatelessWidget {
   final TextStyle? priceTextStyle;
   final Color? color;
   final Color? iconColor;
+
+  final Product product;
+  final double quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +58,15 @@ class ChangeProductInCart extends StatelessWidget {
                 colorTheme: colorTheme,
                 iconColor: iconColor,
                 color: color,
+                onTap: (){
+                  if (quantity-product.step >= 0) {
+                    BlocProvider.of<CartBloc>(context).add(UpdateProductInCart(
+                      product: product,
+                      price: product.currentPrice(quantity-product.step), 
+                      quantity: quantity-product.step
+                    ));
+                  }
+                }
               ),
               if (dividers) SizedBox(width: 1),
               Expanded(
@@ -61,8 +79,8 @@ class ChangeProductInCart extends StatelessWidget {
                     text: TextSpan(
                       style: AppText.rostelecom,
                       children: [
-                        TextSpan(text: "0.54 кг\n", style: priceTextStyle ?? AppText.t1.copyWith(color: colorTheme.background)),
-                        TextSpan(text: "162.54Р", style: weightTextStyle ?? AppText.t0.copyWith(color: colorTheme.accint))
+                        TextSpan(text: "$quantity ${product.unit}\n", style: priceTextStyle ?? AppText.t1.copyWith(color: colorTheme.background)),
+                        TextSpan(text: "${product.currentPrice(quantity)*quantity}Р", style: weightTextStyle ?? AppText.t0.copyWith(color: colorTheme.accint))
                       ]
                     )
                   ),
@@ -77,6 +95,15 @@ class ChangeProductInCart extends StatelessWidget {
                 colorTheme: colorTheme,
                 iconColor: iconColor,
                 color: color,
+                onTap: () {
+                  if (quantity + product.step <= product.stock) {
+                    BlocProvider.of<CartBloc>(context).add(UpdateProductInCart(
+                      product: product, 
+                      price: product.currentPrice(quantity+product.step), 
+                      quantity: quantity+product.step
+                    ));
+                  }
+                }
               ),
             ],
           );
@@ -94,7 +121,7 @@ class _CartButton extends StatelessWidget {
     required this.cartHeight, 
     this.iconColor,
     this.color,
-    this.width
+    this.width, required this.onTap
   });
 
   final AppColors colorTheme;
@@ -104,6 +131,7 @@ class _CartButton extends StatelessWidget {
   final Color? iconColor;
   final Color? color;
   final double? width;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +139,7 @@ class _CartButton extends StatelessWidget {
       height: cartHeight,
       width: width,
       child: IconButton(
-        onPressed: (){},
+        onPressed: onTap,
         padding: EdgeInsets.symmetric(horizontal: 9),
         icon: Icon(
           icon,

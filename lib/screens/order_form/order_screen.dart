@@ -1,6 +1,8 @@
+import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
 import 'package:dorimol/screens/order_form/widgets/export.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -32,7 +34,12 @@ class OrderScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: OrderButton(colorTheme: colorTheme),
+      bottomNavigationBar: BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          if (state is CartUpdated) return OrderButton(colorTheme: colorTheme, price: state.totalPrice);
+          return OrderButton(colorTheme: colorTheme, price: 0);
+        },
+      ),
     );
   }
 }

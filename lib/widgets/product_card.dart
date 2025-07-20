@@ -78,7 +78,7 @@ class ProductCard extends StatelessWidget {
             Spacer(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
-              child: AdaptiveCart(inCart: inCart, cartHeight: cartHeight),
+              child: AdaptiveCart(product: product, cartHeight: cartHeight),
             )
           ],
         ),

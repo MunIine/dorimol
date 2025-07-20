@@ -14,6 +14,7 @@ class ProductDetails {
     required this.imageUrl,
     required this.price,
     required this.wholesalePrice,
+    required this.wholesaleStartQuantity,
     required this.unit,
     required this.stock,
     required this.status,
@@ -21,8 +22,8 @@ class ProductDetails {
     this.rating,
     required this.vendors,
     required this.feedbacks,
-    required this.similars
-    });
+    required this.similars,
+  });
 
   factory ProductDetails.fromJson(Map<String, dynamic> json) => _$ProductDetailsFromJson(json);
 
@@ -44,11 +45,27 @@ class ProductDetails {
   @JsonKey(name: 'wholesale_price')
   final double wholesalePrice;
 
+  @JsonKey(name: 'wholesale_start_quantity')
+  final double wholesaleStartQuantity;
+
   @JsonKey(name: 'image_url')
   final String imageUrl;
-  
+
   @JsonKey(name: 'order_count')
   final int orderCount;
 
+  Product get getProduct => Product(
+    id: id,
+    categoryId: categoryId,
+    name: name,
+    imageUrl: imageUrl,
+    price: price,
+    wholesalePrice: wholesalePrice,
+    wholesaleStartQuantity: wholesaleStartQuantity,
+    unit: unit,
+    stock: stock,
+    status: status,
+    orderCount: orderCount,
+  );
   Map<String, dynamic> toJson() => _$ProductDetailsToJson(this);
 }

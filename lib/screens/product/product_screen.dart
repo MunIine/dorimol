@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
 import 'package:dorimol/screens/product/bloc/product_details_bloc.dart';
 import 'package:dorimol/screens/product/widgets/export.dart';
 import 'package:dorimol/theme/export.dart';
@@ -50,12 +51,24 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                     Padding(
                       padding: padding,
-                      child: ChangeProductInCart(
-                        cartHeight: 50,
-                        iconSize: 24,
-                        equalWidth: true,
-                        weightTextStyle: AppText.h2,
-                        priceTextStyle: AppText.t3,
+                      child: BlocSelector<CartBloc, CartState, double>(
+                        selector: (state) {
+                          if (state is CartUpdated && state.productsInCart.containsKey(product.id)) {
+                            return state.productsInCart[product.id]!.quantity;
+                          }
+                          return 0.0;
+                        },
+                        builder: (context, quantity) {
+                          return ChangeProductInCart(
+                            cartHeight: 50,
+                            iconSize: 24,
+                            equalWidth: true,
+                            weightTextStyle: AppText.h2,
+                            priceTextStyle: AppText.t3,
+                            product: product.getProduct,
+                            quantity: quantity,
+                          );
+                        },
                       ),
                     ),
                     if (product.description != null && product.description!.trim().isNotEmpty) ... [

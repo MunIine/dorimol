@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dorimol/api/api.dart';
+import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
 import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
@@ -60,6 +61,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => CategoriesBloc(apiClient: apiClient)),
         BlocProvider(create: (context) => CatalogBloc(apiClient: apiClient)),
         BlocProvider(create: (context) => ProductDetailsBloc(apiClient: apiClient)),
+        BlocProvider(create: (context) => CartBloc()),
       ],
       child: MaterialApp.router(
         theme: lightTheme,
