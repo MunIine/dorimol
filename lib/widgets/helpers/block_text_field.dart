@@ -12,6 +12,7 @@ class BlockTextField extends StatelessWidget {
     this.form = false,
     this.enabled = true, 
     this.icon, 
+    this.keyboardType, 
   });
 
   final AppColors colorTheme;
@@ -22,10 +23,11 @@ class BlockTextField extends StatelessWidget {
   final bool enabled;
   final String hint;
   final Widget? icon;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
-    // if (controller != null && defaultText != null) controller!.text = defaultText!;
+    if (controller != null && defaultText != null) controller!.text = defaultText!;
 
     return Container(
       decoration: BoxDecoration(
@@ -35,6 +37,7 @@ class BlockTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         enabled: enabled,
+        keyboardType: keyboardType,
         style: TextStyle(
           fontSize: 15
         ),

@@ -47,3 +47,5 @@ app.*.map.json
 /temp
 
 *.env
+
+keystore.properties

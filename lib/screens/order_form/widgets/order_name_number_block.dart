@@ -39,6 +39,7 @@ class OrderNameNumberBlock extends StatelessWidget {
           SizedBox(height: 10),
           BlockTextField(
             controller: phoneNumberController,
+            keyboardType: TextInputType.number,
             colorTheme: colorTheme,
             form: true,
             hint: "Укажите ваш номер телефона",
