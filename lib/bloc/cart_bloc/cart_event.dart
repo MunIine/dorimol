@@ -20,6 +20,8 @@ class UpdateProductInCart extends CartEvent {
 
 class ClearCart extends CartEvent {}
 
+class ChangeDelivery extends CartEvent {}
+
 class PlaceOrder extends CartEvent {
   const PlaceOrder({required this.fullName, required this.phoneNumber, required this.deliveryAddress, required this.comment});
 

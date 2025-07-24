@@ -7,17 +7,25 @@ sealed class CartState extends Equatable {
   List<Object> get props => [];
 }
 
-final class CartInitial extends CartState {}
+final class CartInitial extends CartState {
+  const CartInitial({required this.delivery});
+
+  final bool delivery;
+
+  @override
+  List<Object> get props => [delivery];
+}
 
 class CartUpdated extends CartState {
   final Map<String, ProductInCart> productsInCart;
   final Map<String, Product> products;
   final double totalPrice;
+  final bool delivery;
 
-  const CartUpdated({required this.productsInCart, required this.products, required this.totalPrice});
+  const CartUpdated({required this.productsInCart, required this.products, required this.totalPrice, required this.delivery});
 
   @override
-  List<Object> get props => [productsInCart, products, totalPrice];
+  List<Object> get props => [productsInCart, products, totalPrice, delivery];
 }
 
 final class OrderLoading extends CartState {}

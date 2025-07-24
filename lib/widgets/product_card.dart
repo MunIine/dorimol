@@ -70,7 +70,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   SizedBox(height: 2),
                   Text(product.name, style: AppText.t3.copyWith(color: colorTheme.textBlack, height: 1)),
-                  Text("100г", style: AppText.t2.copyWith(color: colorTheme.tips)),
+                  SizedBox(height: 8),
                 ]
               )
             ),

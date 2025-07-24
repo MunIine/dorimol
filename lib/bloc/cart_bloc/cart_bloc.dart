@@ -9,13 +9,23 @@ part 'cart_event.dart';
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc({required this.apiClient}) : super(CartInitial()) {
+  CartBloc({required this.apiClient}) : super(CartInitial(delivery: false)) {
     on<UpdateProductInCart>((event, emit) {
       updateProducts(event, emit);
     });
+    on<ChangeDelivery>((event, emit){
+      totalPrice += delivery ? -30 : 30;
+      delivery = !delivery;
+      emit(CartUpdated(
+        productsInCart: Map.unmodifiable(productsInCart), 
+        products: Map.unmodifiable(products), 
+        totalPrice: totalPrice, 
+        delivery: delivery
+      ));
+    });
     on<ClearCart>((event, emit){
       clearCart();
-      emit(CartInitial());
+      emit(CartInitial(delivery: delivery));
     });
     on<PlaceOrder>((event, emit) async {
       try {
@@ -23,7 +33,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         await apiClient.placeOrder(Order(
           fullName: event.fullName, 
           phoneNumber: event.phoneNumber, 
-          deliveryAddress: event.deliveryAddress!.isNotEmpty ? event.comment : null, 
+          deliveryAddress: delivery ? event.deliveryAddress : null, 
           comment: event.comment!.isNotEmpty ? event.comment : null, 
           items: productsInCart.values.toList()
         ));
@@ -37,7 +47,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   void clearCart() {
     productsInCart.clear();
     products.clear();
-    totalPrice = 0;
+    totalPrice = delivery ? 30 : 0;
   }
 
   void updateProducts(UpdateProductInCart event, Emitter<CartState> emit) {
@@ -56,11 +66,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         quantity: event.quantity,
       );
     }
-    emit(CartUpdated(productsInCart: Map.unmodifiable(productsInCart), products: Map.unmodifiable(products), totalPrice: totalPrice));
+    emit(CartUpdated(
+      productsInCart: Map.unmodifiable(productsInCart), 
+      products: Map.unmodifiable(products), 
+      totalPrice: totalPrice, 
+      delivery: delivery
+    ));
   }
 
   final DorimolApiClient apiClient;
   final Map<String, ProductInCart> productsInCart = {};
   final Map<String, Product> products = {};
   double totalPrice = 0;
+  bool delivery = false;
 }

@@ -98,6 +98,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 phoneNumberController,
                 addressController,
                 commentController,
+                state.delivery,
                 state.productsInCart.isNotEmpty,
                 context
             ));
@@ -113,10 +114,14 @@ class _OrderScreenState extends State<OrderScreen> {
     TextEditingController phoneNumberController,
     TextEditingController addressController,
     TextEditingController commentController,
+    bool delivery,
     bool items,
     BuildContext context
   ){
-    if (fullNameController.text.trim().isNotEmpty && phoneNumberController.text.trim().isNotEmpty && items){
+    if (fullNameController.text.trim().isNotEmpty 
+    && phoneNumberController.text.trim().isNotEmpty 
+    && items 
+    && ((delivery && addressController.text.trim().isNotEmpty) || !delivery)){
       BlocProvider.of<CartBloc>(context).add(PlaceOrder(
         fullName: fullNameController.text.trim(), 
         phoneNumber: phoneNumberController.text.trim(), 
