@@ -85,6 +85,38 @@ class CategoriesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ErrorScreen]
+class ErrorRoute extends PageRouteInfo<void> {
+  const ErrorRoute({List<PageRouteInfo>? children})
+    : super(ErrorRoute.name, initialChildren: children);
+
+  static const String name = 'ErrorRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ErrorScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [InternetErrorScreen]
+class InternetErrorRoute extends PageRouteInfo<void> {
+  const InternetErrorRoute({List<PageRouteInfo>? children})
+    : super(InternetErrorRoute.name, initialChildren: children);
+
+  static const String name = 'InternetErrorRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const InternetErrorScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [ProductScreen]
 class ProductRoute extends PageRouteInfo<ProductRouteArgs> {
   ProductRoute({Key? key, required String id, List<PageRouteInfo>? children})

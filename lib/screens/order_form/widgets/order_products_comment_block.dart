@@ -2,6 +2,7 @@ import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
 import 'package:dorimol/screens/order_form/widgets/content_block.dart';
 import 'package:dorimol/screens/order_form/widgets/order_products.dart';
 import 'package:dorimol/theme/export.dart';
+import 'package:dorimol/widgets/errors/no_items_in_cart.dart';
 import 'package:dorimol/widgets/helpers/block_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,8 +27,9 @@ class OrderProductsCommentBlock extends StatelessWidget {
                 if (keys.isNotEmpty) {
                   return OrderProducts(colorTheme: colorTheme, keys: keys, products: state.products, productsInCart: state.productsInCart);
                 }
-                return Center(child: Text("Товаров нет"));
+                return NoItemsInCart(colorTheme: colorTheme);
               }
+              if (state is CartInitial) return NoItemsInCart(colorTheme: colorTheme);
               return Center(child: Text("Товаров нет"));
             },
           ),

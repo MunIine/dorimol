@@ -49,6 +49,9 @@ final lightTheme = ThemeData(
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: seedColor,
   ),
+  dialogTheme: DialogThemeData(
+    backgroundColor: backgroundColor
+  ),
   extensions: <ThemeExtension<dynamic>>[
     AppColors(
       seedColor: seedColor,

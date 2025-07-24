@@ -51,6 +51,7 @@ flutter:
 
   assets:
     - .env
+    - lib/assets/errors/
 
 flutter_launcher_icons:
   android: "launcher_icon"

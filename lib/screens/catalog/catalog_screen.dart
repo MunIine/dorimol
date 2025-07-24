@@ -4,6 +4,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:dorimol/api/models/category.dart';
 import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/theme/export.dart';
+import 'package:dorimol/widgets/errors/not_found.dart';
 import 'package:dorimol/widgets/export.dart';
 import 'package:dorimol/widgets/helpers/return_button.dart';
 import 'package:flutter/material.dart';
@@ -65,12 +66,17 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       ),
                     );
                   }
-                  if (state is CatalogLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
+                  if (state is CatalogFailure) {
+                    return Container(
+                      padding: EdgeInsets.only(top: 60),
+                      height: 395,
+                      width: 285,
+                      child: NotFound()
                     );
                   }
-                  return Center(child: Text("Ошибка загрузки товаров"));
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 },
               ),
             ),

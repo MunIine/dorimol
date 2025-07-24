@@ -11,7 +11,9 @@ class AppText {
   static const TextStyle t3 = TextStyle(fontSize: 13, fontWeight: FontWeight.w500);
   static const TextStyle t5 = TextStyle(fontSize: 15, fontWeight: FontWeight.w500);
   static const TextStyle t6 = TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
+  static const TextStyle t7 = TextStyle(fontSize: 17, fontWeight: FontWeight.w500);
   static const TextStyle b1 = TextStyle(fontSize: 11, fontWeight: FontWeight.bold);
   static const TextStyle b3= TextStyle(fontSize: 13, fontWeight: FontWeight.bold);
   static const TextStyle b4 = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+  static const TextStyle b7 = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
 }
