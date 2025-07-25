@@ -22,7 +22,9 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ProductDetailsBloc>(context).add(FetchProductDetails(productId: widget.id));
+    BlocProvider.of<ProductDetailsBloc>(
+      context,
+    ).add(FetchProductDetails(productId: widget.id));
   }
 
   @override
@@ -34,12 +36,13 @@ class _ProductScreenState extends State<ProductScreen> {
       body: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
         bloc: BlocProvider.of<ProductDetailsBloc>(context),
         builder: (context, state) {
-          if (state is ProductDetailsLoaded){
+          if (state is ProductDetailsLoaded) {
             final product = state.productDetails;
             return ListView(
               padding: EdgeInsets.zero,
               children: [
                 ProductImage(
+                  colorTheme: colorTheme,
                   imageUrl: product.imageUrl,
                   rating: product.rating,
                 ),
@@ -48,13 +51,17 @@ class _ProductScreenState extends State<ProductScreen> {
                   children: [
                     Padding(
                       padding: padding.copyWith(top: 10, bottom: 18),
-                      child: ProductNamePrice(colorTheme: colorTheme, product: product),
+                      child: ProductNamePrice(
+                        colorTheme: colorTheme,
+                        product: product,
+                      ),
                     ),
                     Padding(
                       padding: padding,
                       child: BlocSelector<CartBloc, CartState, double>(
                         selector: (state) {
-                          if (state is CartUpdated && state.productsInCart.containsKey(product.id)) {
+                          if (state is CartUpdated &&
+                              state.productsInCart.containsKey(product.id)) {
                             return state.productsInCart[product.id]!.quantity;
                           }
                           return 0.0;
@@ -72,7 +79,8 @@ class _ProductScreenState extends State<ProductScreen> {
                         },
                       ),
                     ),
-                    if (product.description != null && product.description!.trim().isNotEmpty) ... [
+                    if (product.description != null &&
+                        product.description!.trim().isNotEmpty) ...[
                       Divider(height: 30),
                       Padding(
                         padding: padding,
@@ -80,18 +88,31 @@ class _ProductScreenState extends State<ProductScreen> {
                           colorTheme: colorTheme,
                           description: product.description!,
                         ),
-                      )
+                      ),
                     ],
                     Divider(height: 30),
-                    ProductVendors(colorTheme: colorTheme, padding: padding, vendors: product.vendors),
-                    if (product.feedbacks.isNotEmpty) ... [
+                    ProductVendors(
+                      colorTheme: colorTheme,
+                      padding: padding,
+                      vendors: product.vendors,
+                    ),
+                    if (product.feedbacks.isNotEmpty) ...[
                       Divider(height: 30),
-                      ProductFeedbackWidget(colorTheme: colorTheme, padding: padding, feedbacks: product.feedbacks),
+                      ProductFeedbackWidget(
+                        colorTheme: colorTheme,
+                        padding: padding,
+                        feedbacks: product.feedbacks,
+                      ),
                     ],
-                    if (product.similars.isNotEmpty) ... [
+                    if (product.similars.isNotEmpty) ...[
                       Divider(height: 30),
-                      ProductSimilar(colorTheme: colorTheme, padding: padding, similars: product.similars),
-                    ] else SizedBox(height: 8)
+                      ProductSimilar(
+                        colorTheme: colorTheme,
+                        padding: padding,
+                        similars: product.similars,
+                      ),
+                    ] else
+                      SizedBox(height: 8),
                   ],
                 ),
               ],

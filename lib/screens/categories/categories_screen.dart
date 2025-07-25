@@ -26,7 +26,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 65),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -37,25 +37,25 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             BlocBuilder<CategoriesBloc, CategoriesState>(
               bloc: BlocProvider.of<CategoriesBloc>(context),
               builder: (context, state) {
-                if (state is CategoriesLoaded){
+                if (state is CategoriesLoaded) {
                   return Expanded(
                     child: ListView.separated(
                       padding: EdgeInsets.zero,
-                      itemBuilder: (BuildContext context, int index) => CategoryCard(
-                        category: state.categories[index],
-                      ),
-                      separatorBuilder: (BuildContext context, int index) => SizedBox(height: 10),
+                      itemBuilder: (BuildContext context, int index) =>
+                          CategoryCard(category: state.categories[index]),
+                      separatorBuilder: (BuildContext context, int index) =>
+                          SizedBox(height: 10),
                       itemCount: state.categories.length,
                     ),
                   );
                 }
-                if (state is CategoriesFailure){
-                  AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
+                if (state is CategoriesFailure) {
+                  AutoRouter.of(
+                    context,
+                  ).replace(ErrorRoute(exception: state.error));
                 }
                 return Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 );
               },
             ),
