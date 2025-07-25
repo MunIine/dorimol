@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
+import 'package:dorimol/router/router.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +26,8 @@ class OrderSuccessful extends StatelessWidget {
               width: 250,
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
+                  AutoRouter.of(context).popUntil((route) => route.settings.name == CategoriesRoute.name);
+                  // AutoRouter.of(context).push(CategoriesRoute());
                   BlocProvider.of<CartBloc>(context).add(ClearCart());
                 },
                 style: TextButton.styleFrom(backgroundColor: colorTheme.seedColor.withValues(alpha: 0.15)),

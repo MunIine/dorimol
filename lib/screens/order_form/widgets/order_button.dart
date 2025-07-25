@@ -8,12 +8,14 @@ class OrderButton extends StatelessWidget {
     super.key,
     required this.colorTheme, 
     required this.onTap,
-    required this.price, 
+    required this.price,
+    required this.enabled
   });
 
   final AppColors colorTheme;
   final VoidCallback onTap;
   final double price;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class OrderButton extends StatelessWidget {
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: colorTheme.seedColor
+                color: enabled ? colorTheme.seedColor : colorTheme.tips
               ),
               child: Row(
                 children: [

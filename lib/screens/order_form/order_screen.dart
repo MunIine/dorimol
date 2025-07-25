@@ -67,34 +67,25 @@ class _OrderScreenState extends State<OrderScreen> {
               colorTheme: colorTheme, 
               price: state.totalPrice, 
               onTap:() => placeOrder(
-                fullNameController,
-                phoneNumberController,
-                addressController,
-                commentController,
                 state.delivery,
                 state.productsInCart.isNotEmpty,
                 context
-            ));
+              ),
+              enabled: checkConditions(state.delivery, state.productsInCart.isNotEmpty),
+            );
           }
-          return OrderButton(colorTheme: colorTheme, price: 0, onTap: (){});
+          return OrderButton(colorTheme: colorTheme, price: 0, onTap: (){}, enabled: false);
         },
       ),
     );
   }
 
   void placeOrder(
-    TextEditingController fullNameController,
-    TextEditingController phoneNumberController,
-    TextEditingController addressController,
-    TextEditingController commentController,
     bool delivery,
     bool items,
     BuildContext context
   ){
-    if (fullNameController.text.trim().isNotEmpty 
-    && phoneNumberController.text.trim().isNotEmpty 
-    && items 
-    && ((delivery && addressController.text.trim().isNotEmpty) || !delivery)){
+    if (checkConditions(delivery, items)){
       BlocProvider.of<CartBloc>(context).add(PlaceOrder(
         fullName: fullNameController.text.trim(), 
         phoneNumber: phoneNumberController.text.trim(), 
@@ -102,5 +93,15 @@ class _OrderScreenState extends State<OrderScreen> {
         comment: commentController.text.trim()
       ));
     }
+  }
+
+  bool checkConditions(
+    bool delivery,
+    bool items,
+  ){
+    return fullNameController.text.trim().isNotEmpty 
+    && phoneNumberController.text.trim().isNotEmpty 
+    && items 
+    && ((delivery && addressController.text.trim().isNotEmpty) || !delivery);
   }
 }
