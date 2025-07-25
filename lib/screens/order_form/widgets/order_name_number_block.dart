@@ -28,11 +28,8 @@ class OrderNameNumberBlock extends StatelessWidget {
             colorTheme: colorTheme,
             form: true,
             hint: "Укажите ваше ФИО",
+            useIcon: true,
             onSubmitted: (value){},
-            // icon: Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16),
-            //   child: Icon(Icons.done_rounded, color: colorTheme.seedColor, size: 16),
-            // )
           ),
           SizedBox(height: 20),
           Text("Номер телефона", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
@@ -43,6 +40,7 @@ class OrderNameNumberBlock extends StatelessWidget {
             colorTheme: colorTheme,
             form: true,
             hint: "Укажите ваш номер телефона",
+            useIcon: true,
             onSubmitted: (value){},
           )
         ],

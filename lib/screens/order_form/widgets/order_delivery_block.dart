@@ -51,6 +51,7 @@ class _OrderDeliveryBlockState extends State<OrderDeliveryBlock> {
                   colorTheme: widget.colorTheme,
                   form: true,
                   hint: "ГОРОД-УЛИЦА-ДОМ",
+                  useIcon: true,
                   onSubmitted: (value) {},
                 ),
             ],

@@ -11,6 +11,7 @@ class BlockTextField extends StatelessWidget {
     this.controller, 
     this.form = false,
     this.enabled = true, 
+    this.useIcon = false,
     this.icon, 
     this.keyboardType, 
   });
@@ -23,11 +24,23 @@ class BlockTextField extends StatelessWidget {
   final bool enabled;
   final String hint;
   final Widget? icon;
+  final bool useIcon;
   final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     if (controller != null && defaultText != null) controller!.text = defaultText!;
+    final TextEditingController effectiveController = controller ?? TextEditingController();
+
+    Widget? suffix;
+    if (icon != null) {
+      suffix = icon;
+    } else if (useIcon && effectiveController.text.trim().isNotEmpty) {
+      suffix = Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Icon(Icons.done_rounded, color: colorTheme.seedColor, size: 16),
+      );
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -35,7 +48,7 @@ class BlockTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(12)
       ),
       child: TextField(
-        controller: controller,
+        controller: effectiveController,
         enabled: enabled,
         keyboardType: keyboardType,
         style: TextStyle(
@@ -47,7 +60,7 @@ class BlockTextField extends StatelessWidget {
             minHeight: 0,
             minWidth: 0
           ),
-          suffixIcon: icon
+          suffixIcon: suffix
         ),
         onSubmitted: onSubmitted
       ),
