@@ -49,10 +49,6 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
       bottomNavigationBar: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
-          if (state is OrderFailure) {
-            AutoRouter.of(context).push(ErrorRoute());
-            BlocProvider.of<CartBloc>(context).add(ClearCart());
-          }
           if (state is OrderPlaced) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               showDialog(
@@ -61,6 +57,10 @@ class _OrderScreenState extends State<OrderScreen> {
                 builder: (context) => OrderSuccessful(colorTheme: colorTheme)
               );
             });
+          }
+          if (state is OrderFailure) {
+            AutoRouter.of(context).push(ErrorRoute(exception: state.error));
+            BlocProvider.of<CartBloc>(context).add(ClearCart());
           }
           if (state is CartUpdated) {
             return OrderButton(

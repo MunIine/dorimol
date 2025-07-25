@@ -50,18 +50,25 @@ final class CatalogLoaded extends CatalogState {
     );
   }
 }
+final class CatalogNotFound extends CatalogState {
+  const CatalogNotFound({required super.sorting});
 
+  @override
+  CatalogNotFound copyWith({Sorting? sorting}) {
+    return CatalogNotFound(sorting: sorting ?? this.sorting);
+  }
+}
 final class CatalogFailure extends CatalogState {
   const CatalogFailure({required this.error, required super.sorting});
 
-  final Object error;
+  final Exception error;
 
   @override
   List<Object> get props => [error, sorting];
 
   @override
   CatalogFailure copyWith({
-    Object? error,
+    Exception? error,
     Sorting? sorting,
   }) {
     return CatalogFailure(

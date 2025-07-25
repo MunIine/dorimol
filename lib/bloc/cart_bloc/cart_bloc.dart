@@ -38,7 +38,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           items: productsInCart.values.toList()
         ));
         emit(OrderPlaced());
-      } catch (e) {
+      } on Exception catch (e) {
         emit(OrderFailure(error: e));
       }
     });

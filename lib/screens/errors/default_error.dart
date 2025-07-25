@@ -2,9 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage()
-class InternetErrorScreen extends StatelessWidget {
-  const InternetErrorScreen({super.key});
+class DefaultError extends StatelessWidget {
+  const DefaultError({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class InternetErrorScreen extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                "Ошибка сети",
+                "Что-то пошло не так...",
                 style: TextStyle(
                   fontSize: 32, 
                   fontWeight: FontWeight.bold,
@@ -25,10 +24,11 @@ class InternetErrorScreen extends StatelessWidget {
                   color: colorTheme.textBlack
                 )
               ),
-              Text("Нет подключения к интернету", style: AppText.t7.copyWith(color: colorTheme.textBlack)),
+              Text("Мы знаем о проблеме и уже работаем", style: AppText.t7.copyWith(color: colorTheme.textBlack)),
               Spacer(),
-              SizedBox(width: 300, child: Image(image: AssetImage("lib/assets/errors/network.png"))),
+              SizedBox(width: 250, child: Image(image: AssetImage("lib/assets/errors/error.png"))),
               Spacer(),
+              SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: TextButton(

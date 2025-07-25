@@ -1,5 +1,6 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
+import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/product/bloc/product_details_bloc.dart';
 import 'package:dorimol/screens/product/widgets/export.dart';
 import 'package:dorimol/theme/export.dart';
@@ -96,12 +97,10 @@ class _ProductScreenState extends State<ProductScreen> {
               ],
             );
           }
-          if (state is ProductDetailsLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+          if (state is ProductDetailsFailure) {
+            AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
           }
-          return Center(child: Text("Ошибка загрузки информации о товаре"));
+          return Center(child: CircularProgressIndicator());
         },
       ),
       bottomNavigationBar: BottomNavBar(),

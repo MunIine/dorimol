@@ -17,14 +17,14 @@ final class ProductDetailsLoaded extends ProductDetailsState {
   final ProductDetails productDetails;
 
   @override
-  List<Object> get props => super.props..add(productDetails);
+  List<Object> get props => [productDetails];
 }
 
 final class ProductDetailsFailure extends ProductDetailsState {
   const ProductDetailsFailure({required this.error});
 
-  final Object error;
+  final Exception error;
 
   @override
-  List<Object> get props => super.props..add(error);
+  List<Object> get props => [error];
 }

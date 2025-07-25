@@ -86,34 +86,49 @@ class CategoriesRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ErrorScreen]
-class ErrorRoute extends PageRouteInfo<void> {
-  const ErrorRoute({List<PageRouteInfo>? children})
-    : super(ErrorRoute.name, initialChildren: children);
+class ErrorRoute extends PageRouteInfo<ErrorRouteArgs> {
+  ErrorRoute({
+    Key? key,
+    required Exception exception,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ErrorRoute.name,
+         args: ErrorRouteArgs(key: key, exception: exception),
+         initialChildren: children,
+       );
 
   static const String name = 'ErrorRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ErrorScreen();
+      final args = data.argsAs<ErrorRouteArgs>();
+      return ErrorScreen(key: args.key, exception: args.exception);
     },
   );
 }
 
-/// generated route for
-/// [InternetErrorScreen]
-class InternetErrorRoute extends PageRouteInfo<void> {
-  const InternetErrorRoute({List<PageRouteInfo>? children})
-    : super(InternetErrorRoute.name, initialChildren: children);
+class ErrorRouteArgs {
+  const ErrorRouteArgs({this.key, required this.exception});
 
-  static const String name = 'InternetErrorRoute';
+  final Key? key;
 
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const InternetErrorScreen();
-    },
-  );
+  final Exception exception;
+
+  @override
+  String toString() {
+    return 'ErrorRouteArgs{key: $key, exception: $exception}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ErrorRouteArgs) return false;
+    return key == other.key && exception == other.exception;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ exception.hashCode;
 }
 
 /// generated route for

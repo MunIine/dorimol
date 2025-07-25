@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:dorimol/api/api.dart';
 import 'package:dorimol/data/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +51,12 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
         products = await apiClient.fetchProductsByName(event.idOrName, state.sorting.value);
       }
       emit(CatalogLoaded(products: products, sorting: state.sorting));
+    } on DioException catch (e){
+      if (e.type == DioExceptionType.badResponse && e.response?.statusCode == 404){
+        emit(CatalogNotFound(sorting: state.sorting));
+        return;
+      }
+      emit(CatalogFailure(error: e, sorting: state.sorting));
     } on Exception catch (e) {
       emit(CatalogFailure(error: e, sorting: state.sorting));
     }

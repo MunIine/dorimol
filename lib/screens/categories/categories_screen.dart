@@ -1,4 +1,5 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/categories/bloc/categories_bloc.dart';
 import 'package:dorimol/screens/categories/widgets/category_card.dart';
 import 'package:dorimol/theme/export.dart';
@@ -48,14 +49,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     ),
                   );
                 }
-                if (state is CategoriesLoading) {
-                  return Expanded(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
+                if (state is CategoriesFailure){
+                  AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
                 }
-                return Center(child: Text("Ошибка загрузки категорий"));
+                return Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
               },
             ),
           ],

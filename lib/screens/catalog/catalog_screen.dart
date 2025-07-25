@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/api/models/category.dart';
+import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/errors/not_found.dart';
@@ -66,13 +67,16 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       ),
                     );
                   }
-                  if (state is CatalogFailure) {
+                  if (state is CatalogNotFound){
                     return Container(
                       padding: EdgeInsets.only(top: 60),
                       height: 395,
                       width: 285,
                       child: NotFound()
                     );
+                  }
+                  if (state is CatalogFailure) {
+                    AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
                   }
                   return Center(
                     child: CircularProgressIndicator(),

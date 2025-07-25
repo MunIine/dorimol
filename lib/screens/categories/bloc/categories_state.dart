@@ -23,8 +23,8 @@ final class CategoriesLoaded extends CategoriesState {
 final class CategoriesFailure extends CategoriesState {
   const CategoriesFailure(this.error);
 
-  final Object error;
+  final Exception error;
 
   @override
-  List<Object> get props => super.props..add(error);
+  List<Object> get props => [error];
 }

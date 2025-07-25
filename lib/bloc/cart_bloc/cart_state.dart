@@ -33,7 +33,7 @@ final class OrderLoading extends CartState {}
 final class OrderPlaced extends CartState {}
 
 final class OrderFailure extends CartState {
-  final Object error;
+  final Exception error;
 
   const OrderFailure({required this.error});
 
