@@ -107,8 +107,8 @@ class _DoublePriceBlock extends StatelessWidget {
               color: blockColor
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 6, bottom: 6),
-              child: Center(child: Text("$priceР/$unit", style: AppText.h1.copyWith(color: textColor))),
+              padding: const EdgeInsets.all(6),
+              child: Center(child: FittedBox(child: Text("$priceР/$unit", style: AppText.h1.copyWith(color: textColor)))),
             ),
           ),
           SizedBox(height: 1),
@@ -119,8 +119,8 @@ class _DoublePriceBlock extends StatelessWidget {
               color: blockColor
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Center(child: Text("$wholesalePriceР/$unit", style: AppText.t3.copyWith(color: secondTextColor))),
+              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+              child: Center(child: FittedBox(child: Text("$wholesalePriceР/$unit", style: AppText.t3.copyWith(color: secondTextColor)))),
             ),
           ),
           if (text != null) Text(text, style: AppText.t0.copyWith(color: blockColor))
