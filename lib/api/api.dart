@@ -17,6 +17,9 @@ abstract class DorimolApiClient {
     return DorimolApiClient(dio);
   }
 
+  @GET('/config')
+  Future<Map<String, String>> fetchConfig();
+
   @GET('/categories')
   Future<List<Category>> fetchCategories();
   
