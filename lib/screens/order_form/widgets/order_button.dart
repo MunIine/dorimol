@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,26 +25,43 @@ class OrderButton extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            onTap: onTap,
-            child: Container(
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: enabled ? colorTheme.seedColor : colorTheme.tips
+          Row(
+            children: [
+              IconButton(
+                onPressed: () => AutoRouter.of(context).pop(),
+                style: IconButton.styleFrom(
+                  padding: EdgeInsets.all(16),
+                  backgroundColor: colorTheme.seedColor,
+                ),
+                icon: Transform.rotate(
+                  angle: 3.14159,
+                  child: Icon(SvgIcons.back, color: colorTheme.background)
+                )
               ),
-              child: Row(
-                children: [
-                  Spacer(),
-                  Text("$priceруб.", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
-                  SizedBox(width: 16),
-                  Text("|", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
-                  SizedBox(width: 16),
-                  Text("Заказать", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
-                  Spacer()
-                ],
-              )
-            ),
+              SizedBox(width: 8),
+              Expanded(
+                child: GestureDetector(
+                  onTap: onTap,
+                  child: Container(
+                    height: 56,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      color: enabled ? colorTheme.seedColor : colorTheme.tips
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("$priceруб.", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
+                        SizedBox(width: 16),
+                        Text("|", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
+                        SizedBox(width: 16),
+                        Text("Заказать", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
+                      ],
+                    )
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 14),
           RichText(

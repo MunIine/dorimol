@@ -26,7 +26,7 @@ class OrderSuccessful extends StatelessWidget {
               width: 250,
               child: TextButton(
                 onPressed: () {
-                  AutoRouter.of(context).popUntil((route) => route.settings.name == CategoriesRoute.name);
+                  AutoRouter.of(context).popUntil((route) => route.settings.name == HomeRoute.name);
                   BlocProvider.of<CartBloc>(context).add(ClearCart());
                 },
                 style: TextButton.styleFrom(backgroundColor: colorTheme.seedColor.withValues(alpha: 0.15)),

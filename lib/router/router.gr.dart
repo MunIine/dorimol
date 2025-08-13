@@ -222,3 +222,19 @@ class ProductRouteArgs {
   @override
   int get hashCode => key.hashCode ^ id.hashCode;
 }
+
+/// generated route for
+/// [StoreScreen]
+class StoreRoute extends PageRouteInfo<void> {
+  const StoreRoute({List<PageRouteInfo>? children})
+    : super(StoreRoute.name, initialChildren: children);
+
+  static const String name = 'StoreRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const StoreScreen();
+    },
+  );
+}

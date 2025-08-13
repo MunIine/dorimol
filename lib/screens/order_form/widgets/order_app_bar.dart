@@ -1,6 +1,5 @@
 
 import 'package:dorimol/theme/export.dart';
-import 'package:dorimol/widgets/helpers/return_button.dart';
 import 'package:flutter/material.dart';
 
 class OrderAppBar extends StatelessWidget {
@@ -13,20 +12,13 @@ class OrderAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ReturnButton(icon: SvgIcons.xCirleFilled, color: colorTheme.tips),
-        Spacer(),
-        Column(
-          children: [
-            Text("Оформление заказа", style: AppText.h1.copyWith(color: colorTheme.textBlack, height: 1.3)),
-            Text("Сохраняется, пока вы его не отмените", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
-          ],
-        ),
-        Spacer(),
-        SizedBox(width: 24)
-      ],
+    return Center(
+      child: Column(
+        children: [
+          Text("Оформление заказа", style: AppText.h1.copyWith(color: colorTheme.textBlack, height: 1.3)),
+          Text("Сохраняется, пока вы его не отмените", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
+        ],
+      ),
     );
   }
 }

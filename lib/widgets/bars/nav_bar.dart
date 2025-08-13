@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/router/router.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     final activeIndex = widget.tabsRouter.activeIndex;
+
     final count = widget.icons.length;
     final iconSize = 56.0;
     final totalWidth = iconSize * count;
@@ -63,13 +65,21 @@ class _NavBarState extends State<NavBar> {
                       width: iconSize,
                       height: iconSize,
                       child: IconButton(
-                        onPressed: () => widget.tabsRouter.setActiveIndex(index),
+                        onPressed: () {
+                          // If cart push to screen
+                          if (index == 2) {
+                            AutoRouter.of(context).root.push(OrderRoute());
+                            return;
+                          }
+                          widget.tabsRouter.setActiveIndex(index);
+                        },
                         icon: Icon(
                           widget.icons[index],
                           color: widget.colorTheme.background,
                         ),
                         style: IconButton.styleFrom(
                           backgroundColor: Colors.transparent,
+                          foregroundColor: Color(0xFF01b554)
                         ),
                       ),
                     );

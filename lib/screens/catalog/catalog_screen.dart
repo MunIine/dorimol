@@ -32,60 +32,61 @@ class _CatalogScreenState extends State<CatalogScreen> {
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
-    return Scaffold(
-      backgroundColor: Color(0xFFF9F9F9),
-      appBar: AppBar(
-        leading: ReturnButton(),
-        title: widget.category != null ? Text(widget.category!.name, style: AppText.h2.copyWith(letterSpacing: 2.5, color: colorTheme.seedColor)) : null,
-        backgroundColor: Color(0xFFF9F9F9),
-        surfaceTintColor: Color(0xFFF9F9F9),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            AppSearchBar(sliders: true, defaultTextFieldText: widget.query),
-            SizedBox(height: 20),
-            Expanded(
-              child: BlocBuilder<CatalogBloc, CatalogState>(
-                bloc: BlocProvider.of<CatalogBloc>(context),
-                builder: (context, state) {
-                  if (state is CatalogLoaded){
-                    final products = state.products;
-                    return GridView.builder(
-                      itemCount: products.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        childAspectRatio: 185 / 285,
-                      ),
-                      itemBuilder: (context, index) => ProductCard(
-                        inCart: [false, true][Random().nextInt(2)],
-                        product: products[index],
-                      ),
-                    );
-                  }
-                  if (state is CatalogNotFound){
-                    return Container(
-                      padding: EdgeInsets.only(top: 60),
-                      height: 395,
-                      width: 285,
-                      child: NotFound()
-                    );
-                  }
-                  if (state is CatalogFailure) {
-                    AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 24),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Row(
+              children: [
+                ReturnButton(),
+                Spacer(),
+                Text(widget.category != null ? widget.category!.name : "Похожие товары", style: AppText.h2.copyWith(letterSpacing: 2.5, color: colorTheme.seedColor)),
+                Spacer(),
+                SizedBox(width: 24)
+              ],
             ),
-          ],
-        ),
+          ),
+          AppSearchBar(sliders: true, defaultTextFieldText: widget.query),
+          Expanded(
+            child: BlocBuilder<CatalogBloc, CatalogState>(
+              bloc: BlocProvider.of<CatalogBloc>(context),
+              builder: (context, state) {
+                if (state is CatalogLoaded){
+                  final products = state.products;
+                  return GridView.builder(
+                    itemCount: products.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 185 / 285,
+                    ),
+                    itemBuilder: (context, index) => ProductCard(
+                      inCart: [false, true][Random().nextInt(2)],
+                      product: products[index],
+                    ),
+                  );
+                }
+                if (state is CatalogNotFound){
+                  return Container(
+                    padding: EdgeInsets.only(top: 60),
+                    height: 395,
+                    width: 285,
+                    child: NotFound()
+                  );
+                }
+                if (state is CatalogFailure) {
+                  AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

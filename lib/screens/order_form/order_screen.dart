@@ -32,7 +32,6 @@ class _OrderScreenState extends State<OrderScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             OrderAppBar(colorTheme: colorTheme),
-            SizedBox(height: 16),
             Expanded(
               child: ListView(
                 children: [
