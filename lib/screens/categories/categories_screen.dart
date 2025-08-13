@@ -24,6 +24,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = Theme.of(context).extension<AppColors>()!;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 65),
@@ -39,13 +41,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               builder: (context, state) {
                 if (state is CategoriesLoaded) {
                   return Expanded(
-                    child: ListView.separated(
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 9,
+                        crossAxisSpacing: 9,
+                        childAspectRatio: 4/3
+                      ),
                       padding: EdgeInsets.zero,
-                      itemBuilder: (BuildContext context, int index) =>
-                          CategoryCard(category: state.categories[index]),
-                      separatorBuilder: (BuildContext context, int index) =>
-                          SizedBox(height: 10),
                       itemCount: state.categories.length,
+                      itemBuilder: (context, index) => CategoryCard(category: state.categories[index], colorTheme: colorTheme)
                     ),
                   );
                 }

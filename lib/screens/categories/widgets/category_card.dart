@@ -6,9 +6,10 @@ import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key, required this.category});
+  const CategoryCard({super.key, required this.category, required this.colorTheme});
 
   final Category category;
+  final AppColors colorTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class CategoryCard extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.only(top: 15).copyWith(left: 20),
-          child: Text(category.name, style: AppText.h2),
+          child: Text(category.name, style: AppText.b6.copyWith(color: colorTheme.background)),
         ),
       ),
     );
