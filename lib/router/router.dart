@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/api/models/category.dart';
+import 'package:dorimol/screens/account/account_screen.dart';
 import 'package:dorimol/screens/catalog/catalog_screen.dart';
 import 'package:dorimol/screens/categories/categories_screen.dart';
 import 'package:dorimol/screens/errors/error_screen.dart';
+import 'package:dorimol/screens/home_screen.dart';
+import 'package:dorimol/screens/order_form/order_screen.dart';
 import 'package:dorimol/screens/product/product_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +16,27 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: CategoriesRoute.page, path: "/"),
-    AutoRoute(page: CatalogRoute.page, path: "/catalog"),
-    AutoRoute(page: ProductRoute.page, path: "/product"),
+    AutoRoute(
+      page: HomeRoute.page,
+      path: "/",
+      children: [
+        AutoRoute(page: AccountRoute.page, path: "account"),
+        AutoRoute(
+          page: CategoriesRoute.page, 
+          path: "categories",
+          children: [
+            AutoRoute(
+              page: CatalogRoute.page,
+              path: "/catalog",
+              children: [
+                AutoRoute(page: ProductRoute.page, path: "/product"),
+              ]
+            ),
+          ]
+        ),
+        AutoRoute(page: OrderRoute.page, path: "order"),
+      ]
+    ),
     AutoRoute(page: ErrorRoute.page, path: "/error"),
   ];
 }

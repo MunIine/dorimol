@@ -26,48 +26,42 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
 
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 65),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppSearchBar(sliders: false),
-            SizedBox(height: 16),
-            Text("Категории", style: AppText.h1),
-            SizedBox(height: 16),
-            BlocBuilder<CategoriesBloc, CategoriesState>(
-              bloc: BlocProvider.of<CategoriesBloc>(context),
-              builder: (context, state) {
-                if (state is CategoriesLoaded) {
-                  return Expanded(
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 9,
-                        crossAxisSpacing: 9,
-                        childAspectRatio: 4/3
-                      ),
-                      padding: EdgeInsets.zero,
-                      itemCount: state.categories.length,
-                      itemBuilder: (context, index) => CategoryCard(category: state.categories[index], colorTheme: colorTheme)
-                    ),
-                  );
-                }
-                if (state is CategoriesFailure) {
-                  AutoRouter.of(
-                    context,
-                  ).replace(ErrorRoute(exception: state.error));
-                }
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 65),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppSearchBar(sliders: false),
+          SizedBox(height: 16),
+          Text("Категории", style: AppText.h1),
+          SizedBox(height: 16),
+          BlocBuilder<CategoriesBloc, CategoriesState>(
+            bloc: BlocProvider.of<CategoriesBloc>(context),
+            builder: (context, state) {
+              if (state is CategoriesLoaded) {
                 return Expanded(
-                  child: Center(child: CircularProgressIndicator()),
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 9,
+                      crossAxisSpacing: 9,
+                      childAspectRatio: 4 / 3,
+                    ),
+                    padding: EdgeInsets.zero,
+                    itemCount: state.categories.length,
+                    itemBuilder: (context, index) =>
+                        CategoryCard(category: state.categories[index], colorTheme: colorTheme),
+                  ),
                 );
-              },
-            ),
-          ],
-        ),
+              }
+              if (state is CategoriesFailure) {
+                AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
+              }
+              return Expanded(child: Center(child: CircularProgressIndicator()));
+            },
+          ),
+        ],
       ),
-      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

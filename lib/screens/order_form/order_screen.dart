@@ -7,6 +7,7 @@ import 'package:dorimol/widgets/pop_up/order_successful.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
 
