@@ -2,8 +2,8 @@
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
-class OrderAppBar extends StatelessWidget {
-  const OrderAppBar({
+class CartAppBar extends StatelessWidget {
+  const CartAppBar({
     super.key,
     required this.colorTheme,
   });

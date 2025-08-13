@@ -1,21 +1,21 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
+import 'package:dorimol/screens/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/router/router.dart';
-import 'package:dorimol/screens/order_form/widgets/export.dart';
+import 'package:dorimol/screens/cart/widgets/export.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/pop_up/order_successful.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class OrderScreen extends StatefulWidget {
-  const OrderScreen({super.key});
+class CartScreen extends StatefulWidget {
+  const CartScreen({super.key});
 
   @override
-  State<OrderScreen> createState() => _OrderScreenState();
+  State<CartScreen> createState() => _CartScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class _CartScreenState extends State<CartScreen> {
   final fullNameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final addressController = TextEditingController();
@@ -31,15 +31,15 @@ class _OrderScreenState extends State<OrderScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            OrderAppBar(colorTheme: colorTheme),
+            CartAppBar(colorTheme: colorTheme),
             Expanded(
               child: ListView(
                 children: [
-                  OrderNameNumberBlock(colorTheme: colorTheme, fullNameController: fullNameController, phoneNumberController: phoneNumberController),
+                  CartNameNumberBlock(colorTheme: colorTheme, fullNameController: fullNameController, phoneNumberController: phoneNumberController),
                   SizedBox(height: 16),
-                  OrderDeliveryBlock(colorTheme: colorTheme, controller: addressController),
+                  CartDeliveryBlock(colorTheme: colorTheme, controller: addressController),
                   SizedBox(height: 16),
-                  OrderProductsCommentBlock(colorTheme: colorTheme, controller: commentController),
+                  CartProductsCommentBlock(colorTheme: colorTheme, controller: commentController),
                   SizedBox(height: 16),
                 ],
               ),
@@ -63,7 +63,7 @@ class _OrderScreenState extends State<OrderScreen> {
             BlocProvider.of<CartBloc>(context).add(ClearCart());
           }
           if (state is CartUpdated) {
-            return OrderButton(
+            return CartButton(
               colorTheme: colorTheme, 
               price: state.totalPrice, 
               onTap:() => placeOrder(
@@ -74,7 +74,7 @@ class _OrderScreenState extends State<OrderScreen> {
               enabled: checkConditions(state.delivery, state.productsInCart.isNotEmpty),
             );
           }
-          return OrderButton(colorTheme: colorTheme, price: 0, onTap: (){}, enabled: false);
+          return CartButton(colorTheme: colorTheme, price: 0, onTap: (){}, enabled: false);
         },
       ),
     );

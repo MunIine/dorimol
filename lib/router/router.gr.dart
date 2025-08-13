@@ -164,7 +164,7 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [OrderScreen]
+/// [CartScreen]
 class OrderRoute extends PageRouteInfo<void> {
   const OrderRoute({List<PageRouteInfo>? children})
     : super(OrderRoute.name, initialChildren: children);
@@ -174,7 +174,7 @@ class OrderRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const OrderScreen();
+      return const CartScreen();
     },
   );
 }

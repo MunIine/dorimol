@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OrderContentBlock extends StatelessWidget {
-  const OrderContentBlock({super.key, required this.child});
+class CartContentBlock extends StatelessWidget {
+  const CartContentBlock({super.key, required this.child});
 
   final Widget child;
 

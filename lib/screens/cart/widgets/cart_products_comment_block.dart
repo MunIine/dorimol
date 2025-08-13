@@ -1,21 +1,21 @@
-import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
-import 'package:dorimol/screens/order_form/widgets/content_block.dart';
-import 'package:dorimol/screens/order_form/widgets/order_products.dart';
+import 'package:dorimol/screens/cart/bloc/cart_bloc.dart';
+import 'package:dorimol/screens/cart/widgets/cart_content_block.dart';
+import 'package:dorimol/screens/cart/widgets/cart_products.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/errors/no_items_in_cart.dart';
 import 'package:dorimol/widgets/helpers/block_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OrderProductsCommentBlock extends StatelessWidget {
-  const OrderProductsCommentBlock({super.key, required this.colorTheme, required this.controller});
+class CartProductsCommentBlock extends StatelessWidget {
+  const CartProductsCommentBlock({super.key, required this.colorTheme, required this.controller});
 
   final AppColors colorTheme;
   final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    return OrderContentBlock(
+    return CartContentBlock(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -25,7 +25,7 @@ class OrderProductsCommentBlock extends StatelessWidget {
               if (state is CartUpdated) {
                 final List<String> keys = state.products.keys.toList();
                 if (keys.isNotEmpty) {
-                  return OrderProducts(colorTheme: colorTheme, keys: keys, products: state.products, productsInCart: state.productsInCart);
+                  return CartProducts(colorTheme: colorTheme, keys: keys, products: state.products, productsInCart: state.productsInCart);
                 }
                 return NoItemsInCart(colorTheme: colorTheme);
               }

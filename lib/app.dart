@@ -1,5 +1,5 @@
 import 'package:dorimol/api/api.dart';
-import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
+import 'package:dorimol/screens/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/screens/categories/bloc/categories_bloc.dart';

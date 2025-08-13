@@ -1,10 +1,10 @@
-import 'package:dorimol/screens/order_form/widgets/content_block.dart';
+import 'package:dorimol/screens/cart/widgets/cart_content_block.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/helpers/block_text_field.dart';
 import 'package:flutter/material.dart';
 
-class OrderNameNumberBlock extends StatelessWidget {
-  const OrderNameNumberBlock({
+class CartNameNumberBlock extends StatelessWidget {
+  const CartNameNumberBlock({
     super.key,
     required this.colorTheme, 
     required this.fullNameController, 
@@ -17,7 +17,7 @@ class OrderNameNumberBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OrderContentBlock(
+    return CartContentBlock(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

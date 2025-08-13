@@ -4,8 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class OrderButton extends StatelessWidget {
-  const OrderButton({
+class CartButton extends StatelessWidget {
+  const CartButton({
     super.key,
     required this.colorTheme, 
     required this.onTap,

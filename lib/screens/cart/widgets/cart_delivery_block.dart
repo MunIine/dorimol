@@ -1,21 +1,21 @@
-import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
-import 'package:dorimol/screens/order_form/widgets/content_block.dart';
+import 'package:dorimol/screens/cart/bloc/cart_bloc.dart';
+import 'package:dorimol/screens/cart/widgets/cart_content_block.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/helpers/block_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OrderDeliveryBlock extends StatefulWidget {
-  const OrderDeliveryBlock({super.key, required this.colorTheme, required this.controller});
+class CartDeliveryBlock extends StatefulWidget {
+  const CartDeliveryBlock({super.key, required this.colorTheme, required this.controller});
 
   final AppColors colorTheme;
   final TextEditingController controller;
 
   @override
-  State<OrderDeliveryBlock> createState() => _OrderDeliveryBlockState();
+  State<CartDeliveryBlock> createState() => _CartDeliveryBlockState();
 }
 
-class _OrderDeliveryBlockState extends State<OrderDeliveryBlock> {
+class _CartDeliveryBlockState extends State<CartDeliveryBlock> {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<CartBloc, CartState, bool>(
@@ -25,7 +25,7 @@ class _OrderDeliveryBlockState extends State<OrderDeliveryBlock> {
         return false;
       },
       builder: (context, delivery) {
-        return OrderContentBlock(
+        return CartContentBlock(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

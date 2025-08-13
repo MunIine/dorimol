@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
+import 'package:dorimol/screens/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';

@@ -5,7 +5,7 @@ import 'package:dorimol/screens/catalog/catalog_screen.dart';
 import 'package:dorimol/screens/categories/categories_screen.dart';
 import 'package:dorimol/screens/errors/error_screen.dart';
 import 'package:dorimol/screens/home_screen.dart';
-import 'package:dorimol/screens/order_form/order_screen.dart';
+import 'package:dorimol/screens/cart/cart_screen.dart';
 import 'package:dorimol/screens/product/product_screen.dart';
 import 'package:dorimol/screens/store/store_screen.dart';
 import 'package:flutter/material.dart';
