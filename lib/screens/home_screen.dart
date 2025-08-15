@@ -13,9 +13,9 @@ class HomeScreen extends StatelessWidget {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
 
     final icons = [
-      Icons.category,
-      Icons.category,
-      Icons.category,
+      SvgIcons.user,
+      SvgIcons.groceryBasket,
+      SvgIcons.shoppingCartFilled,
     ];
 
     return AutoTabsRouter(

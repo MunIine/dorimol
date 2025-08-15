@@ -30,7 +30,7 @@ class OrderSuccessful extends StatelessWidget {
                   BlocProvider.of<CartBloc>(context).add(ClearCart());
                 },
                 style: TextButton.styleFrom(backgroundColor: colorTheme.seedColor.withValues(alpha: 0.15)),
-                child: Text("На главную", style: AppText.b4.copyWith(color: colorTheme.seedColor)),
+                child: Text("Вернуться к покупкам", style: AppText.b4.copyWith(color: colorTheme.seedColor)),
               ),
             ),
           ],
