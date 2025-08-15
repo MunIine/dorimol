@@ -12,8 +12,8 @@ class NoItemsInCart extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Корзина пуста", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
-        SizedBox(height: 25),
-        Center(
+        const SizedBox(height: 25),
+        const Center(
           child: SizedBox(
             width: 120,
             child: Image(image: AssetImage("lib/assets/errors/no_items.png"))

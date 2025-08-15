@@ -27,21 +27,21 @@ class CartProductCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(product.name, style: AppText.b4.copyWith(color: colorTheme.textBlack)),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: colorTheme.block),
               child: Text("${product.currentPrice(quantity)}Р/${product.unit}", style: AppText.b4.copyWith(color: colorTheme.textGray)),
             ),
           ],
         ),
-        Spacer(),
+        const Spacer(),
         SizedBox(
           width: 120,
           child: ChangeProductInCart(

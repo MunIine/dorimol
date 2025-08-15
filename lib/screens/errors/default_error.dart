@@ -12,7 +12,7 @@ class DefaultError extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16).copyWith(top: 100, bottom: 90),
+          padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 100, bottom: 90),
           child: Column(
             children: [
               Text(
@@ -25,15 +25,15 @@ class DefaultError extends StatelessWidget {
                 )
               ),
               Text("Мы знаем о проблеме и уже работаем", style: AppText.t7.copyWith(color: colorTheme.textBlack)),
-              Spacer(),
-              SizedBox(width: 250, child: Image(image: AssetImage("lib/assets/errors/error.png"))),
-              Spacer(),
-              SizedBox(height: 20),
+              const Spacer(),
+              const SizedBox(width: 250, child: Image(image: AssetImage("lib/assets/errors/error.png"))),
+              const Spacer(),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () => AutoRouter.of(context).pushPath("/"),
-                  style: TextButton.styleFrom(backgroundColor: colorTheme.iconGray, padding: EdgeInsets.symmetric(vertical: 12)),
+                  style: TextButton.styleFrom(backgroundColor: colorTheme.iconGray, padding: const EdgeInsets.symmetric(vertical: 12)),
                   child: Text("На главную", style: AppText.b7.copyWith(color: colorTheme.background))
                 ),
               )

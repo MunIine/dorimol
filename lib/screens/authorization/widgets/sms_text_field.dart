@@ -17,7 +17,7 @@ class SmsTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Код из смс", style: AppText.b1.copyWith(color: colorTheme.iconGray)),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Pinput(
           length: 6,
           defaultPinTheme: PinTheme(
@@ -51,9 +51,9 @@ class SmsTextField extends StatelessWidget {
           showCursor: true,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Text("Отправить код повторно 29с", style: AppText.b1.copyWith(color: colorTheme.seedColor)),
-        SizedBox(height: 26)
+        const SizedBox(height: 26)
       ],
     );
   }

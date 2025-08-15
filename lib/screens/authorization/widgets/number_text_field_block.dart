@@ -66,7 +66,7 @@ class _NumberTextFieldBlockState extends State<NumberTextFieldBlock> {
                     style: AppText.b4.copyWith(color: widget.colorTheme.textBlack),
                   ),
                 ),
-                prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
+                prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
                 hintText: "XXX XXX XX",
                 enabledBorder: completed ? OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -134,8 +134,8 @@ class _PhoneNumberFormatter extends TextInputFormatter {
 
 // Кастомный TextInputFormatter, запрещающий удалять префикс
 class _PrefixPhoneInputFormatter extends TextInputFormatter {
-  final String prefix;
   _PrefixPhoneInputFormatter(this.prefix);
+  final String prefix;
 
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {

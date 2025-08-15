@@ -20,8 +20,8 @@ class HomeScreen extends StatelessWidget {
 
     return AutoTabsRouter(
       routes: [
-        AccountRoute(),
-        StoreRoute(),
+        const AccountRoute(),
+        const StoreRoute(),
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);

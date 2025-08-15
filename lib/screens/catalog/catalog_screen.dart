@@ -40,11 +40,11 @@ class _CatalogScreenState extends State<CatalogScreen> {
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Row(
               children: [
-                ReturnButton(),
-                Spacer(),
+                const ReturnButton(),
+                const Spacer(),
                 Text(widget.category != null ? widget.category!.name : "Похожие товары", style: AppText.h2.copyWith(letterSpacing: 2.5, color: colorTheme.seedColor)),
-                Spacer(),
-                SizedBox(width: 24)
+                const Spacer(),
+                const SizedBox(width: 24)
               ],
             ),
           ),
@@ -57,7 +57,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                   final products = state.products;
                   return GridView.builder(
                     itemCount: products.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
@@ -71,16 +71,16 @@ class _CatalogScreenState extends State<CatalogScreen> {
                 }
                 if (state is CatalogNotFound){
                   return Container(
-                    padding: EdgeInsets.only(top: 60),
+                    padding: const EdgeInsets.only(top: 60),
                     height: 395,
                     width: 285,
-                    child: NotFound()
+                    child: const NotFound()
                   );
                 }
                 if (state is CatalogFailure) {
                   AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
                 }
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               },

@@ -80,7 +80,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                   if (product.description != null &&
                       product.description!.trim().isNotEmpty) ...[
-                    Divider(height: 30),
+                    const Divider(height: 30),
                     Padding(
                       padding: padding,
                       child: ProductDescription(
@@ -89,14 +89,14 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ),
                   ],
-                  Divider(height: 30),
+                  const Divider(height: 30),
                   ProductVendors(
                     colorTheme: colorTheme,
                     padding: padding,
                     vendors: product.vendors,
                   ),
                   if (product.feedbacks.isNotEmpty) ...[
-                    Divider(height: 30),
+                    const Divider(height: 30),
                     ProductFeedbackWidget(
                       colorTheme: colorTheme,
                       padding: padding,
@@ -104,14 +104,14 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                   ],
                   if (product.similars.isNotEmpty) ...[
-                    Divider(height: 30),
+                    const Divider(height: 30),
                     ProductSimilar(
                       colorTheme: colorTheme,
                       padding: padding,
                       similars: product.similars,
                     ),
                   ] else
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                 ],
               ),
             ],
@@ -120,7 +120,7 @@ class _ProductScreenState extends State<ProductScreen> {
         if (state is ProductDetailsFailure) {
           AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
         }
-        return Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

@@ -51,12 +51,12 @@ class BlockTextField extends StatelessWidget {
         controller: effectiveController,
         enabled: enabled,
         keyboardType: keyboardType,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 15
         ),
         decoration: InputDecoration(
           hintText: hint,
-          suffixIconConstraints: BoxConstraints(
+          suffixIconConstraints: const BoxConstraints(
             minHeight: 0,
             minWidth: 0
           ),

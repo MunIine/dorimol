@@ -24,10 +24,10 @@ class ProductFeedbackWidget extends StatelessWidget {
           child: Row(
             children: [
               Text("Отзывы", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
-              Spacer(),
+              const Spacer(),
               IconButton(
                 onPressed: () {},
-                icon: Icon(SvgIcons.back),
+                icon: const Icon(SvgIcons.back),
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,
                 ),
@@ -35,14 +35,14 @@ class ProductFeedbackWidget extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         SizedBox(
           height: 65,
           child: ListView.separated(
             itemCount: feedbacks.length,
             scrollDirection: Axis.horizontal,
             padding: padding,
-            separatorBuilder: (context, index) => SizedBox(width: 10), 
+            separatorBuilder: (context, index) => const SizedBox(width: 10), 
             itemBuilder: (context, index) => SizedBox(
               height: 65,
               width: 275, 
@@ -82,10 +82,10 @@ class _FeedbackCard extends StatelessWidget {
     ];
 
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: colorTheme.background,
-        border: Border.all(color: Color(0xFFDEDEDE), width: 0.5),
+        border: Border.all(color: const Color(0xFFDEDEDE), width: 0.5),
         borderRadius: BorderRadius.circular(12)
       ),
       child: Row(
@@ -100,7 +100,7 @@ class _FeedbackCard extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,7 @@ class _FeedbackCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Padding(
                   padding: const EdgeInsets.only(right: 15),
                   child: Text(

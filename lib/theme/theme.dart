@@ -21,7 +21,7 @@ final lightTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: seedColor),
   scaffoldBackgroundColor: backgroundColor,
   fontFamily: "Rostelecom",
-  iconTheme: IconThemeData(
+  iconTheme: const IconThemeData(
     color: iconGrayColor
   ),
   iconButtonTheme: IconButtonThemeData(
@@ -46,14 +46,14 @@ final lightTheme = ThemeData(
     focusedBorder: InputBorder.none,
     hintStyle: AppText.t3.copyWith(color: tipsColor),
   ),
-  progressIndicatorTheme: ProgressIndicatorThemeData(
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: seedColor,
   ),
-  dialogTheme: DialogThemeData(
+  dialogTheme: const DialogThemeData(
     backgroundColor: backgroundColor
   ),
   extensions: <ThemeExtension<dynamic>>[
-    AppColors(
+    const AppColors(
       seedColor: seedColor,
       textBlack: textBlackColor,
       textGray: textGrayColor,

@@ -22,7 +22,7 @@ class ProductVendors extends StatelessWidget {
           padding: padding,
           child: Text("Производитель", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           padding: padding,
@@ -31,7 +31,7 @@ class ProductVendors extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.only(right: index == vendors.length - 1 ? 0 : 10),
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: colorTheme.block,
                   borderRadius: BorderRadius.circular(10),

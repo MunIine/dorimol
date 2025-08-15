@@ -37,7 +37,7 @@ class ProductImage extends StatelessWidget {
             top: 259 + 50,
             child: RatingBlock(
               rating: rating!,
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 left: 8,
               ).copyWith(right: 10).copyWith(top: 2),
               useStarTextColor: true,

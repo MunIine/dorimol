@@ -12,7 +12,7 @@ class InternetError extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16).copyWith(top: 100, bottom: 90),
+          padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 100, bottom: 90),
           child: Column(
             children: [
               Text(
@@ -25,14 +25,14 @@ class InternetError extends StatelessWidget {
                 )
               ),
               Text("Нет подключения к интернету", style: AppText.t7.copyWith(color: colorTheme.textBlack)),
-              Spacer(),
-              SizedBox(width: 300, child: Image(image: AssetImage("lib/assets/errors/network.png"))),
-              Spacer(),
+              const Spacer(),
+              const SizedBox(width: 300, child: Image(image: AssetImage("lib/assets/errors/network.png"))),
+              const Spacer(),
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () => AutoRouter.of(context).pushPath("/"),
-                  style: TextButton.styleFrom(backgroundColor: colorTheme.iconGray, padding: EdgeInsets.symmetric(vertical: 12)),
+                  style: TextButton.styleFrom(backgroundColor: colorTheme.iconGray, padding: const EdgeInsets.symmetric(vertical: 12)),
                   child: Text("На главную", style: AppText.b7.copyWith(color: colorTheme.background))
                 ),
               )

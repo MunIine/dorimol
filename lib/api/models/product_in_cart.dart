@@ -1,3 +1,5 @@
+// ignore_for_file: sort_constructors_first
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product_in_cart.g.dart';

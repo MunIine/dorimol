@@ -47,12 +47,12 @@ class _NavBarState extends State<NavBar> {
                 AnimatedPositioned(
                   top: 0,
                   left: iconSize * activeIndex,
-                  duration: Duration(milliseconds: 250),
+                  duration: const Duration(milliseconds: 250),
                   curve: Curves.ease,
                   child: Container(
                     width: iconSize,
                     height: iconSize,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xFF03CA60),
                       shape: BoxShape.circle,
                     ),
@@ -68,7 +68,7 @@ class _NavBarState extends State<NavBar> {
                         onPressed: () {
                           // If cart push to screen
                           if (index == 2) {
-                            AutoRouter.of(context).root.push(CartRoute());
+                            AutoRouter.of(context).root.push(const CartRoute());
                             return;
                           }
                           widget.tabsRouter.setActiveIndex(index);
@@ -79,7 +79,7 @@ class _NavBarState extends State<NavBar> {
                         ),
                         style: IconButton.styleFrom(
                           backgroundColor: Colors.transparent,
-                          foregroundColor: Color(0xFF01b554)
+                          foregroundColor: const Color(0xFF01b554)
                         ),
                       ),
                     );

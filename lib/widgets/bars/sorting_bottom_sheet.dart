@@ -29,7 +29,7 @@ class SortingBottomSheet extends StatelessWidget {
                     color: colorTheme.tips,
                   )
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -37,17 +37,17 @@ class SortingBottomSheet extends StatelessWidget {
                     Text("Сохраняется, пока вы их не отмените", style: AppText.t3.copyWith(color: colorTheme.iconGray)),
                   ],
                 ),
-                Spacer(),
-                SizedBox(width: 24)
+                const Spacer(),
+                const SizedBox(width: 24)
               ],
             ),
-            SizedBox(height: 10),
-            Divider(),
+            const SizedBox(height: 10),
+            const Divider(),
             Expanded(
               child: ListView.separated(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: Sorting.values.length,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (context, index) => SortingListElement(
                   sorting: Sorting.values[index],
                   selected: selected == Sorting.values[index],
@@ -81,7 +81,7 @@ class SortingListElement extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(sorting.presentationValue, style: AppText.t6.copyWith(color: Color(0xFF626262))),
+            Text(sorting.presentationValue, style: AppText.t6.copyWith(color: const Color(0xFF626262))),
             selected ? Icon(SvgIcons.radioButtonOn, color: colorTheme.seedColor) : Icon(SvgIcons.radioButtonOff, color: colorTheme.block)
           ],
         ),

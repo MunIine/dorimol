@@ -8,11 +8,11 @@ sealed class CartEvent extends Equatable {
 }
 
 class UpdateProductInCart extends CartEvent {
+
+  const UpdateProductInCart({required this.product, required this.price, required this.quantity});
   final Product product;
   final double price;
   final double quantity;
-
-  const UpdateProductInCart({required this.product, required this.price, required this.quantity});
 
   @override
   List<Object> get props => [product, price, quantity];

@@ -8,27 +8,27 @@ sealed class CatalogEvent extends Equatable {
 }
 
 class FetchCatalog extends CatalogEvent {
-  final int categoryId;
 
   const FetchCatalog({required this.categoryId});
+  final int categoryId;
 
   @override
   List<Object> get props => [categoryId];
 }
 
 class FetchCatalogByQuery extends CatalogEvent {
-  final String idOrName;
 
   const FetchCatalogByQuery({required this.idOrName});
+  final String idOrName;
 
   @override
   List<Object> get props => [idOrName];
 }
 
 class ChangeSortingMethod extends CatalogEvent {
-  final Sorting sorting;
 
   const ChangeSortingMethod({required this.sorting});
+  final Sorting sorting;
 
   @override
   List<Object> get props => [sorting];

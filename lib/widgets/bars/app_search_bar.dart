@@ -38,8 +38,8 @@ class AppSearchBar extends StatelessWidget {
           )
         ),
         if(sliders)...[
-          SizedBox(width: 4),
-          BoxIconButton(icon: SvgIcons.sliders)
+          const SizedBox(width: 4),
+          const BoxIconButton(icon: SvgIcons.sliders)
         ],
       ],
     );
@@ -66,9 +66,9 @@ class BoxIconButton extends StatelessWidget {
         isScrollControlled: true,
         shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
         context: context,
-        builder: (context) => SortingBottomSheet()
+        builder: (context) => const SortingBottomSheet()
       ),
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       style: IconButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(12)

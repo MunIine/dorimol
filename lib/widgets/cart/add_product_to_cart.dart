@@ -35,13 +35,13 @@ class AddProductToCart extends StatelessWidget {
         },
         style: TextButton.styleFrom(
           backgroundColor: colorTheme.seedColor,
-          padding: EdgeInsets.symmetric(vertical: 9),
+          padding: const EdgeInsets.symmetric(vertical: 9),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 7,
           children: [
-            Icon(SvgIcons.shoppingCart, size: 14),
+            const Icon(SvgIcons.shoppingCart, size: 14),
             Text("В корзину", style: AppText.t2.copyWith(color: colorTheme.background)),
           ],
         ),

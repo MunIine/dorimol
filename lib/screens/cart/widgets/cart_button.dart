@@ -21,7 +21,7 @@ class CartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -30,7 +30,7 @@ class CartButton extends StatelessWidget {
               IconButton(
                 onPressed: () => AutoRouter.of(context).pop(),
                 style: IconButton.styleFrom(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   backgroundColor: colorTheme.seedColor,
                 ),
                 icon: Transform.rotate(
@@ -38,7 +38,7 @@ class CartButton extends StatelessWidget {
                   child: Icon(SvgIcons.back, color: colorTheme.background)
                 )
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: GestureDetector(
                   onTap: onTap,
@@ -51,11 +51,11 @@ class CartButton extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("$priceруб.", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
-                        SizedBox(width: 16),
-                        Text("|", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
-                        SizedBox(width: 16),
-                        Text("Заказать", style: AppText.h1.copyWith(color: Color(0xFFFFFFFF))),
+                        Text("$priceруб.", style: AppText.h1.copyWith(color: const Color(0xFFFFFFFF))),
+                        const SizedBox(width: 16),
+                        Text("|", style: AppText.h1.copyWith(color: const Color(0xFFFFFFFF))),
+                        const SizedBox(width: 16),
+                        Text("Заказать", style: AppText.h1.copyWith(color: const Color(0xFFFFFFFF))),
                       ],
                     )
                   ),
@@ -63,7 +63,7 @@ class CartButton extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 14),
+          const SizedBox(height: 14),
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(

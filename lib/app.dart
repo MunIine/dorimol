@@ -30,14 +30,14 @@ class _MyAppState extends State<MyApp> {
     final maintenance = bool.parse(widget.config["maintenance_mode"] ?? "false");
 
     if (isOutdated(widget.currentVersion, minVersion)) {
-      return MaterialApp(
+      return const MaterialApp(
         home: BlockedScreen(
           message: "Требуется обновление приложения. Пожалуйста, установите последнюю версию.",
         ),
       );
     }
     if (maintenance) {
-      return MaterialApp(
+      return const MaterialApp(
         home: BlockedScreen(
           message: "Ведутся технические работы. Попробуйте позже.",
         ),
@@ -74,8 +74,8 @@ class _MyAppState extends State<MyApp> {
 }
 
 class BlockedScreen extends StatelessWidget {
-  final String message;
   const BlockedScreen({super.key, required this.message});
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -86,12 +86,12 @@ class BlockedScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.warning_amber_rounded, size: 64, color: Colors.orange),
-              SizedBox(height: 24),
+              const Icon(Icons.warning_amber_rounded, size: 64, color: Colors.orange),
+              const SizedBox(height: 24),
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             ],
           ),

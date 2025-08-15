@@ -30,12 +30,12 @@ class CartProductsCommentBlock extends StatelessWidget {
                 return NoItemsInCart(colorTheme: colorTheme);
               }
               if (state is CartInitial) return NoItemsInCart(colorTheme: colorTheme);
-              return Center(child: Text("Товаров нет"));
+              return const Center(child: Text("Товаров нет"));
             },
           ),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           Text("Комментарий сборщику", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           BlockTextField(
             controller: controller,
             colorTheme: colorTheme,

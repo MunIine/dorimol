@@ -26,7 +26,7 @@ class CategoryCard extends StatelessWidget {
           )
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 15).copyWith(left: 20),
+          padding: const EdgeInsets.only(top: 15).copyWith(left: 20),
           child: Text(category.name, style: AppText.b6.copyWith(color: colorTheme.background)),
         ),
       ),

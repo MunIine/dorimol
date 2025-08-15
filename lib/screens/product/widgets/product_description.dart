@@ -17,7 +17,7 @@ class ProductDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Описание", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
           description, 
           style: AppText.t3.copyWith(color: colorTheme.iconGray)

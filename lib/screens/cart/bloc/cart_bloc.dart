@@ -9,7 +9,7 @@ part 'cart_event.dart';
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc({required this.apiClient}) : super(CartInitial(delivery: false)) {
+  CartBloc({required this.apiClient}) : super(const CartInitial(delivery: false)) {
     on<UpdateProductInCart>((event, emit) {
       updateProducts(event, emit);
     });

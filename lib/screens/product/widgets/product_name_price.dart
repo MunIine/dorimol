@@ -18,26 +18,26 @@ class ProductNamePrice extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("арт. ${product.id}", style: AppText.t0.copyWith(color: colorTheme.tips)),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Text(product.name, style: AppText.h1.copyWith(color: colorTheme.textBlack)),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     Icon(SvgIcons.package, size: 16, color: colorTheme.iconGray),
-                    SizedBox(width: 6),
+                    const SizedBox(width: 6),
                     Text("Оптовая цена от ${product.wholesaleStartQuantity} ${product.unit}", style: AppText.t2.copyWith(color: colorTheme.iconGray))
                   ],
                 )
               ],
             ),
-            Spacer(),
+            const Spacer(),
             _DoublePriceBlock(
               status: product.status, 
               price: product.price, 
@@ -111,7 +111,7 @@ class _DoublePriceBlock extends StatelessWidget {
               child: Center(child: FittedBox(child: Text("$priceР/$unit", style: AppText.h1.copyWith(color: textColor)))),
             ),
           ),
-          SizedBox(height: 1),
+          const SizedBox(height: 1),
           Container(
             width: double.infinity,
             decoration: BoxDecoration(

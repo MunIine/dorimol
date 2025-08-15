@@ -14,14 +14,14 @@ class OrderSuccessful extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20).copyWith(top: 30, bottom: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 30, bottom: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text("Заказ успешно оформлен", style: AppText.h1.copyWith(color: colorTheme.seedColor)),
-            SizedBox(height: 20),
-            SizedBox(width: 190, child: Image(image: AssetImage("lib/assets/errors/order_successful.png"))),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            const SizedBox(width: 190, child: Image(image: AssetImage("lib/assets/errors/order_successful.png"))),
+            const SizedBox(height: 20),
             SizedBox(
               width: 250,
               child: TextButton(

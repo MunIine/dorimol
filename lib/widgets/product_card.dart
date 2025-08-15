@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
                   left: 8,
                   child: RatingBlock(
                     rating: product.rating!,
-                    padding: EdgeInsets.only(top: 2).copyWith(right: 8, left: 4),
+                    padding: const EdgeInsets.only(top: 2).copyWith(right: 8, left: 4),
                     style: AppText.t09, 
                     iconSize: 10,
                     borderRadius: 3,
@@ -68,16 +68,16 @@ class ProductCard extends StatelessWidget {
                       Text("арт. ${product.id}", style: AppText.t09.copyWith(color: colorTheme.iconGray)),
                     ],
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   Text(product.name, style: AppText.t3.copyWith(color: colorTheme.textBlack, height: 1)),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                 ]
               )
             ),
             PriceBlock(status: product.status, price: product.price, unit: product.unit),
-            Spacer(),
+            const Spacer(),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 8),
               child: AdaptiveCart(product: product, cartHeight: cartHeight),
             )
           ],
@@ -123,7 +123,7 @@ class PriceBlock extends StatelessWidget {
     }
     else{
       textColor = colorTheme.textGray;
-      blockColor = Color(0xFFF2F2F2);
+      blockColor = const Color(0xFFF2F2F2);
     }
 
 
@@ -134,7 +134,7 @@ class PriceBlock extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8).copyWith(top: 2, bottom: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 2, bottom: 2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: blockColor

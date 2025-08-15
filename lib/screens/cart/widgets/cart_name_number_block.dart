@@ -22,7 +22,7 @@ class CartNameNumberBlock extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("ФИО", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           BlockTextField(
             controller: fullNameController,
             colorTheme: colorTheme,
@@ -31,9 +31,9 @@ class CartNameNumberBlock extends StatelessWidget {
             useIcon: true,
             onSubmitted: (value){},
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text("Номер телефона", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           BlockTextField(
             controller: phoneNumberController,
             keyboardType: TextInputType.number,

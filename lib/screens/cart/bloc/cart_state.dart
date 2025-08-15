@@ -17,12 +17,12 @@ final class CartInitial extends CartState {
 }
 
 class CartUpdated extends CartState {
+
+  const CartUpdated({required this.productsInCart, required this.products, required this.totalPrice, required this.delivery});
   final Map<String, ProductInCart> productsInCart;
   final Map<String, Product> products;
   final double totalPrice;
   final bool delivery;
-
-  const CartUpdated({required this.productsInCart, required this.products, required this.totalPrice, required this.delivery});
 
   @override
   List<Object> get props => [productsInCart, products, totalPrice, delivery];
@@ -33,9 +33,9 @@ final class OrderLoading extends CartState {}
 final class OrderPlaced extends CartState {}
 
 final class OrderFailure extends CartState {
-  final Exception error;
 
   const OrderFailure({required this.error});
+  final Exception error;
 
   @override
   List<Object> get props => [error];

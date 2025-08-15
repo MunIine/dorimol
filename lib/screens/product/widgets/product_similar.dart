@@ -27,10 +27,10 @@ class ProductSimilar extends StatelessWidget {
           child: Row(
             children: [
               Text("Похожие товары", style: AppText.h2.copyWith(color: colorTheme.textBlack)),
-              Spacer(),
+              const Spacer(),
               IconButton(
                 onPressed: (){},
-                icon: Icon(SvgIcons.back),
+                icon: const Icon(SvgIcons.back),
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.transparent,
                 ),
@@ -38,14 +38,14 @@ class ProductSimilar extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         SizedBox(
           height: 285,
           child: ListView.separated(
             itemCount: similars.length,
             scrollDirection: Axis.horizontal,
             padding: padding,
-            separatorBuilder: (context, index) => SizedBox(width: 10), 
+            separatorBuilder: (context, index) => const SizedBox(width: 10), 
             itemBuilder: (context, index) => SizedBox(
               width: 175.4, 
               child: ProductCard(

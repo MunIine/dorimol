@@ -68,13 +68,13 @@ class ChangeProductInCart extends StatelessWidget {
                   }
                 }
               ),
-              if (dividers) SizedBox(width: 1),
+              if (dividers) const SizedBox(width: 1),
               Expanded(
                 child: Container(
                   height: cartHeight,
                   color: color ?? colorTheme.seedColor,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 4),
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   child: RichText(
                     text: TextSpan(
                       style: AppText.rostelecom,
@@ -86,7 +86,7 @@ class ChangeProductInCart extends StatelessWidget {
                   ),
                 ),
               ),
-              if (dividers) SizedBox(width: 1),
+              if (dividers) const SizedBox(width: 1),
               _CartButton(
                 icon: SvgIcons.plus, 
                 iconSize: iconSize, 
@@ -140,7 +140,7 @@ class _CartButton extends StatelessWidget {
       width: width,
       child: IconButton(
         onPressed: onTap,
-        padding: EdgeInsets.symmetric(horizontal: 9),
+        padding: const EdgeInsets.symmetric(horizontal: 9),
         icon: Icon(
           icon,
           color: iconColor ?? colorTheme.background,
@@ -148,7 +148,7 @@ class _CartButton extends StatelessWidget {
         ),
         style: IconButton.styleFrom(
           backgroundColor: color ?? colorTheme.seedColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.zero)
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.zero)
         ),
       ),
     );

@@ -15,10 +15,10 @@ class ErrorScreen extends StatelessWidget {
     if (exception is DioException){
       final dioException = exception as DioException;
       if (dioException.type == DioExceptionType.connectionError) {
-        return InternetError();
+        return const InternetError();
       }
-      return DefaultError();
+      return const DefaultError();
     }
-    return DefaultError();
+    return const DefaultError();
   }
 }

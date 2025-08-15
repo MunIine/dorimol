@@ -30,21 +30,21 @@ class _CartDeliveryBlockState extends State<CartDeliveryBlock> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Доставка", style: AppText.b3.copyWith(color: widget.colorTheme.textBlack)),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               DeliverySelect(
                 colorTheme: widget.colorTheme,
                 deliveryMethod: 'Самовывоз',
                 price: 'Бесплатно',
                 selected: !delivery,
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               DeliverySelect(
                 colorTheme: widget.colorTheme,
                 deliveryMethod: 'Курьером',
                 price: 'от 30руб',
                 selected: delivery,
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               if (delivery)
                 BlockTextField(
                   controller: widget.controller,
@@ -81,16 +81,16 @@ class DeliverySelect extends StatelessWidget {
     return GestureDetector(
       onTap: () => BlocProvider.of<CartBloc>(context).add(ChangeDelivery()),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: colorTheme.formInput),
         child: Row(
           children: [
             selected
                 ? Icon(SvgIcons.radioButtonOn, color: colorTheme.seedColor)
                 : Icon(SvgIcons.radioButtonOff, color: colorTheme.block),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Text(deliveryMethod, style: AppText.t3.copyWith(color: colorTheme.iconGray)),
-            Spacer(),
+            const Spacer(),
             Text(price, style: AppText.t3.copyWith(color: colorTheme.tips)),
           ],
         ),

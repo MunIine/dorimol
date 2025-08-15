@@ -31,17 +31,17 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppSearchBar(sliders: false),
-          SizedBox(height: 16),
-          Text("Категории", style: AppText.h1),
-          SizedBox(height: 16),
+          const AppSearchBar(sliders: false),
+          const SizedBox(height: 16),
+          const Text("Категории", style: AppText.h1),
+          const SizedBox(height: 16),
           BlocBuilder<CategoriesBloc, CategoriesState>(
             bloc: BlocProvider.of<CategoriesBloc>(context),
             builder: (context, state) {
               if (state is CategoriesLoaded) {
                 return Expanded(
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 9,
                       crossAxisSpacing: 9,
@@ -57,7 +57,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               if (state is CategoriesFailure) {
                 AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
               }
-              return Expanded(child: Center(child: CircularProgressIndicator()));
+              return const Expanded(child: Center(child: CircularProgressIndicator()));
             },
           ),
         ],

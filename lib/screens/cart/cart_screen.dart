@@ -27,7 +27,7 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,11 +36,11 @@ class _CartScreenState extends State<CartScreen> {
               child: ListView(
                 children: [
                   CartNameNumberBlock(colorTheme: colorTheme, fullNameController: fullNameController, phoneNumberController: phoneNumberController),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   CartDeliveryBlock(colorTheme: colorTheme, controller: addressController),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   CartProductsCommentBlock(colorTheme: colorTheme, controller: commentController),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),
