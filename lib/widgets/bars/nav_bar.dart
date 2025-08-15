@@ -68,7 +68,7 @@ class _NavBarState extends State<NavBar> {
                         onPressed: () {
                           // If cart push to screen
                           if (index == 2) {
-                            AutoRouter.of(context).root.push(OrderRoute());
+                            AutoRouter.of(context).root.push(CartRoute());
                             return;
                           }
                           widget.tabsRouter.setActiveIndex(index);

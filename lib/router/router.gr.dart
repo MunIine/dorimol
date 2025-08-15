@@ -27,6 +27,38 @@ class AccountRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AuthorizationScreen]
+class AuthorizationRoute extends PageRouteInfo<void> {
+  const AuthorizationRoute({List<PageRouteInfo>? children})
+    : super(AuthorizationRoute.name, initialChildren: children);
+
+  static const String name = 'AuthorizationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AuthorizationScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [CartScreen]
+class CartRoute extends PageRouteInfo<void> {
+  const CartRoute({List<PageRouteInfo>? children})
+    : super(CartRoute.name, initialChildren: children);
+
+  static const String name = 'CartRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CartScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [CatalogScreen]
 class CatalogRoute extends PageRouteInfo<CatalogRouteArgs> {
   CatalogRoute({
@@ -159,22 +191,6 @@ class HomeRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const HomeScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [CartScreen]
-class OrderRoute extends PageRouteInfo<void> {
-  const OrderRoute({List<PageRouteInfo>? children})
-    : super(OrderRoute.name, initialChildren: children);
-
-  static const String name = 'OrderRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const CartScreen();
     },
   );
 }
