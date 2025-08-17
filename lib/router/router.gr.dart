@@ -196,6 +196,116 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [OnboardingFirstScreen]
+class OnboardingFirstRoute extends PageRouteInfo<OnboardingFirstRouteArgs> {
+  OnboardingFirstRoute({
+    Key? key,
+    required AppColors colorTheme,
+    List<PageRouteInfo>? children,
+  }) : super(
+         OnboardingFirstRoute.name,
+         args: OnboardingFirstRouteArgs(key: key, colorTheme: colorTheme),
+         initialChildren: children,
+       );
+
+  static const String name = 'OnboardingFirstRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<OnboardingFirstRouteArgs>();
+      return OnboardingFirstScreen(key: args.key, colorTheme: args.colorTheme);
+    },
+  );
+}
+
+class OnboardingFirstRouteArgs {
+  const OnboardingFirstRouteArgs({this.key, required this.colorTheme});
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  @override
+  String toString() {
+    return 'OnboardingFirstRouteArgs{key: $key, colorTheme: $colorTheme}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! OnboardingFirstRouteArgs) return false;
+    return key == other.key && colorTheme == other.colorTheme;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+}
+
+/// generated route for
+/// [OnboardingScreen]
+class OnboardingRoute extends PageRouteInfo<void> {
+  const OnboardingRoute({List<PageRouteInfo>? children})
+    : super(OnboardingRoute.name, initialChildren: children);
+
+  static const String name = 'OnboardingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OnboardingScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [OnboardingSecondScreen]
+class OnboardingSecondRoute extends PageRouteInfo<OnboardingSecondRouteArgs> {
+  OnboardingSecondRoute({
+    Key? key,
+    required AppColors colorTheme,
+    List<PageRouteInfo>? children,
+  }) : super(
+         OnboardingSecondRoute.name,
+         args: OnboardingSecondRouteArgs(key: key, colorTheme: colorTheme),
+         initialChildren: children,
+       );
+
+  static const String name = 'OnboardingSecondRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<OnboardingSecondRouteArgs>();
+      return OnboardingSecondScreen(key: args.key, colorTheme: args.colorTheme);
+    },
+  );
+}
+
+class OnboardingSecondRouteArgs {
+  const OnboardingSecondRouteArgs({this.key, required this.colorTheme});
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  @override
+  String toString() {
+    return 'OnboardingSecondRouteArgs{key: $key, colorTheme: $colorTheme}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! OnboardingSecondRouteArgs) return false;
+    return key == other.key && colorTheme == other.colorTheme;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+}
+
+/// generated route for
 /// [ProductScreen]
 class ProductRoute extends PageRouteInfo<ProductRouteArgs> {
   ProductRoute({Key? key, required String id, List<PageRouteInfo>? children})

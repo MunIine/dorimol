@@ -7,8 +7,11 @@ import 'package:dorimol/screens/categories/categories_screen.dart';
 import 'package:dorimol/screens/errors/error_screen.dart';
 import 'package:dorimol/screens/home_screen.dart';
 import 'package:dorimol/screens/cart/cart_screen.dart';
+import 'package:dorimol/screens/onboarding/screens/export.dart';
 import 'package:dorimol/screens/product/product_screen.dart';
 import 'package:dorimol/screens/store/store_screen.dart';
+import 'package:dorimol/screens/onboarding/onboarding_screen.dart';
+import 'package:dorimol/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 part 'router.gr.dart';
@@ -50,7 +53,15 @@ class AppRouter extends RootStackRouter {
     //     ),
     //   ]
     // ),
-    AutoRoute(page: AuthorizationRoute.page, path: "/"),
+    // AutoRoute(page: AuthorizationRoute.page, path: "/"),
+    AutoRoute(
+      page: OnboardingRoute.page, 
+      path: "/",
+      children: [
+        AutoRoute(page: OnboardingFirstRoute.page, path: "first"),
+        AutoRoute(page: OnboardingSecondRoute.page, path: "second"),
+      ]
+    ),
     AutoRoute(page: CartRoute.page, path: "/order"),
     AutoRoute(page: ErrorRoute.page, path: "/error"),
   ];

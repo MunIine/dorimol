@@ -17,7 +17,7 @@ class AuthorizationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Привет", style: AppText.b32),
+            const Text("Привет", style: AppText.h1alt),
             const SizedBox(height: 8),
             const Text("Войдите в свой аккаунт и откройте для себя первый онлайн-рынок ПМР, где всё самое свежее — прямо от производителей.", style: AppText.t6,),
             const SizedBox(height: 24),
