@@ -14,6 +14,19 @@ const redColor = Color(0xFFFF0032);
 const yellowColor = Color(0xFFFFC300);
 const accintColor = Color(0xFFA7DDBC);
 const formInputColor = Color(0xFFF7F7F7);
+const stripeColor = Color(0xFFDEDEDE);
+const exyBlueColor = Color(0xFF2297F6);
+const popBlueColor = Color(0xFF2979FF);
+const youBlueColor = Color(0xFF3D5AFE);
+const skyBlueColor = Color(0xFF7CC3FC);
+const electricGreenColor = Color(0xFF16B31B);
+const lopyGreenColor = Color(0xFF00D06B);
+const dirtyGreenColor = Color(0xFF319134);
+const freeGreenColor = Color(0xFF77DA7A);
+const tomatoRedColor = Color(0xFFFF1744);
+const mlineRedColor = Color(0xFFF50057);
+const rasberyRedColor = Color(0xFFC3134F);
+const punchRedColor = Color(0xFFEF9A9A);
 
 
 final lightTheme = ThemeData(
@@ -65,7 +78,20 @@ final lightTheme = ThemeData(
       accint: accintColor,
       background: backgroundColor,
       block: blockColor, 
-      formInput: formInputColor
+      formInput: formInputColor,
+      stripe: stripeColor,
+      exyBlue: exyBlueColor,
+      popBlue: popBlueColor,
+      youBlue: youBlueColor,
+      skyBlue: skyBlueColor,
+      electricGreen: electricGreenColor,
+      lopyGreen: lopyGreenColor,
+      dirtyGreen: dirtyGreenColor,
+      freeGreen: freeGreenColor,
+      tomatoRed: tomatoRedColor,
+      mlineRed: mlineRedColor,
+      rasberyRed: rasberyRedColor,
+      punchRed: punchRedColor,
     )
   ]
 );
