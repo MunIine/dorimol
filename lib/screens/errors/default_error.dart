@@ -3,7 +3,9 @@ import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
 class DefaultError extends StatelessWidget {
-  const DefaultError({super.key});
+  const DefaultError({super.key, required this.disabledButton});
+
+  final bool disabledButton;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class DefaultError extends StatelessWidget {
               const SizedBox(width: 250, child: Image(image: AssetImage("lib/assets/errors/error.png"))),
               const Spacer(),
               const SizedBox(height: 20),
-              SizedBox(
+              if (!disabledButton) SizedBox(
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () => AutoRouter.of(context).pushPath("/"),

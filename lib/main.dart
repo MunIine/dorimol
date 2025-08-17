@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:dorimol/api/api.dart';
 import 'package:dorimol/app.dart';
 import 'package:dorimol/data/app_config.dart';
+import 'package:dorimol/screens/errors/error_screen.dart';
+import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,9 +37,20 @@ void main() async {
   GetIt.I.registerSingleton(dio);
   GetIt.I.registerSingleton(DorimolApiClient.create(dio: dio, apiUrl: AppConfig.apiUrl));
 
-  final config = await GetIt.I<DorimolApiClient>().fetchConfig();
-  final packageInfo = await PackageInfo.fromPlatform();
-  final currentVersion = packageInfo.version;
+  try {
+    final config = await GetIt.I<DorimolApiClient>().fetchConfig();
 
-  runApp(MyApp(config: config, currentVersion: currentVersion));
+    final packageInfo = await PackageInfo.fromPlatform();
+    final currentVersion = packageInfo.version;
+    
+    runApp(MyApp(config: config, currentVersion: currentVersion));
+  } on Exception catch (e) {
+    talker.error("Failed to fetch config: $e");
+    runApp(
+      MaterialApp(
+        theme: lightTheme,
+        home: ErrorScreen(exception: e, disabledButton: true)
+      ),
+    );
+  }
 }

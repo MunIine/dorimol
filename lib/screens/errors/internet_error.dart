@@ -3,7 +3,9 @@ import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
 class InternetError extends StatelessWidget {
-  const InternetError({super.key});
+  const InternetError({super.key, required this.disabledButton});
+
+  final bool disabledButton;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +26,11 @@ class InternetError extends StatelessWidget {
                   color: colorTheme.textBlack
                 )
               ),
-              Text("Нет подключения к интернету", style: AppText.t7.copyWith(color: colorTheme.textBlack)),
+              Text("Проверьте подключение к интернету", style: AppText.t7.copyWith(color: colorTheme.textBlack)),
               const Spacer(),
               const SizedBox(width: 300, child: Image(image: AssetImage("lib/assets/errors/network.png"))),
               const Spacer(),
-              SizedBox(
+              if (!disabledButton) SizedBox(
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () => AutoRouter.of(context).pushPath("/"),

@@ -6,19 +6,20 @@ import 'package:flutter/material.dart';
 
 @RoutePage()
 class ErrorScreen extends StatelessWidget {
-  const ErrorScreen({super.key, required this.exception});
+  const ErrorScreen({super.key, required this.exception, this.disabledButton = false});
 
   final Exception exception;
+  final bool disabledButton;
 
   @override
   Widget build(BuildContext context) {
     if (exception is DioException){
       final dioException = exception as DioException;
       if (dioException.type == DioExceptionType.connectionError) {
-        return const InternetError();
+        return InternetError(disabledButton: disabledButton);
       }
-      return const DefaultError();
+      return DefaultError(disabledButton: disabledButton);
     }
-    return const DefaultError();
+    return DefaultError(disabledButton: disabledButton);
   }
 }

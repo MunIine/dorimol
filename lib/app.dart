@@ -43,7 +43,6 @@ class _MyAppState extends State<MyApp> {
         ),
       );
     }
-    
 
     return MultiBlocProvider(
       providers: [
