@@ -27,6 +27,7 @@ dependencies:
   package_info_plus: ^8.3.1
   pinput: ^5.0.1
   dropdown_button2: ^2.3.9
+  flutter_native_splash: ^2.4.6
 
 dev_dependencies:
   flutter_test:
@@ -75,3 +76,12 @@ flutter_launcher_icons:
   macos:
     generate: true
     image_path: "lib/assets/icon/icon.png"
+
+flutter_native_splash:
+  android: true
+  ios: true
+  color: "#FFFFFF"
+  image: lib/assets/splash_screen/logo.png
+  android_12:
+    color: "#FFFFFF"
+    image: lib/assets/splash_screen/logo_android12.png
