@@ -26,6 +26,9 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
         await _fetchCatalogByQuery(prevEvent as FetchCatalogByQuery, emit);
       }
     });
+    on<ResetCatalog>((event, emit) {
+      emit(CatalogInitial(sorting: state.sorting));
+    });
   }
 
   Future<void> _fetchCatalog(FetchCatalog event, Emitter<CatalogState> emit) async {

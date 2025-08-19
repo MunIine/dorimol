@@ -19,12 +19,19 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  late ProductDetailsBloc _productDetailsBloc;
+
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ProductDetailsBloc>(
-      context,
-    ).add(FetchProductDetails(productId: widget.id));
+    _productDetailsBloc = BlocProvider.of<ProductDetailsBloc>(context);
+    _productDetailsBloc.add(FetchProductDetails(productId: widget.id));
+  }
+
+  @override
+  void dispose() {
+    _productDetailsBloc.add(ResetProductDetails());
+    super.dispose();
   }
 
   @override

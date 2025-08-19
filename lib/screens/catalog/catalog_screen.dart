@@ -17,16 +17,25 @@ class CatalogScreen extends StatefulWidget {
 
   final Category? category;
   final String? query;
-
   @override
   State<CatalogScreen> createState() => _CatalogScreenState();
 }
 
 class _CatalogScreenState extends State<CatalogScreen> {
+  CatalogBloc? _catalogBloc;
+
   @override
   void initState() {
     super.initState();
+    _catalogBloc = BlocProvider.of<CatalogBloc>(context);
+    BlocProvider.of<CatalogBloc>(context).add(ResetCatalog());
     if (widget.category != null) BlocProvider.of<CatalogBloc>(context).add(FetchCatalog(categoryId: widget.category!.id));
+  }
+
+  @override
+  void dispose() {
+    _catalogBloc?.add(ResetCatalog());
+    super.dispose();
   }
 
   @override

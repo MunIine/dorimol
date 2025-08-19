@@ -15,3 +15,10 @@ class FetchProductDetails extends ProductDetailsEvent {
   @override
   List<Object> get props => [productId];
 }
+
+class ResetProductDetails extends ProductDetailsEvent {
+  const ResetProductDetails();
+
+  @override
+  List<Object> get props => [];
+}

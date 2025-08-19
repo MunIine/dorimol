@@ -17,6 +17,9 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
         emit(ProductDetailsFailure(error: e));
       }
     });
+    on<ResetProductDetails>((event, emit) {
+      emit(ProductDetailsInitial());
+    });
   }
 
   final DorimolApiClient apiClient;
