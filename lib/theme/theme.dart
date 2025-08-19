@@ -32,7 +32,7 @@ const punchRedColor = Color(0xFFEF9A9A);
 final lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(seedColor: seedColor),
-  scaffoldBackgroundColor: backgroundColor,
+  scaffoldBackgroundColor: Color(0xFFF9F9F9),
   fontFamily: "Rostelecom",
   iconTheme: const IconThemeData(
     color: iconGrayColor

@@ -11,6 +11,104 @@
 part of 'router.dart';
 
 /// generated route for
+/// [AccountBIOScreen]
+class AccountBIORoute extends PageRouteInfo<AccountBIORouteArgs> {
+  AccountBIORoute({
+    Key? key,
+    required AppColors colorTheme,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AccountBIORoute.name,
+         args: AccountBIORouteArgs(key: key, colorTheme: colorTheme),
+         initialChildren: children,
+       );
+
+  static const String name = 'AccountBIORoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AccountBIORouteArgs>();
+      return AccountBIOScreen(key: args.key, colorTheme: args.colorTheme);
+    },
+  );
+}
+
+class AccountBIORouteArgs {
+  const AccountBIORouteArgs({this.key, required this.colorTheme});
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  @override
+  String toString() {
+    return 'AccountBIORouteArgs{key: $key, colorTheme: $colorTheme}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AccountBIORouteArgs) return false;
+    return key == other.key && colorTheme == other.colorTheme;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+}
+
+/// generated route for
+/// [AccountOrderHistoryScreen]
+class AccountOrderHistoryRoute
+    extends PageRouteInfo<AccountOrderHistoryRouteArgs> {
+  AccountOrderHistoryRoute({
+    Key? key,
+    required AppColors colorTheme,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AccountOrderHistoryRoute.name,
+         args: AccountOrderHistoryRouteArgs(key: key, colorTheme: colorTheme),
+         initialChildren: children,
+       );
+
+  static const String name = 'AccountOrderHistoryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AccountOrderHistoryRouteArgs>();
+      return AccountOrderHistoryScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+      );
+    },
+  );
+}
+
+class AccountOrderHistoryRouteArgs {
+  const AccountOrderHistoryRouteArgs({this.key, required this.colorTheme});
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  @override
+  String toString() {
+    return 'AccountOrderHistoryRouteArgs{key: $key, colorTheme: $colorTheme}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AccountOrderHistoryRouteArgs) return false;
+    return key == other.key && colorTheme == other.colorTheme;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+}
+
+/// generated route for
 /// [AccountScreen]
 class AccountRoute extends PageRouteInfo<void> {
   const AccountRoute({List<PageRouteInfo>? children})
@@ -138,10 +236,15 @@ class ErrorRoute extends PageRouteInfo<ErrorRouteArgs> {
   ErrorRoute({
     Key? key,
     required Exception exception,
+    bool disabledButton = false,
     List<PageRouteInfo>? children,
   }) : super(
          ErrorRoute.name,
-         args: ErrorRouteArgs(key: key, exception: exception),
+         args: ErrorRouteArgs(
+           key: key,
+           exception: exception,
+           disabledButton: disabledButton,
+         ),
          initialChildren: children,
        );
 
@@ -151,32 +254,45 @@ class ErrorRoute extends PageRouteInfo<ErrorRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ErrorRouteArgs>();
-      return ErrorScreen(key: args.key, exception: args.exception);
+      return ErrorScreen(
+        key: args.key,
+        exception: args.exception,
+        disabledButton: args.disabledButton,
+      );
     },
   );
 }
 
 class ErrorRouteArgs {
-  const ErrorRouteArgs({this.key, required this.exception});
+  const ErrorRouteArgs({
+    this.key,
+    required this.exception,
+    this.disabledButton = false,
+  });
 
   final Key? key;
 
   final Exception exception;
 
+  final bool disabledButton;
+
   @override
   String toString() {
-    return 'ErrorRouteArgs{key: $key, exception: $exception}';
+    return 'ErrorRouteArgs{key: $key, exception: $exception, disabledButton: $disabledButton}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! ErrorRouteArgs) return false;
-    return key == other.key && exception == other.exception;
+    return key == other.key &&
+        exception == other.exception &&
+        disabledButton == other.disabledButton;
   }
 
   @override
-  int get hashCode => key.hashCode ^ exception.hashCode;
+  int get hashCode =>
+      key.hashCode ^ exception.hashCode ^ disabledButton.hashCode;
 }
 
 /// generated route for

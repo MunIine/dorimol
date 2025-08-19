@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -165,7 +166,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
               SizedBox(width: 8),
               Expanded(
                 child: TextButton(
-                  onPressed: enabled ? (){} : null,
+                  onPressed: enabled ? () => AutoRouter.of(context).replace(HomeRoute()) : null,
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 12),
                     backgroundColor: colorTheme.seedColor,
