@@ -37,6 +37,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: StoreRoute.page,
           path: "store",
+          initial: true,
           children: [
             CustomRoute(
               page: CategoriesRoute.page,

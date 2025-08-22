@@ -91,25 +91,6 @@ class _NumberTextFieldBlockState extends State<NumberTextFieldBlock> {
             ),
           ),
         ),
-      const SizedBox(width: 8),
-      SizedBox(
-        width: 48,
-        height: 48,
-        child: IconButton(
-          style: IconButton.styleFrom(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            disabledBackgroundColor: widget.colorTheme.tips,
-            padding: EdgeInsets.zero,
-            backgroundColor: widget.colorTheme.seedColor,
-            elevation: 0,
-          ),
-          onPressed: completed ? () {} : null,
-          icon: Icon(
-              Icons.send,
-              color: widget.colorTheme.background,
-            ),
-          ),
-        ),
       ],
     );
   }

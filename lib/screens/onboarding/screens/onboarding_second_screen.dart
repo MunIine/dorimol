@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/router/router.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
 class OnboardingSecondScreen extends StatefulWidget {
@@ -154,7 +156,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
             children: [
               Expanded(
                 child: TextButton(
-                  onPressed: () => AutoTabsRouter.of(context).setActiveIndex(0),
+                  onPressed: () => AutoRouter.of(context).replace(HomeRoute()),
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -178,7 +180,22 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
               )
             ],
           ),
-          SizedBox(height: 60),
+          SizedBox(height: 12),
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              style: AppText.t1.copyWith(fontFamily: AppText.rostelecom.fontFamily),
+              children: [
+                TextSpan(text: "Завершая регистрацию, вы соглашаетесь на обработку ",style: TextStyle(color: colorTheme.textGray)),
+                TextSpan(
+                  text: "персональных данных", 
+                  style: TextStyle(color: colorTheme.seedColor),
+                  recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse("https://ecobaza.github.io/EcoBaza_policy/"))
+                ),
+              ]
+            )
+          ),
+          SizedBox(height: 20),
         ],
       ),
     );
