@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "279286832272",
+    "project_id": "dorimol-firebase",
+    "storage_bucket": "dorimol-firebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279286832272:android:ee0edf5babbc24432a8c15",
+        "android_client_info": {
+          "package_name": "com.agrotech.dorimol"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHuzrGHyBseB6T2sf5BvsMlzaoQWnHpek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,6 @@
 import 'package:dorimol/api/api.dart';
+import 'package:dorimol/data/services/auth_sevice.dart';
+import 'package:dorimol/screens/authorization/bloc/authorization_bloc.dart';
 import 'package:dorimol/screens/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
@@ -26,6 +28,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final apiClient = GetIt.I<DorimolApiClient>();
+    final authService = GetIt.I<AuthService>();
     final minVersion = widget.config["min_app_version"] ?? "0.0.0";
     final maintenance = bool.parse(widget.config["maintenance_mode"] ?? "false");
 
@@ -50,6 +53,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => CatalogBloc(apiClient: apiClient)),
         BlocProvider(create: (context) => ProductDetailsBloc(apiClient: apiClient)),
         BlocProvider(create: (context) => CartBloc(apiClient: apiClient)),
+        BlocProvider(create: (context) => AuthorizationBloc(authService: authService)),
       ],
       child: MaterialApp.router(
         theme: lightTheme,

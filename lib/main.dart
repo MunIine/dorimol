@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:dorimol/api/api.dart';
 import 'package:dorimol/app.dart';
 import 'package:dorimol/data/app_config.dart';
+import 'package:dorimol/data/services/auth_sevice.dart';
 import 'package:dorimol/screens/errors/error_screen.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:dorimol/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +23,10 @@ void main() async {
     DeviceOrientation.portraitUp, 
     DeviceOrientation.portraitDown
   ]);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await dotenv.load(fileName: ".env");
 
@@ -36,6 +43,7 @@ void main() async {
   GetIt.I.registerSingleton(talker);
   GetIt.I.registerSingleton(dio);
   GetIt.I.registerSingleton(DorimolApiClient.create(dio: dio, apiUrl: AppConfig.apiUrl));
+  GetIt.I.registerSingleton(AuthService());
 
   try {
     final config = await GetIt.I<DorimolApiClient>().fetchConfig();

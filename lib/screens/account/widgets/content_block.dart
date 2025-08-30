@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
-import 'info_block.dart';
-import 'current_block.dart';
+import 'package:dorimol/screens/account/widgets/info_block.dart';
+import 'package:dorimol/screens/account/widgets/current_block.dart';
 
 class ContentBlock extends StatelessWidget {
   const ContentBlock({super.key, required this.colorTheme, required this.isInfo});

@@ -1,6 +1,8 @@
+import 'package:dorimol/screens/authorization/bloc/authorization_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NumberTextFieldBlock extends StatefulWidget {
   const NumberTextFieldBlock({super.key, required this.colorTheme});
@@ -87,7 +89,11 @@ class _NumberTextFieldBlockState extends State<NumberTextFieldBlock> {
                 _PrefixPhoneInputFormatter(""),
                 _PhoneNumberFormatter(),
               ],
-              onSubmitted: (_) {},
+              onSubmitted: (_) async {
+                if (completed) {
+                  BlocProvider.of<AuthorizationBloc>(context).add(SendCode(phone: "+373${controller.text.replaceAll(" ", "")}"));
+                }
+              },
             ),
           ),
         ),

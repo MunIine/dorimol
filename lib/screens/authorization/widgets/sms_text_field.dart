@@ -1,8 +1,8 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:dorimol/router/router.dart';
+import 'package:dorimol/screens/authorization/bloc/authorization_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 
 class SmsTextField extends StatelessWidget {
@@ -52,8 +52,10 @@ class SmsTextField extends StatelessWidget {
           useNativeKeyboard: true,
           showCursor: true,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          onChanged: (value) {
-            if (value.length == 6) AutoRouter.of(context).replace(OnboardingRoute());
+          onChanged: (value) async {
+            if (value.length == 6){
+              BlocProvider.of<AuthorizationBloc>(context).add(VerifyCode(smsCode: value));
+            }
           },
         ),
         const SizedBox(height: 12),
