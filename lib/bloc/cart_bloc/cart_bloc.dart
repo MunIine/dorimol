@@ -14,7 +14,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       updateProducts(event, emit);
     });
     on<ChangeDelivery>((event, emit){
-      totalPrice += delivery ? -30 : 30;
       delivery = !delivery;
       emit(CartUpdated(
         productsInCart: Map.unmodifiable(productsInCart), 
@@ -47,7 +46,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   void clearCart() {
     productsInCart.clear();
     products.clear();
-    totalPrice = delivery ? 30 : 0;
   }
 
   void updateProducts(UpdateProductInCart event, Emitter<CartState> emit) {

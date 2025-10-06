@@ -41,7 +41,7 @@ class _OrderDeliveryBlockState extends State<OrderDeliveryBlock> {
               DeliverySelect(
                 colorTheme: widget.colorTheme,
                 deliveryMethod: 'Курьером',
-                price: '+30руб',
+                price: 'от 30руб',
                 selected: delivery,
               ),
               SizedBox(height: 8),
