@@ -1,5 +1,5 @@
 <p align="center" style="margin-bottom: 4px; margin-top: 0px">
-	<img src="./lib/assets/icon/icon.png" alt="Icon" width="128" style="border-radius: 25px;"/>
+	<img src="./lib/assets/repo/icon.png" alt="Icon" width="128"/>
 </p>
 
 Ecobaza(dorimol) — мобильное приложение на Flutter для онлайн-рынка ПМР. В проекте используются современные подходы к архитектуре, управление состоянием через BLoC, DI через get_it, а также интеграция с REST API через Dio и Retrofit.
