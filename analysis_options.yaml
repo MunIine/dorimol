@@ -2,6 +2,7 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    prefer_const_constructors: true
     sort_constructors_first: true
     always_use_package_imports: true
     avoid_relative_lib_imports: true

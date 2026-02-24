@@ -1,8 +1,13 @@
-# Ecobaza
+<p align="center" style="margin-bottom: 4px; margin-top: 0px">
+	<img src="./lib/assets/repo/icon.png" alt="Icon" width="128"/>
+</p>
 
-## Описание
+Ecobaza(dorimol) — мобильное приложение на Flutter для онлайн-рынка ПМР. В проекте используются современные подходы к архитектуре, управление состоянием через BLoC, DI через get_it, а также интеграция с REST API через Dio и Retrofit.
 
-**Ecobaza(dorimol)** — мобильное приложение на Flutter для онлайн-рынка ПМР. В проекте используются современные подходы к архитектуре, управление состоянием через BLoC, DI через get_it, а также интеграция с REST API через Dio и Retrofit.
+| ![screen1](./lib/assets/repo/categories.png) | ![screen2](./lib/assets/repo/catalog.png) |
+| :------------: | :------------: | 
+| ![screen3](./lib/assets/repo/product.png) | ![screen4](./lib/assets/repo/cart.png) |
+ 
 
 ## Требования
 
@@ -54,7 +59,7 @@
 
 ## Переменные окружения
 
-Создайте файл `.env` в корне проекта и добавьте необходимые переменные, например:
+Создайте файл `.env` в корне проекта и добавьте необходимые переменные:
 ```
 API_URL=https://api.example.com
 ```
