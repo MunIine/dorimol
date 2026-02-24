@@ -70,20 +70,20 @@ class _NumberTextFieldBlockState extends State<NumberTextFieldBlock> {
                 ),
                 prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
                 hintText: "XXX XXX XX",
-                enabledBorder: completed ? OutlineInputBorder(
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(
-                  color: widget.colorTheme.seedColor,
+                  color: completed ? widget.colorTheme.seedColor : widget.colorTheme.tips,
                   width: 2,
                   ),
-                ) : null,
-                focusedBorder: completed ? OutlineInputBorder(
+                ),
+                focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(
-                  color: widget.colorTheme.seedColor,
+                  color: completed ? widget.colorTheme.seedColor : widget.colorTheme.tips,
                   width: 2,
                   ),
-                ) : null,
+                ),
               ),
               inputFormatters: [
                 _PrefixPhoneInputFormatter(""),

@@ -3,12 +3,22 @@ import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/authorization/bloc/authorization_bloc.dart';
 import 'package:dorimol/screens/authorization/widgets/export.dart';
 import 'package:dorimol/theme/export.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 @RoutePage()
-class AuthorizationScreen extends StatelessWidget {
+class AuthorizationScreen extends StatefulWidget {
   const AuthorizationScreen({super.key});
+
+  @override
+  State<AuthorizationScreen> createState() => _AuthorizationScreenState();
+}
+
+class _AuthorizationScreenState extends State<AuthorizationScreen> {
+  final TextEditingController pinController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +41,20 @@ class AuthorizationScreen extends StatelessWidget {
             BlocConsumer<AuthorizationBloc, AuthorizationState>(
               listener: (context, state) {
                 if (state is AuthorizationSuccess) {
-                  AutoRouter.of(context).replace(OnboardingRoute());
+                  AutoRouter.of(context).replace(const OnboardingRoute());
                 } else if (state is AuthorizationFailure) {
-                  //TODO: Показать ошибку пользователю
+                  GetIt.I<Talker>().error(state.exception);
                 }
               },
               builder: (context, state) {
                 if (state is AuthorizationCodeSend || state is AuthorizationVerifying || state is AuthorizationSuccess) {
-                  return SmsTextField(colorTheme: colorTheme);
+                  return SmsTextField(colorTheme: colorTheme, controller: pinController);
+                }
+                if (state is AuthorizationFailure && state.exception is FirebaseAuthException && (state.exception as FirebaseAuthException).code == 'invalid-verification-code'){
+                  return SmsTextField(colorTheme: colorTheme, controller: pinController, incorrectPin: pinController.text, message: "Неверный код");
+                }
+                if (state is AuthorizationFailure){
+                  return SmsTextField(colorTheme: colorTheme, controller: pinController, incorrectPin: pinController.text, message: "Произошла внутренняя ошибка");
                 }
                 return const SizedBox.shrink();
               },

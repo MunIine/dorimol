@@ -14,12 +14,13 @@ final class AuthorizationCodeSend extends AuthorizationState{}
 final class AuthorizationVerifying extends AuthorizationState{}
 
 final class AuthorizationSuccess extends AuthorizationState{
-  const AuthorizationSuccess({required this.user});
+  const AuthorizationSuccess({required this.jwt, required this.newUser});
 
-  final User user;
+  final String jwt;
+  final bool newUser;
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [jwt, newUser];
 }
 
 final class AuthorizationFailure extends AuthorizationState{

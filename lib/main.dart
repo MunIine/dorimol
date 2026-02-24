@@ -43,7 +43,7 @@ void main() async {
   GetIt.I.registerSingleton(talker);
   GetIt.I.registerSingleton(dio);
   GetIt.I.registerSingleton(DorimolApiClient.create(dio: dio, apiUrl: AppConfig.apiUrl));
-  GetIt.I.registerSingleton(AuthService());
+  GetIt.I.registerSingleton(AuthService(apiClient: GetIt.I<DorimolApiClient>()));
 
   try {
     final config = await GetIt.I<DorimolApiClient>().fetchConfig();
