@@ -25,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -47,30 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBm5AY21E1mrQdqIwaX0g7KEC6xrxUOOVc',
-    appId: '1:279286832272:web:057af508bf495b8a2a8c15',
-    messagingSenderId: '279286832272',
-    projectId: 'dorimol-firebase',
-    authDomain: 'dorimol-firebase.firebaseapp.com',
-    storageBucket: 'dorimol-firebase.firebasestorage.app',
-    measurementId: 'G-FTGJEEN2YB',
+    apiKey: 'AIzaSyBQ07fC-FFVL-XgumId_caxH5PcKO80FVw',
+    appId: '1:1028752678591:web:42dbc891a09f553229300a',
+    messagingSenderId: '1028752678591',
+    projectId: 'dorimol-pmr',
+    authDomain: 'dorimol-pmr.firebaseapp.com',
+    storageBucket: 'dorimol-pmr.firebasestorage.app',
+    measurementId: 'G-EYG852CW60',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBHuzrGHyBseB6T2sf5BvsMlzaoQWnHpek',
-    appId: '1:279286832272:android:ee0edf5babbc24432a8c15',
-    messagingSenderId: '279286832272',
-    projectId: 'dorimol-firebase',
-    storageBucket: 'dorimol-firebase.firebasestorage.app',
+    apiKey: 'AIzaSyCbEjaSbPEQpGfDj1-cZyDypF4b43TB1CE',
+    appId: '1:1028752678591:android:2a45ebd85284b00929300a',
+    messagingSenderId: '1028752678591',
+    projectId: 'dorimol-pmr',
+    storageBucket: 'dorimol-pmr.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCFC8XqBlk232TLRIxa64SxZ9SA1k0cAfE',
-    appId: '1:279286832272:ios:521f57c88234f7eb2a8c15',
-    messagingSenderId: '279286832272',
-    projectId: 'dorimol-firebase',
-    storageBucket: 'dorimol-firebase.firebasestorage.app',
+    apiKey: 'AIzaSyBqR9YDhvo3cicmIowxiW7szbq2YbKcIpM',
+    appId: '1:1028752678591:ios:af2535529dfbc05f29300a',
+    messagingSenderId: '1028752678591',
+    projectId: 'dorimol-pmr',
+    storageBucket: 'dorimol-pmr.firebasestorage.app',
     iosBundleId: 'com.agrotech.dorimol',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBqR9YDhvo3cicmIowxiW7szbq2YbKcIpM',
+    appId: '1:1028752678591:ios:af2535529dfbc05f29300a',
+    messagingSenderId: '1028752678591',
+    projectId: 'dorimol-pmr',
+    storageBucket: 'dorimol-pmr.firebasestorage.app',
+    iosBundleId: 'com.agrotech.dorimol',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBQ07fC-FFVL-XgumId_caxH5PcKO80FVw',
+    appId: '1:1028752678591:web:a498a748867294e229300a',
+    messagingSenderId: '1028752678591',
+    projectId: 'dorimol-pmr',
+    authDomain: 'dorimol-pmr.firebaseapp.com',
+    storageBucket: 'dorimol-pmr.firebasestorage.app',
+    measurementId: 'G-QR6ZN6M7ST',
   );
 
 }
