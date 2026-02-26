@@ -8,9 +8,12 @@ part of 'firebase_auth_anwer.dart';
 
 FirebaseAuthAnwer _$FirebaseAuthAnwerFromJson(Map<String, dynamic> json) =>
     FirebaseAuthAnwer(
-      jwt: json['jwt'] as String,
-      newUser: json['newUser'] as bool,
+      accessToken: json['accessToken'] as String,
+      refreshToken: json['refreshToken'] as String,
     );
 
 Map<String, dynamic> _$FirebaseAuthAnwerToJson(FirebaseAuthAnwer instance) =>
-    <String, dynamic>{'jwt': instance.jwt, 'newUser': instance.newUser};
+    <String, dynamic>{
+      'accessToken': instance.accessToken,
+      'refreshToken': instance.refreshToken,
+    };
