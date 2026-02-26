@@ -40,4 +40,6 @@ class TokenService {
   Future<void> init() async {
     _accessToken = await storageService.getAccess();
   }
+
+  String? get accessToken => _accessToken;
 }

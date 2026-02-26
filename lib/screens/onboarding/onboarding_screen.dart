@@ -1,11 +1,29 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/router/router.dart';
+import 'package:dorimol/screens/onboarding/onboarding_service.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final controllerFirstPage = TextEditingController();
+  final controllerSecondPage = TextEditingController();
+
+  void endOnboarding(BuildContext context, String? city) async {
+    try {
+      await OnboardingService().completeOnboarding(controllerFirstPage.text, city, controllerSecondPage.text);
+      AutoRouter.of(context).replace(const HomeRoute());
+    } catch (e) {
+      AutoRouter.of(context).replace(ErrorRoute(exception: Exception("Произошла ошибка")));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +31,8 @@ class OnboardingScreen extends StatelessWidget {
 
     return AutoTabsRouter(
       routes: [
-        OnboardingFirstRoute(colorTheme: colorTheme),
-        OnboardingSecondRoute(colorTheme: colorTheme),
+        OnboardingFirstRoute(colorTheme: colorTheme, controller: controllerFirstPage),
+        OnboardingSecondRoute(colorTheme: colorTheme, controller: controllerSecondPage, endOnboarding: endOnboarding,),
       ],
 
       builder: (context, child) {

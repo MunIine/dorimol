@@ -252,13 +252,13 @@ class _DorimolApiClient implements DorimolApiClient {
   }
 
   @override
-  Future<FirebaseAuthAnwer> createJwtToken(Map<String, String> body) async {
+  Future<JwtTokensAnwer> createJwtToken(Map<String, String> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<FirebaseAuthAnwer>(
+    final _options = _setStreamType<JwtTokensAnwer>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -269,9 +269,41 @@ class _DorimolApiClient implements DorimolApiClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late FirebaseAuthAnwer _value;
+    late JwtTokensAnwer _value;
     try {
-      _value = FirebaseAuthAnwer.fromJson(_result.data!);
+      _value = JwtTokensAnwer.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<JwtTokensAnwer> updateUser(
+    String token,
+    Map<String, dynamic> body,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _options = _setStreamType<JwtTokensAnwer>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/user/update',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late JwtTokensAnwer _value;
+    try {
+      _value = JwtTokensAnwer.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

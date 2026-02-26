@@ -14,7 +14,7 @@ class AuthGuard extends AutoRouteGuard {
     try {
       final accessTokenPayload = tokenService.parseAccessToken();
       talker.info("User authorized");
-      if (accessTokenPayload.onboardingComplete) {
+      if (accessTokenPayload.onboardingCompleted) {
         resolver.next(true);
       } else {
         router.push(const OnboardingRoute());

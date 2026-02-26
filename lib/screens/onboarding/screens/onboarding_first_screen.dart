@@ -7,21 +7,24 @@ class OnboardingFirstScreen extends StatefulWidget {
   const OnboardingFirstScreen({
     super.key,
     required this.colorTheme,
+    required this.controller,
   });
 
   final AppColors colorTheme;
+  final TextEditingController controller;
 
   @override
   State<OnboardingFirstScreen> createState() => _OnboardingFirstScreenState();
 }
 
 class _OnboardingFirstScreenState extends State<OnboardingFirstScreen> {
-  final controller = TextEditingController();
+  late final controller;
   bool enabled = false;
 
   @override
   void initState() {
     super.initState();
+    controller = widget.controller;
     controller.addListener(_onTextChanged);
   }
 

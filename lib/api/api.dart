@@ -39,5 +39,8 @@ abstract class DorimolApiClient {
   Future<HttpResponse> placeOrder(@Body() Order body);
 
   @POST('/auth/firebase')
-  Future<FirebaseAuthAnwer> createJwtToken(@Body() Map<String, String> body);
+  Future<JwtTokensAnwer> createJwtToken(@Body() Map<String, String> body);
+
+  @POST('/user/update')
+  Future<JwtTokensAnwer> updateUser(@Header("Authorization") String token, @Body() Map<String, dynamic> body);
 }

@@ -10,7 +10,7 @@ AccessTokenPayload _$AccessTokenPayloadFromJson(Map<String, dynamic> json) =>
     AccessTokenPayload(
       uid: json['uid'] as String,
       role: json['role'] as String,
-      onboardingComplete: json['onboarding_completed'] as bool,
+      onboardingCompleted: json['onboarding_completed'] as bool,
       iat: (json['iat'] as num).toInt(),
       exp: (json['exp'] as num).toInt(),
     );
@@ -21,5 +21,5 @@ Map<String, dynamic> _$AccessTokenPayloadToJson(AccessTokenPayload instance) =>
       'role': instance.role,
       'iat': instance.iat,
       'exp': instance.exp,
-      'onboarding_completed': instance.onboardingComplete,
+      'onboarding_completed': instance.onboardingCompleted,
     };

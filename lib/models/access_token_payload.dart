@@ -7,7 +7,7 @@ class AccessTokenPayload {
   AccessTokenPayload({
     required this.uid,
     required this.role,
-    required this.onboardingComplete,
+    required this.onboardingCompleted,
     required this.iat,
     required this.exp,
   });
@@ -21,5 +21,5 @@ class AccessTokenPayload {
   final int exp;
 
   @JsonKey(name: 'onboarding_completed')
-  final bool onboardingComplete;
+  final bool onboardingCompleted;
 }

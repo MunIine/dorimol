@@ -317,10 +317,15 @@ class OnboardingFirstRoute extends PageRouteInfo<OnboardingFirstRouteArgs> {
   OnboardingFirstRoute({
     Key? key,
     required AppColors colorTheme,
+    required TextEditingController controller,
     List<PageRouteInfo>? children,
   }) : super(
          OnboardingFirstRoute.name,
-         args: OnboardingFirstRouteArgs(key: key, colorTheme: colorTheme),
+         args: OnboardingFirstRouteArgs(
+           key: key,
+           colorTheme: colorTheme,
+           controller: controller,
+         ),
          initialChildren: children,
        );
 
@@ -330,32 +335,44 @@ class OnboardingFirstRoute extends PageRouteInfo<OnboardingFirstRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<OnboardingFirstRouteArgs>();
-      return OnboardingFirstScreen(key: args.key, colorTheme: args.colorTheme);
+      return OnboardingFirstScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+        controller: args.controller,
+      );
     },
   );
 }
 
 class OnboardingFirstRouteArgs {
-  const OnboardingFirstRouteArgs({this.key, required this.colorTheme});
+  const OnboardingFirstRouteArgs({
+    this.key,
+    required this.colorTheme,
+    required this.controller,
+  });
 
   final Key? key;
 
   final AppColors colorTheme;
 
+  final TextEditingController controller;
+
   @override
   String toString() {
-    return 'OnboardingFirstRouteArgs{key: $key, colorTheme: $colorTheme}';
+    return 'OnboardingFirstRouteArgs{key: $key, colorTheme: $colorTheme, controller: $controller}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! OnboardingFirstRouteArgs) return false;
-    return key == other.key && colorTheme == other.colorTheme;
+    return key == other.key &&
+        colorTheme == other.colorTheme &&
+        controller == other.controller;
   }
 
   @override
-  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+  int get hashCode => key.hashCode ^ colorTheme.hashCode ^ controller.hashCode;
 }
 
 /// generated route for
@@ -380,10 +397,17 @@ class OnboardingSecondRoute extends PageRouteInfo<OnboardingSecondRouteArgs> {
   OnboardingSecondRoute({
     Key? key,
     required AppColors colorTheme,
+    required TextEditingController controller,
+    required void Function(BuildContext, String?) endOnboarding,
     List<PageRouteInfo>? children,
   }) : super(
          OnboardingSecondRoute.name,
-         args: OnboardingSecondRouteArgs(key: key, colorTheme: colorTheme),
+         args: OnboardingSecondRouteArgs(
+           key: key,
+           colorTheme: colorTheme,
+           controller: controller,
+           endOnboarding: endOnboarding,
+         ),
          initialChildren: children,
        );
 
@@ -393,32 +417,48 @@ class OnboardingSecondRoute extends PageRouteInfo<OnboardingSecondRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<OnboardingSecondRouteArgs>();
-      return OnboardingSecondScreen(key: args.key, colorTheme: args.colorTheme);
+      return OnboardingSecondScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+        controller: args.controller,
+        endOnboarding: args.endOnboarding,
+      );
     },
   );
 }
 
 class OnboardingSecondRouteArgs {
-  const OnboardingSecondRouteArgs({this.key, required this.colorTheme});
+  const OnboardingSecondRouteArgs({
+    this.key,
+    required this.colorTheme,
+    required this.controller,
+    required this.endOnboarding,
+  });
 
   final Key? key;
 
   final AppColors colorTheme;
 
+  final TextEditingController controller;
+
+  final void Function(BuildContext, String?) endOnboarding;
+
   @override
   String toString() {
-    return 'OnboardingSecondRouteArgs{key: $key, colorTheme: $colorTheme}';
+    return 'OnboardingSecondRouteArgs{key: $key, colorTheme: $colorTheme, controller: $controller, endOnboarding: $endOnboarding}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! OnboardingSecondRouteArgs) return false;
-    return key == other.key && colorTheme == other.colorTheme;
+    return key == other.key &&
+        colorTheme == other.colorTheme &&
+        controller == other.controller;
   }
 
   @override
-  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+  int get hashCode => key.hashCode ^ colorTheme.hashCode ^ controller.hashCode;
 }
 
 /// generated route for

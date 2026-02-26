@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dorimol/router/router.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
@@ -11,9 +10,13 @@ class OnboardingSecondScreen extends StatefulWidget {
   const OnboardingSecondScreen({
     super.key,
     required this.colorTheme,
+    required this.controller,
+    required this.endOnboarding,
   });
 
   final AppColors colorTheme;
+  final TextEditingController controller;
+  final void Function(BuildContext, String?) endOnboarding;
 
   @override
   State<OnboardingSecondScreen> createState() => _OnboardingSecondScreenState();
@@ -21,7 +24,7 @@ class OnboardingSecondScreen extends StatefulWidget {
 
 class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
   String? selectedCity;
-  final addressController = TextEditingController();
+  late final addressController;
   bool enabled = false;
 
   final List<String> cities = [
@@ -40,6 +43,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
   @override
   void initState() {
     super.initState();
+    addressController = widget.controller;
     addressController.addListener(_onTextChanged);
   }
 
@@ -156,7 +160,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
             children: [
               Expanded(
                 child: TextButton(
-                  onPressed: () => AutoRouter.of(context).replace(const HomeRoute()),
+                  onPressed: () => widget.endOnboarding(context, selectedCity),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -168,7 +172,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
               const SizedBox(width: 8),
               Expanded(
                 child: TextButton(
-                  onPressed: enabled ? () => AutoRouter.of(context).replace(const HomeRoute()) : null,
+                  onPressed: enabled ? () => widget.endOnboarding(context, selectedCity) : null,
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     backgroundColor: colorTheme.seedColor,
