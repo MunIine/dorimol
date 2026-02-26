@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dorimol/api/models/product.dart';
+import 'package:dorimol/models/product.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/product_card.dart';
 import 'package:flutter/material.dart';

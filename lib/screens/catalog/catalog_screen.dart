@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:dorimol/api/models/category.dart';
+import 'package:dorimol/models/category.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/theme/export.dart';

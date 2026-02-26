@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dorimol/api/api.dart';
-import 'package:dorimol/api/models/category.dart';
+import 'package:dorimol/models/category.dart';
 import 'package:equatable/equatable.dart';
 
 part 'categories_event.dart';

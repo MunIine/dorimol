@@ -1,6 +1,6 @@
 import 'package:dorimol/api/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dorimol/api/models/product_details.dart';
+import 'package:dorimol/models/product_details.dart';
 import 'package:equatable/equatable.dart';
 
 part 'product_details_event.dart';

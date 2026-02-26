@@ -1,4 +1,4 @@
-import 'package:dorimol/api/models/product.dart';
+import 'package:dorimol/models/product.dart';
 import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/cart/change_product_in_cart.dart';

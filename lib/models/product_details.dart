@@ -1,5 +1,5 @@
-import 'package:dorimol/api/models/product.dart';
-import 'package:dorimol/api/models/product_feedback.dart';
+import 'package:dorimol/models/product.dart';
+import 'package:dorimol/models/product_feedback.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product_details.g.dart';

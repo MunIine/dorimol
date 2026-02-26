@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dorimol/api/models/product.dart';
+import 'package:dorimol/models/product.dart';
 import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/theme/export.dart';

@@ -1,4 +1,4 @@
-import 'package:dorimol/api/models/product_details.dart';
+import 'package:dorimol/models/product_details.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
 // ignore_for_file: sort_constructors_first
 
-import 'package:dorimol/api/models/product_in_cart.dart';
+import 'package:dorimol/models/product_in_cart.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'order.g.dart';

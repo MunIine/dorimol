@@ -1,5 +1,5 @@
-import 'package:dorimol/api/models/product.dart';
-import 'package:dorimol/api/models/product_in_cart.dart';
+import 'package:dorimol/models/product.dart';
+import 'package:dorimol/models/product_in_cart.dart';
 import 'package:dorimol/screens/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/screens/cart/widgets/cart_product_card.dart';
 import 'package:dorimol/theme/export.dart';

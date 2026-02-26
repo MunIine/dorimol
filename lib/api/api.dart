@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:dorimol/api/models/models.dart';
+import 'package:dorimol/models/models.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api.g.dart';

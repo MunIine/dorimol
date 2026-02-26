@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:dorimol/api/api.dart';
 import 'package:dorimol/data/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dorimol/api/models/product.dart';
+import 'package:dorimol/models/product.dart';
 import 'package:equatable/equatable.dart';
 
 part 'catalog_event.dart';

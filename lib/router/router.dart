@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dorimol/api/models/category.dart';
+import 'package:dorimol/models/category.dart';
 import 'package:dorimol/screens/account/account_screen.dart';
 import 'package:dorimol/screens/account/screens/export.dart';
 import 'package:dorimol/screens/authorization/authorization_screen.dart';

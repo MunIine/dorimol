@@ -1,7 +1,7 @@
 import 'package:dorimol/api/api.dart';
-import 'package:dorimol/api/models/order.dart';
-import 'package:dorimol/api/models/product.dart';
-import 'package:dorimol/api/models/product_in_cart.dart';
+import 'package:dorimol/models/order.dart';
+import 'package:dorimol/models/product.dart';
+import 'package:dorimol/models/product_in_cart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:dorimol/api/models/firebase_auth_anwer.dart';
+import 'package:dorimol/models/firebase_auth_anwer.dart';
 import 'package:dorimol/data/services/auth_sevice.dart';
 import 'package:equatable/equatable.dart';
 
