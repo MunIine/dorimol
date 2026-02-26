@@ -24,9 +24,9 @@ class AccountScreen extends StatelessWidget {
         child: Column(
           children: [
             AccountAppBar(colorTheme: colorTheme),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             AccountPersonalSale(colorTheme: colorTheme),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Expanded(child: AccountInfoBlock(tabsRouter: tabsRouter, colorTheme: colorTheme, child: child)), //TOрDO: Подумать над этим отображением
           ],
         ),
@@ -52,7 +52,7 @@ class AccountInfoBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: Column(
         children: [
@@ -73,7 +73,7 @@ class AccountInfoBlock extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Expanded(child: child)
         ],
       ),

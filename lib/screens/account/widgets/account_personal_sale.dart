@@ -29,9 +29,9 @@ class _AccountPersonalSaleState extends State<AccountPersonalSale> {
     return Row(
       children: [
         if (isInfo) ChangeInfoButton(colorTheme: widget.colorTheme, onTap: toggleInfo, isInfo: isInfo),
-        if (isInfo) SizedBox(width: 6),
+        if (isInfo) const SizedBox(width: 6),
         ContentBlock(colorTheme: widget.colorTheme, isInfo: isInfo),
-        if (!isInfo) SizedBox(width: 6),
+        if (!isInfo) const SizedBox(width: 6),
         if (!isInfo) ChangeInfoButton(colorTheme: widget.colorTheme, onTap: toggleInfo, isInfo: isInfo)
       ],
     );

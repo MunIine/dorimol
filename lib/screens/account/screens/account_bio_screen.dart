@@ -21,11 +21,11 @@ class AccountBIOScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Имя", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text("Алексей Груменко", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Icon(SvgIcons.edit, color: colorTheme.tips, size: 16,)
           ],
         ),
@@ -38,11 +38,11 @@ class AccountBIOScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Телефон", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text("+373 68 123 456", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Icon(Icons.done_rounded, color: colorTheme.seedColor, size: 20,)
           ],
         ),
@@ -55,11 +55,11 @@ class AccountBIOScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Адрес", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text("Ул. Лермонтова 32", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Icon(SvgIcons.edit, color: colorTheme.tips, size: 16,)
           ],
         ),
@@ -72,11 +72,11 @@ class AccountBIOScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Город", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text("Тирасполь", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Icon(SvgIcons.edit, color: colorTheme.tips, size: 16,)
           ],
         ),

@@ -72,9 +72,9 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
             textAlign: TextAlign.center,
             style: AppText.t7.copyWith(color: colorTheme.textBlack)
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Align(alignment: Alignment.centerLeft, child: Text("Ваш город", style: AppText.b1.copyWith(color: colorTheme.iconGray))),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           DropdownButtonHideUnderline(
             child: DropdownButton2<String>(
               isExpanded: true,
@@ -86,7 +86,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
                       selectedCity == city ? SvgIcons.radioButtonOn : SvgIcons.radioButtonOff, 
                       color: selectedCity == city ? colorTheme.seedColor : colorTheme.tips
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(city, style: AppText.t3.copyWith(color: colorTheme.tips)),
                   ],
                 ),
@@ -108,7 +108,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
               },
               hint: Text("Ваш город", style: AppText.t3.copyWith(color: colorTheme.tips)),
               dropdownStyleData: DropdownStyleData(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 maxHeight: 250,
                 elevation: 0,
                 decoration: BoxDecoration(
@@ -125,7 +125,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
                   ),
                 ),
               ),
-              menuItemStyleData: MenuItemStyleData(
+              menuItemStyleData: const MenuItemStyleData(
                 padding: EdgeInsets.zero
               ),
               buttonStyleData: ButtonStyleData(
@@ -136,9 +136,9 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
               ),
             ),
           ),
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           Align(alignment: Alignment.centerLeft, child: Text("Ваш адрес", style: AppText.b1.copyWith(color: colorTheme.iconGray))),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -146,31 +146,31 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
             ),
             child: TextField(
               controller: addressController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Улица, дом, кв",
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             children: [
               Expanded(
                 child: TextButton(
-                  onPressed: () => AutoRouter.of(context).replace(HomeRoute()),
+                  onPressed: () => AutoRouter.of(context).replace(const HomeRoute()),
                   style: TextButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     side: BorderSide(color: colorTheme.seedColor, width: 1),
                   ),
                   child: Text("Пропустить", style: AppText.b7.copyWith(color: colorTheme.seedColor),)
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: TextButton(
-                  onPressed: enabled ? () => AutoRouter.of(context).replace(HomeRoute()) : null,
+                  onPressed: enabled ? () => AutoRouter.of(context).replace(const HomeRoute()) : null,
                   style: TextButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     backgroundColor: colorTheme.seedColor,
                     disabledBackgroundColor: colorTheme.tips,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -180,7 +180,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
               )
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
@@ -195,7 +195,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
               ]
             )
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ],
       ),
     );

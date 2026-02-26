@@ -30,7 +30,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   void dispose() {
-    _productDetailsBloc.add(ResetProductDetails());
+    _productDetailsBloc.add(const ResetProductDetails());
     super.dispose();
   }
 

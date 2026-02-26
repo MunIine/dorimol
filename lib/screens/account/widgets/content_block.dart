@@ -13,7 +13,7 @@ class ContentBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
         child: isInfo ? InfoBlock(colorTheme: colorTheme) : CurrentBlock(colorTheme: colorTheme),
       ),

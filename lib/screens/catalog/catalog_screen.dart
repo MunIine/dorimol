@@ -28,13 +28,13 @@ class _CatalogScreenState extends State<CatalogScreen> {
   void initState() {
     super.initState();
     _catalogBloc = BlocProvider.of<CatalogBloc>(context);
-    BlocProvider.of<CatalogBloc>(context).add(ResetCatalog());
+    BlocProvider.of<CatalogBloc>(context).add(const ResetCatalog());
     if (widget.category != null) BlocProvider.of<CatalogBloc>(context).add(FetchCatalog(categoryId: widget.category!.id));
   }
 
   @override
   void dispose() {
-    _catalogBloc?.add(ResetCatalog());
+    _catalogBloc?.add(const ResetCatalog());
     super.dispose();
   }
 

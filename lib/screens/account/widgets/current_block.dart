@@ -12,7 +12,7 @@ class CurrentBlock extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Текущая скидка 0%", style: AppText.b6.copyWith(color: colorTheme.textGray)),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Text("Осталось 3 заказа", style: AppText.t2.copyWith(color: colorTheme.textGray)),
         Stack(
           children: [
@@ -21,7 +21,7 @@ class CurrentBlock extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: 0.3,
                 borderRadius: BorderRadius.circular(16),
-                backgroundColor: Color(0xFFCDFFE4),
+                backgroundColor: const Color(0xFFCDFFE4),
               ),
             ),
             Positioned(

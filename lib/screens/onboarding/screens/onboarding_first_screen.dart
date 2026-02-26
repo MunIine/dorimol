@@ -45,9 +45,9 @@ class _OnboardingFirstScreenState extends State<OnboardingFirstScreen> {
             textAlign: TextAlign.center,
             style: AppText.t7.copyWith(color: widget.colorTheme.textBlack)
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Align(alignment: Alignment.centerLeft, child: Text("Ваше имя", style: AppText.b1.copyWith(color: widget.colorTheme.iconGray))),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -55,18 +55,18 @@ class _OnboardingFirstScreenState extends State<OnboardingFirstScreen> {
             ),
             child: TextField(
               controller: controller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Донжуан",
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: double.infinity,
             child: TextButton(
               onPressed: enabled ? () => AutoTabsRouter.of(context).setActiveIndex(1) : null,
               style: TextButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 12),
                 backgroundColor: widget.colorTheme.seedColor,
                 disabledBackgroundColor: widget.colorTheme.tips,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -74,7 +74,7 @@ class _OnboardingFirstScreenState extends State<OnboardingFirstScreen> {
               child: Text("Далее", style: AppText.b7.copyWith(color: widget.colorTheme.background))
             ),
           ),
-          SizedBox(height: 60),
+          const SizedBox(height: 60),
         ],
       ),
     );
