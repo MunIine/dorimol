@@ -7,10 +7,6 @@ sealed class AuthorizationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CheckAuthorization extends AuthorizationEvent {
-  const CheckAuthorization();
-}
-
 class SendCode extends AuthorizationEvent {
   const SendCode({required this.phone});
 

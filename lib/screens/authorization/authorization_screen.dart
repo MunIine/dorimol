@@ -19,13 +19,6 @@ class AuthorizationScreen extends StatefulWidget {
 
 class _AuthorizationScreenState extends State<AuthorizationScreen> {
   final TextEditingController pinController = TextEditingController();
-
-  @override
-  void initState() {
-    BlocProvider.of<AuthorizationBloc>(context).add(const CheckAuthorization());
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;

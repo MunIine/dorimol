@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/models/category.dart';
+import 'package:dorimol/router/router_guards.dart';
 import 'package:dorimol/screens/account/account_screen.dart';
 import 'package:dorimol/screens/account/screens/export.dart';
 import 'package:dorimol/screens/authorization/authorization_screen.dart';
@@ -24,7 +25,8 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
     AutoRoute(
       page: HomeRoute.page,
-      path: "/home",
+      path: "/",
+      guards: [AuthGuard()],
       children: [
         AutoRoute(
           page: AccountRoute.page,
@@ -43,26 +45,26 @@ class AppRouter extends RootStackRouter {
               page: CategoriesRoute.page,
               path: "categories",
               initial: true,
-              duration: Duration(milliseconds: 0), // Remove dragging when animation
-              reverseDuration: Duration(milliseconds: 0), // Remove dragging when animation
+              duration: const Duration(milliseconds: 0), // Remove dragging when animation
+              reverseDuration: const Duration(milliseconds: 0), // Remove dragging when animation
             ),
             CustomRoute(
               page: CatalogRoute.page,
               path: "catalog",
-              duration: Duration(milliseconds: 0),
-              reverseDuration: Duration(milliseconds: 0),
+              duration: const Duration(milliseconds: 0),
+              reverseDuration: const Duration(milliseconds: 0),
             ),
             CustomRoute(
               page: ProductRoute.page,
               path: "product",
-              duration: Duration(milliseconds: 0),
-              reverseDuration: Duration(milliseconds: 0),
+              duration: const Duration(milliseconds: 0),
+              reverseDuration: const Duration(milliseconds: 0),
             ),
           ],
         ),
       ]
     ),
-    AutoRoute(page: AuthorizationRoute.page, path: "/"),
+    AutoRoute(page: AuthorizationRoute.page, path: "/auth"),
     AutoRoute(
       page: OnboardingRoute.page, 
       path: "/onboarding",

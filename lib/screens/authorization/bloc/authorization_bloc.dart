@@ -1,27 +1,15 @@
 import 'package:bloc/bloc.dart';
-import 'package:dorimol/data/exceptions.dart';
 import 'package:dorimol/models/access_token_payload.dart';
 import 'package:dorimol/models/firebase_auth_anwer.dart';
 import 'package:dorimol/data/services/auth_service.dart';
 import 'package:dorimol/data/services/token_service.dart';
 import 'package:equatable/equatable.dart';
-import 'package:get_it/get_it.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 part 'authorization_event.dart';
 part 'authorization_state.dart';
 
 class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
   AuthorizationBloc({required this.authService, required this.tokenService}) : super(AuthorizationInitial()) {
-    on<CheckAuthorization>((event, emit) async {
-      try {
-        final AccessTokenPayload accessTokenPayload = tokenService.parseAccessToken();
-        GetIt.I<Talker>().info("User authorized");
-        emit(AuthorizationSuccess(onboardingCompleted: accessTokenPayload.onboardingComplete));
-      } on TokenException catch (_) {
-        GetIt.I<Talker>().info("User not authorized");
-      }
-    });
     on<SendCode>((event, emit) async {
       try {
         await authService.signIn(phone: event.phone);
