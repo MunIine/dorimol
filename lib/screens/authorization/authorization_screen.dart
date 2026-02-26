@@ -40,9 +40,13 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
             const SizedBox(height: 20),
             BlocConsumer<AuthorizationBloc, AuthorizationState>(
               listener: (context, state) {
-                if (state is AuthorizationSuccess) {
+                if (state is AuthorizationSuccess && state.onboardingCompleted) {
+                  AutoRouter.of(context).replace(const HomeRoute());
+                }
+                else if (state is AuthorizationSuccess && !state.onboardingCompleted) {
                   AutoRouter.of(context).replace(const OnboardingRoute());
-                } else if (state is AuthorizationFailure) {
+                }
+                else if (state is AuthorizationFailure) {
                   GetIt.I<Talker>().error(state.exception);
                 }
               },

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:dorimol/api/api.dart';
-import 'package:dorimol/api/models/firebase_auth_anwer.dart';
+import 'package:dorimol/models/firebase_auth_anwer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -54,7 +54,7 @@ class AuthService {
 
   Future<FirebaseAuthAnwer> getJwtToken(String idToken) async {
     try {
-      final FirebaseAuthAnwer anwer = await apiClient.createJwtToken({'idToken':idToken});
+      final FirebaseAuthAnwer anwer = await apiClient.createJwtToken({'id_token':idToken});
       return anwer;
 
     } catch (e, st) {

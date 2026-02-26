@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:dorimol/api/api.dart';
 import 'package:dorimol/app.dart';
 import 'package:dorimol/data/app_config.dart';
-import 'package:dorimol/data/services/auth_sevice.dart';
+import 'package:dorimol/data/services/auth_service.dart';
+import 'package:dorimol/data/services/token_service.dart';
 import 'package:dorimol/screens/errors/error_screen.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,7 @@ void main() async {
   GetIt.I.registerSingleton(dio);
   GetIt.I.registerSingleton(DorimolApiClient.create(dio: dio, apiUrl: AppConfig.apiUrl));
   GetIt.I.registerSingleton(AuthService(apiClient: GetIt.I<DorimolApiClient>()));
+  GetIt.I.registerSingleton(TokenService());
 
   try {
     final config = await GetIt.I<DorimolApiClient>().fetchConfig();
