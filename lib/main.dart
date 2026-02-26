@@ -3,6 +3,7 @@ import 'package:dorimol/api/api.dart';
 import 'package:dorimol/app.dart';
 import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/data/services/auth_service.dart';
+import 'package:dorimol/data/services/storage_service.dart';
 import 'package:dorimol/data/services/token_service.dart';
 import 'package:dorimol/screens/errors/error_screen.dart';
 import 'package:dorimol/theme/theme.dart';
@@ -33,6 +34,10 @@ void main() async {
 
   final dio = Dio();
   final talker = TalkerFlutter.init();
+  final storageService = StorageService();
+  final tokenService = TokenService(storageService: storageService, talker: talker);
+
+  await tokenService.init();
 
   talker.debug("Talker initialized");
 
@@ -43,9 +48,10 @@ void main() async {
 
   GetIt.I.registerSingleton(talker);
   GetIt.I.registerSingleton(dio);
+  GetIt.I.registerSingleton(storageService);
+  GetIt.I.registerSingleton(tokenService);
   GetIt.I.registerSingleton(DorimolApiClient.create(dio: dio, apiUrl: AppConfig.apiUrl));
   GetIt.I.registerSingleton(AuthService(apiClient: GetIt.I<DorimolApiClient>()));
-  GetIt.I.registerSingleton(TokenService());
 
   try {
     final config = await GetIt.I<DorimolApiClient>().fetchConfig();
