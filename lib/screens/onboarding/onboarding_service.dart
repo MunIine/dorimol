@@ -1,4 +1,4 @@
-import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/data/services/token_service.dart';
 import 'package:get_it/get_it.dart';
 
@@ -16,7 +16,7 @@ class OnboardingService {
       });
     }
 
-    final tokens = await GetIt.I<DorimolApiClient>().updateUser('Bearer ${tokenService.accessToken!}', data);
+    final tokens = await GetIt.I<PublicApiClient>().updateUser('Bearer ${tokenService.accessToken!}', data);
     await tokenService.saveTokens(accessToken: tokens.accessToken, refreshToken: tokens.refreshToken);
   }
 }

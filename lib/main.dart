@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/api/api_interceptors.dart';
 import 'package:dorimol/app.dart';
 import 'package:dorimol/data/app_config.dart';
@@ -58,11 +58,11 @@ void main() async {
   GetIt.I.registerSingleton(dio);
   GetIt.I.registerSingleton(storageService);
   GetIt.I.registerSingleton(tokenService);
-  GetIt.I.registerSingleton(DorimolApiClient.create(dio: dio, apiUrl: AppConfig.apiUrl));
-  GetIt.I.registerSingleton(AuthService(apiClient: GetIt.I<DorimolApiClient>()));
+  GetIt.I.registerSingleton(PublicApiClient.create(dio: dio, apiUrl: AppConfig.apiUrl));
+  GetIt.I.registerSingleton(AuthService(apiClient: GetIt.I<PublicApiClient>()));
 
   try {
-    final config = await GetIt.I<DorimolApiClient>().fetchConfig();
+    final config = await GetIt.I<PublicApiClient>().fetchConfig();
 
     final packageInfo = await PackageInfo.fromPlatform();
     final currentVersion = packageInfo.version;

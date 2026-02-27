@@ -12,6 +12,7 @@ class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     try {
+      // TODO: Check token expired
       final accessTokenPayload = tokenService.parseAccessToken();
       talker.info("User authorized");
       if (accessTokenPayload.onboardingCompleted) {

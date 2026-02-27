@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/data/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dorimol/models/product.dart';
@@ -65,6 +65,6 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
     }
   }
 
-  final DorimolApiClient apiClient;
+  final PublicApiClient apiClient;
   CatalogEvent? prevEvent;
 }

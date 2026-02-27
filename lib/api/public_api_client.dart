@@ -2,16 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:dorimol/models/models.dart';
 import 'package:retrofit/retrofit.dart';
 
-part 'api.g.dart';
+part 'public_api_client.g.dart';
 
 @RestApi(baseUrl: "")
-abstract class DorimolApiClient {
-  factory DorimolApiClient(Dio dio, {String baseUrl}) = _DorimolApiClient;
-  factory DorimolApiClient.create({required Dio dio, String? apiUrl}){
+abstract class PublicApiClient {
+  factory PublicApiClient(Dio dio, {String baseUrl}) = _PublicApiClient;
+  factory PublicApiClient.create({required Dio dio, String? apiUrl}){
     if (apiUrl != null) {
-      return DorimolApiClient(dio, baseUrl: apiUrl);
+      return PublicApiClient(dio, baseUrl: apiUrl);
     }
-    return DorimolApiClient(dio);
+    return PublicApiClient(dio);
   }
 
   @GET('/config')
@@ -41,6 +41,6 @@ abstract class DorimolApiClient {
   @POST('/auth/firebase')
   Future<JwtTokensAnwer> createJwtToken(@Body() Map<String, String> body);
 
-  @POST('/user/update')
+  @POST('/user/update') //TODO: Authomatic authorisation
   Future<JwtTokensAnwer> updateUser(@Header("Authorization") String token, @Body() Map<String, dynamic> body);
 }

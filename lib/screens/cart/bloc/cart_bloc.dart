@@ -1,4 +1,4 @@
-import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/models/order.dart';
 import 'package:dorimol/models/product.dart';
 import 'package:dorimol/models/product_in_cart.dart';
@@ -72,7 +72,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     ));
   }
 
-  final DorimolApiClient apiClient;
+  final PublicApiClient apiClient;
   final Map<String, ProductInCart> productsInCart = {};
   final Map<String, Product> products = {};
   double totalPrice = 0;

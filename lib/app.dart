@@ -1,4 +1,4 @@
-import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/data/services/auth_service.dart';
 import 'package:dorimol/data/services/token_service.dart';
 import 'package:dorimol/screens/authorization/bloc/authorization_bloc.dart';
@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final apiClient = GetIt.I<DorimolApiClient>();
+    final apiClient = GetIt.I<PublicApiClient>();
     final authService = GetIt.I<AuthService>();
     final tokenService = GetIt.I<TokenService>();
     final minVersion = widget.config["min_app_version"] ?? "0.0.0";

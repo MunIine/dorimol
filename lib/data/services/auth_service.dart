@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/models/jwt_tokens_anwer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
@@ -9,7 +9,7 @@ class AuthService {
   AuthService({required this.apiClient});
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final DorimolApiClient apiClient;
+  final PublicApiClient apiClient;
 
   User? get currentUser => firebaseAuth.currentUser;
   String? _verificationId;

@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/models/category.dart';
 import 'package:equatable/equatable.dart';
 
@@ -19,5 +19,5 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     });
   }
 
-  final DorimolApiClient apiClient;
+  final PublicApiClient apiClient;
 }

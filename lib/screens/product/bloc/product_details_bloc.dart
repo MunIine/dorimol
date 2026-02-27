@@ -1,4 +1,4 @@
-import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/public_api_client.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dorimol/models/product_details.dart';
 import 'package:equatable/equatable.dart';
@@ -22,5 +22,5 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
     });
   }
 
-  final DorimolApiClient apiClient;
+  final PublicApiClient apiClient;
 }
