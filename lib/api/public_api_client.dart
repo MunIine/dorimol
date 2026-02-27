@@ -40,7 +40,4 @@ abstract class PublicApiClient {
 
   @POST('/auth/firebase')
   Future<JwtTokensAnwer> createJwtToken(@Body() Map<String, String> body);
-
-  @POST('/user/update') //TODO: Authomatic authorisation
-  Future<JwtTokensAnwer> updateUser(@Header("Authorization") String token, @Body() Map<String, dynamic> body);
 }

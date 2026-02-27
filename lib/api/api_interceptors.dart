@@ -70,4 +70,11 @@ class AuthInterceptor extends Interceptor{
 
     return handler.next(err);
   }
+
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    final token = tokenService.accessToken;
+    options.headers["Authorization"] = "Bearer $token";
+    handler.next(options);
+  }
 }

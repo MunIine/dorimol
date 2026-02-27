@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dorimol/api/private_api_client.dart';
 import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/api/api_interceptors.dart';
 import 'package:dorimol/app.dart';
@@ -33,7 +34,8 @@ void main() async {
 
   await dotenv.load(fileName: ".env");
 
-  final dio = Dio(BaseOptions(baseUrl: AppConfig.apiUrl));
+  final publicDio = Dio(BaseOptions(baseUrl: AppConfig.apiUrl));
+  final privateDio = Dio(BaseOptions(baseUrl: AppConfig.apiUrl));
   final refreshDio = Dio(BaseOptions(baseUrl: AppConfig.apiUrl));
   final talker = TalkerFlutter.init();
   final storageService = StorageService();
@@ -44,21 +46,23 @@ void main() async {
   talker.debug("Talker initialized");
 
   Bloc.observer = TalkerBlocObserver(talker: talker);
-  dio.interceptors.add(
-    TalkerDioLogger(talker: talker, settings: const TalkerDioLoggerSettings(printResponseData: false)),
-  );
   refreshDio.interceptors.add(
     TalkerDioLogger(talker: talker, settings: const TalkerDioLoggerSettings(printResponseData: false)),
   );
-  dio.interceptors.add(
-    AuthInterceptor(dio: dio, refreshDio: refreshDio, tokenService: tokenService)
+  publicDio.interceptors.add(
+    TalkerDioLogger(talker: talker, settings: const TalkerDioLoggerSettings(printResponseData: false)),
   );
+  privateDio.interceptors.addAll([
+    TalkerDioLogger(talker: talker, settings: const TalkerDioLoggerSettings(printResponseData: false)),
+    AuthInterceptor(dio: publicDio, refreshDio: refreshDio, tokenService: tokenService)
+  ]);
 
   GetIt.I.registerSingleton(talker);
-  GetIt.I.registerSingleton(dio);
+  GetIt.I.registerSingleton(publicDio);
   GetIt.I.registerSingleton(storageService);
   GetIt.I.registerSingleton(tokenService);
-  GetIt.I.registerSingleton(PublicApiClient.create(dio: dio, apiUrl: AppConfig.apiUrl));
+  GetIt.I.registerSingleton(PublicApiClient.create(dio: publicDio, apiUrl: AppConfig.apiUrl));
+  GetIt.I.registerSingleton(PrivateApiClient.create(dio: privateDio, apiUrl: AppConfig.apiUrl));
   GetIt.I.registerSingleton(AuthService(apiClient: GetIt.I<PublicApiClient>()));
 
   try {
