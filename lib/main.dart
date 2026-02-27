@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dorimol/api/api.dart';
+import 'package:dorimol/api/api_interceptors.dart';
 import 'package:dorimol/app.dart';
 import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/data/services/auth_service.dart';
@@ -32,7 +33,8 @@ void main() async {
 
   await dotenv.load(fileName: ".env");
 
-  final dio = Dio();
+  final dio = Dio(BaseOptions(baseUrl: AppConfig.apiUrl));
+  final refreshDio = Dio(BaseOptions(baseUrl: AppConfig.apiUrl));
   final talker = TalkerFlutter.init();
   final storageService = StorageService();
   final tokenService = TokenService(storageService: storageService, talker: talker);
@@ -44,6 +46,12 @@ void main() async {
   Bloc.observer = TalkerBlocObserver(talker: talker);
   dio.interceptors.add(
     TalkerDioLogger(talker: talker, settings: const TalkerDioLoggerSettings(printResponseData: false)),
+  );
+  refreshDio.interceptors.add(
+    TalkerDioLogger(talker: talker, settings: const TalkerDioLoggerSettings(printResponseData: false)),
+  );
+  dio.interceptors.add(
+    AuthInterceptor(dio: dio, refreshDio: refreshDio, tokenService: tokenService)
   );
 
   GetIt.I.registerSingleton(talker);

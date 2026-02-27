@@ -42,4 +42,5 @@ class TokenService {
   }
 
   String? get accessToken => _accessToken;
+  Future<String?> get refreshToken async => await storageService.getRefresh();
 }
