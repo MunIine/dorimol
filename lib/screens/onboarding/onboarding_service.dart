@@ -9,7 +9,7 @@ class OnboardingService {
       "name": name,
       "onboarding_completed": true,
     };
-    if (city != null && address != null) {
+    if (city != null && address != null && city.isNotEmpty && address.isNotEmpty) {
       data.addAll({
         "address": address,
         "city": city,

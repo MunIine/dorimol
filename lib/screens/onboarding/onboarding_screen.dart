@@ -18,7 +18,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void endOnboarding(BuildContext context, String? city) async {
     try {
-      await OnboardingService().completeOnboarding(controllerFirstPage.text, city, controllerSecondPage.text);
+      await OnboardingService().completeOnboarding(controllerFirstPage.text.trim(), city?.trim(), controllerSecondPage.text.trim());
       AutoRouter.of(context).replace(const HomeRoute());
     } catch (e) {
       AutoRouter.of(context).replace(ErrorRoute(exception: Exception("Произошла ошибка")));
