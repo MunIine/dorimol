@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dio/dio.dart';
 import 'package:dorimol/api/private_api_client.dart';
 import 'package:dorimol/data/exceptions.dart';
 import 'package:dorimol/data/services/token_service.dart';
@@ -24,9 +25,14 @@ class AuthGuard extends AutoRouteGuard {
       } else {
         router.push(const OnboardingRoute());
       }
-    } on TokenException catch (_) {
-      talker.info("User not authorized");
+    } on TokenException catch (e) {
+      talker.info("User not authorized: ${e.message}");
       router.push(const AuthorizationRoute());
+    } on DioException catch(e){
+      if (e.error is TokenRefreshException) {
+        talker.info("User not authorized: ${(e.error as TokenRefreshException).message}");
+        router.push(const AuthorizationRoute());
+      } 
     }
   }
 }

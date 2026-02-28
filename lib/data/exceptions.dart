@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 class TokenException implements Exception {
   const TokenException(this.message);
   
@@ -5,4 +7,11 @@ class TokenException implements Exception {
 
   @override
   String toString() => 'TokenException: $message';
+}
+
+class TokenRefreshException extends TokenException {
+  const TokenRefreshException(String message, {required this.originalRequest, required this.refreshRequest}) : super(message);
+
+  final DioException originalRequest;
+  final DioException? refreshRequest;
 }

@@ -26,8 +26,10 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
         if (user != null) {
           final idToken = await user.getIdToken();
           final JwtTokensAnwer firebaseAuthAnwer = await authService.getJwtToken(idToken!);
+
           await tokenService.saveTokens(accessToken: firebaseAuthAnwer.accessToken, refreshToken: firebaseAuthAnwer.refreshToken);
           final AccessTokenPayload accessTokenPayload = tokenService.parseAccessToken();
+
           emit(AuthorizationSuccess(onboardingCompleted: accessTokenPayload.onboardingCompleted));
         } else {
           emit(AuthorizationFailure(exception: Exception("User is null")));

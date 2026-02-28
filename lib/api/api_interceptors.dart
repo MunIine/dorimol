@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:dorimol/data/exceptions.dart';
 import 'package:dorimol/data/services/token_service.dart';
 import 'package:dorimol/models/jwt_tokens_anwer.dart';
 
@@ -19,19 +20,24 @@ class AuthInterceptor extends Interceptor{
     if (err.response?.statusCode == 401) {
       try {
         if (_isRefreshing){
-          final accessToken = await _refreshCompleter!.future;
-          final options = err.requestOptions.copyWith(
-            headers: {
-              ...err.requestOptions.headers,
-              'Authorization': 'Bearer ${accessToken}',
-            }
-          );
+          try{
+            final accessToken = await _refreshCompleter!.future;
+            final options = err.requestOptions.copyWith(
+              headers: {
+                ...err.requestOptions.headers,
+                'Authorization': 'Bearer ${accessToken}',
+              }
+            );
 
-          final clone = await dio.fetch(options);
-          return handler.resolve(clone);
+            final clone = await dio.fetch(options);
+            return handler.resolve(clone);
+          } catch (e){
+            return handler.reject(err.copyWith(error: e));
+          }
         }
         _isRefreshing = true;
         _refreshCompleter = Completer<String>();
+        _refreshCompleter!.future.catchError((_){return "dummy";});
 
         final refreshToken = await tokenService.refreshToken;
         final response = await refreshDio.post(
@@ -58,12 +64,22 @@ class AuthInterceptor extends Interceptor{
 
         final clone = await dio.fetch(options);
         return handler.resolve(clone);
-      } catch (e) {
-        if (e is DioException && e.response?.statusCode == 401){
+      } catch (newError) {
+        if (newError is DioException && newError.response?.statusCode == 401){
           await tokenService.clearTokens();
+          final error = err.copyWith(error: TokenRefreshException(
+            err.response?.data?['detail'] ?? "Refresh token error",
+            originalRequest: err,
+            refreshRequest: newError
+          ));
+
+          _isRefreshing = false;
+          _refreshCompleter!.completeError(error);
+
+          return handler.reject(error);
         }
         _isRefreshing = false;
-        _refreshCompleter!.completeError(e);
+        _refreshCompleter!.completeError(newError);
         return handler.next(err);
       }
     }
