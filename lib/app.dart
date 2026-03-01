@@ -22,11 +22,21 @@ class MyApp extends StatefulWidget {
   final String currentVersion;
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MyApp> createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   final _appRouter = AppRouter();
+  Key _appKey = UniqueKey();
+
+  void logout() async {
+    final tokenService = GetIt.I<TokenService>();
+    await tokenService.clearTokens();
+    setState(() {
+      _appKey = UniqueKey();
+    });
+    _appRouter.replaceAll([const AuthorizationRoute()]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +63,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     return MultiBlocProvider(
+      key: _appKey,
       providers: [
         BlocProvider(create: (context) => CategoriesBloc(apiClient: publicApiClient)),
         BlocProvider(create: (context) => CatalogBloc(apiClient: publicApiClient)),

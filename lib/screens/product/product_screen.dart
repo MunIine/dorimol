@@ -30,7 +30,9 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   void dispose() {
-    _productDetailsBloc.add(const ResetProductDetails());
+    if (!_productDetailsBloc.isClosed){
+      _productDetailsBloc.add(const ResetProductDetails());
+    }
     super.dispose();
   }
 

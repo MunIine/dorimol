@@ -34,7 +34,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
 
   @override
   void dispose() {
-    _catalogBloc?.add(const ResetCatalog());
+    if (_catalogBloc != null && !_catalogBloc!.isClosed){
+      _catalogBloc!.add(const ResetCatalog());
+    }
     super.dispose();
   }
 
