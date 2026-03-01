@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/router/router.dart';
-import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
+import 'package:dorimol/features/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/bars/sorting_bottom_sheet.dart';
 import 'package:dorimol/widgets/helpers/block_text_field.dart';

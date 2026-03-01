@@ -1,5 +1,5 @@
 import 'package:dorimol/models/product.dart';
-import 'package:dorimol/screens/cart/bloc/cart_bloc.dart';
+import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

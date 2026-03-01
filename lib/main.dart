@@ -7,7 +7,7 @@ import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/data/services/auth_service.dart';
 import 'package:dorimol/data/services/storage_service.dart';
 import 'package:dorimol/data/services/token_service.dart';
-import 'package:dorimol/screens/errors/error_screen.dart';
+import 'package:dorimol/features/errors/error_screen.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
