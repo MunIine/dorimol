@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/data/text_input_formatters.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
@@ -39,7 +40,7 @@ class AccountBIOScreen extends StatelessWidget {
                     children: [
                       Text("Телефон", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
                       const SizedBox(height: 4),
-                      Text(state.user.phone, style: AppText.t5.copyWith(color: colorTheme.textBlack)), //TODO: валидатор
+                      Text(formatPhoneNumber(state.user.phone), style: AppText.t5.copyWith(color: colorTheme.textBlack)),
                     ],
                   ),
                   const Spacer(),

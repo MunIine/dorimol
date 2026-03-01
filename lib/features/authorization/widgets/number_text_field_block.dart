@@ -1,7 +1,7 @@
+import 'package:dorimol/data/text_input_formatters.dart';
 import 'package:dorimol/features/authorization/bloc/authorization_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NumberTextFieldBlock extends StatefulWidget {
@@ -86,8 +86,8 @@ class _NumberTextFieldBlockState extends State<NumberTextFieldBlock> {
                 ),
               ),
               inputFormatters: [
-                _PrefixPhoneInputFormatter(""),
-                _PhoneNumberFormatter(),
+                PrefixPhoneInputFormatter(""),
+                PhoneNumberFormatter(),
               ],
               onSubmitted: (_) async {
                 if (completed) {
@@ -99,41 +99,5 @@ class _NumberTextFieldBlockState extends State<NumberTextFieldBlock> {
         ),
       ],
     );
-  }
-}
-
-// Форматтер для визуального разделения номера: xxx xx xxx
-class _PhoneNumberFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    String digits = newValue.text.replaceAll(RegExp(r'\D'), '');
-    String formatted = '';
-    for (int i = 0; i < digits.length && i < 8; i++) {
-      if (i == 3 || i == 6) formatted += ' ';
-      formatted += digits[i];
-    }
-    return TextEditingValue(
-      text: formatted,
-      selection: TextSelection.collapsed(offset: formatted.length),
-    );
-  }
-}
-
-// Кастомный TextInputFormatter, запрещающий удалять префикс
-class _PrefixPhoneInputFormatter extends TextInputFormatter {
-  _PrefixPhoneInputFormatter(this.prefix);
-  final String prefix;
-
-  @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    if (!newValue.text.startsWith(prefix)) {
-      // Если пользователь пытается удалить или изменить префикс, возвращаем старое значение
-      return oldValue;
-    }
-    // Не даём удалить префикс, но разрешаем редактировать после него
-    if (newValue.text.length < prefix.length) {
-      return oldValue;
-    }
-    return newValue;
   }
 }
