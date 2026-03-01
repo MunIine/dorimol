@@ -1,12 +1,25 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/router/router.dart';
+import 'package:dorimol/screens/account/bloc/bloc/account_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/screens/account/widgets/export.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
+
+  @override
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AccountBloc>(context).add(const FetchAccountInfo()); // TODO: проверить насчсёт отсутствия перебилда при переходе с каталога
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,33 +30,41 @@ class AccountScreen extends StatelessWidget {
         AccountOrderHistoryRoute(colorTheme: colorTheme),
       ],
       builder: (context, child) {
-      final tabsRouter = AutoTabsRouter.of(context);
-        
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50, bottom: 20),
-        child: Column(
-          children: [
-            AccountAppBar(colorTheme: colorTheme),
-            const SizedBox(height: 12),
-            AccountPersonalSale(colorTheme: colorTheme),
-            const SizedBox(height: 12),
-            Expanded(child: AccountInfoBlock(tabsRouter: tabsRouter, colorTheme: colorTheme, child: child)), //TOрDO: Подумать над этим отображением
-          ],
-        ),
-      );
+        final tabsRouter = AutoTabsRouter.of(context);
+
+        return BlocBuilder<AccountBloc, AccountState>(
+          builder: (context, state) {
+            if (state is AccountLoaded){
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50, bottom: 20),
+                child: Column(
+                  children: [
+                    AccountAppBar(colorTheme: colorTheme, name: state.user.name),
+                    const SizedBox(height: 12),
+                    AccountPersonalSale(colorTheme: colorTheme),
+                    const SizedBox(height: 12),
+                    Expanded(
+                      child: AccountInfoBlock(tabsRouter: tabsRouter, colorTheme: colorTheme, child: child),
+                    ), //TOрDO: Подумать над этим отображением
+                  ],
+                ),
+              );
+            }
+            if (state is AccountFailure){
+              AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        );
       },
     );
-
   }
 }
 
 class AccountInfoBlock extends StatelessWidget {
-  const AccountInfoBlock({
-    super.key,
-    required this.tabsRouter,
-    required this.colorTheme,
-    required this.child,
-  });
+  const AccountInfoBlock({super.key, required this.tabsRouter, required this.colorTheme, required this.child});
 
   final TabsRouter tabsRouter;
   final AppColors colorTheme;
@@ -63,18 +84,24 @@ class AccountInfoBlock extends StatelessWidget {
                 onTap: () {
                   tabsRouter.setActiveIndex(0);
                 },
-                child: Text("Личная информация", style: AppText.t6.copyWith(color: tabsRouter.activeIndex == 0 ? colorTheme.exyBlue : colorTheme.tips)),
+                child: Text(
+                  "Личная информация",
+                  style: AppText.t6.copyWith(color: tabsRouter.activeIndex == 0 ? colorTheme.exyBlue : colorTheme.tips),
+                ),
               ),
               GestureDetector(
                 onTap: () {
                   tabsRouter.setActiveIndex(1);
                 },
-                child: Text("История заказов", style: AppText.t6.copyWith(color: tabsRouter.activeIndex == 1 ? colorTheme.exyBlue : colorTheme.tips)),
+                child: Text(
+                  "История заказов",
+                  style: AppText.t6.copyWith(color: tabsRouter.activeIndex == 1 ? colorTheme.exyBlue : colorTheme.tips),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          Expanded(child: child)
+          Expanded(child: child),
         ],
       ),
     );

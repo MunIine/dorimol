@@ -5,3 +5,4 @@ export 'product.dart';
 export 'product_in_cart.dart';
 export 'product_details.dart';
 export 'product_feedback.dart';
+export 'user.dart';

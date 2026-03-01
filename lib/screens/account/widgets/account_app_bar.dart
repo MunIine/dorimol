@@ -5,9 +5,11 @@ class AccountAppBar extends StatelessWidget {
   const AccountAppBar({
     super.key,
     required this.colorTheme,
+    required this.name,
   });
 
   final AppColors colorTheme;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class AccountAppBar extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: Colors.grey[300]),
           ),
-          Text("Алексей Груменко", style: AppText.h1.copyWith(color: colorTheme.textGray)),
+          Text(name, style: AppText.h1.copyWith(color: colorTheme.textGray)),
           Text("Оформлено заказов: 0", style: AppText.b1.copyWith(color: colorTheme.tips)),
         ],
       ),

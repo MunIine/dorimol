@@ -19,4 +19,7 @@ abstract class PrivateApiClient {
 
   @GET('/auth/validate')
   Future<void> validateToken();
+
+  @GET('/user/me')
+  Future<User> getCurrentUser();
 }
