@@ -2,12 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/models/category.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
 
 part 'categories_event.dart';
 part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
-  CategoriesBloc({required this.apiClient}) : super(CategoriesInitial()) {
+  CategoriesBloc() : super(CategoriesInitial()) {
     on<FetchCategories>((event, emit) async {
       try {
         emit(CategoriesLoading());
@@ -19,5 +20,5 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     });
   }
 
-  final PublicApiClient apiClient;
+  final PublicApiClient apiClient = GetIt.I<PublicApiClient>();
 }

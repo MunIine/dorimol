@@ -15,50 +15,52 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<AccountBloc>(context).add(const FetchAccountInfo()); // TODO: проверить насчсёт отсутствия перебилда при переходе с каталога
-  }
-
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   BlocProvider.of<AccountBloc>(
+  //     context,
+  //   ).add(const FetchAccountInfo()); // TODO: проверить насчсёт отсутствия перебилда при переходе с каталога
+  // }
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
-    return AutoTabsRouter(
-      routes: [
-        AccountBIORoute(colorTheme: colorTheme),
-        AccountOrderHistoryRoute(colorTheme: colorTheme),
-      ],
-      builder: (context, child) {
-        final tabsRouter = AutoTabsRouter.of(context);
+    return BlocProvider(
+      create: (context) => AccountBloc()..add(const FetchAccountInfo()),
+      child: AutoTabsRouter(
+        routes: [
+          AccountBIORoute(colorTheme: colorTheme),
+          AccountOrderHistoryRoute(colorTheme: colorTheme),
+        ],
+        builder: (context, child) {
+          final tabsRouter = AutoTabsRouter.of(context);
 
-        return BlocBuilder<AccountBloc, AccountState>(
-          builder: (context, state) {
-            if (state is AccountLoaded){
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50, bottom: 20),
-                child: Column(
-                  children: [
-                    AccountAppBar(colorTheme: colorTheme, name: state.user.name),
-                    const SizedBox(height: 12),
-                    AccountPersonalSale(colorTheme: colorTheme),
-                    const SizedBox(height: 12),
-                    Expanded(
-                      child: AccountInfoBlock(tabsRouter: tabsRouter, colorTheme: colorTheme, child: child),
-                    ), //TOрDO: Подумать над этим отображением
-                  ],
-                ),
-              );
-            }
-            if (state is AccountFailure){
-              AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        );
-      },
+          return BlocBuilder<AccountBloc, AccountState>(
+            builder: (context, state) {
+              if (state is AccountLoaded) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50, bottom: 20),
+                  child: Column(
+                    children: [
+                      AccountAppBar(colorTheme: colorTheme, name: state.user.name),
+                      const SizedBox(height: 12),
+                      AccountPersonalSale(colorTheme: colorTheme),
+                      const SizedBox(height: 12),
+                      Expanded(
+                        child: AccountInfoBlock(tabsRouter: tabsRouter, colorTheme: colorTheme, child: child),
+                      ), //TOрDO: Подумать над этим отображением
+                    ],
+                  ),
+                );
+              }
+              if (state is AccountFailure) {
+                AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          );
+        },
+      ),
     );
   }
 }

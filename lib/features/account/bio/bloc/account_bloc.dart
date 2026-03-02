@@ -2,12 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:dorimol/api/private_api_client.dart';
 import 'package:dorimol/models/user.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
 
 part 'account_event.dart';
 part 'account_state.dart';
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
-  AccountBloc({required this.apiClient}) : super(AccountInitial()) {
+  AccountBloc() : super(AccountInitial()) {
     on<FetchAccountInfo>((event, emit) async {
       try {
         emit(AccountLoading());
@@ -19,5 +20,5 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     });
   }
 
-  final PrivateApiClient apiClient;
+  final PrivateApiClient apiClient = GetIt.I<PrivateApiClient>();
 }

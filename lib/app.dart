@@ -1,14 +1,9 @@
-import 'package:dorimol/api/private_api_client.dart';
 import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/data/services/auth_service.dart';
 import 'package:dorimol/data/services/token_service.dart';
-import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:dorimol/features/authorization/bloc/authorization_bloc.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/router/router.dart';
-import 'package:dorimol/features/catalog/bloc/catalog_bloc.dart';
-import 'package:dorimol/features/categories/bloc/categories_bloc.dart';
-import 'package:dorimol/features/product/bloc/product_details_bloc.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +36,6 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final publicApiClient = GetIt.I<PublicApiClient>();
-    final privateApiClient = GetIt.I<PrivateApiClient>();
     final authService = GetIt.I<AuthService>();
     final tokenService = GetIt.I<TokenService>();
     final minVersion = widget.config["min_app_version"] ?? "0.0.0";
@@ -65,12 +59,8 @@ class MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       key: _appKey,
       providers: [
-        BlocProvider(create: (context) => CategoriesBloc(apiClient: publicApiClient)),
-        BlocProvider(create: (context) => CatalogBloc(apiClient: publicApiClient)),
-        BlocProvider(create: (context) => ProductDetailsBloc(apiClient: publicApiClient)),
         BlocProvider(create: (context) => CartBloc(apiClient: publicApiClient)),
         BlocProvider(create: (context) => AuthorizationBloc(authService: authService, tokenService: tokenService)),
-        BlocProvider(create: (context) => AccountBloc(apiClient: privateApiClient)),
       ],
       child: MaterialApp.router(
         theme: lightTheme,

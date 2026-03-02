@@ -4,12 +4,13 @@ import 'package:dorimol/data/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dorimol/models/product.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
 
 part 'catalog_event.dart';
 part 'catalog_state.dart';
 
 class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
-  CatalogBloc({required this.apiClient}) : super(CatalogInitial(sorting: Sorting.defaultSorting)) {
+  CatalogBloc() : super(CatalogInitial(sorting: Sorting.defaultSorting)) {
     on<FetchCatalog>((event, emit) async {
       await _fetchCatalog(event, emit);
     });
@@ -65,6 +66,6 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
     }
   }
 
-  final PublicApiClient apiClient;
+  final PublicApiClient apiClient = GetIt.I<PublicApiClient>();
   CatalogEvent? prevEvent;
 }

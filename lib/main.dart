@@ -34,9 +34,9 @@ void main() async {
 
   await dotenv.load(fileName: ".env");
 
-  final publicDio = Dio(BaseOptions(baseUrl: AppConfig.apiUrl));
-  final privateDio = Dio(BaseOptions(baseUrl: AppConfig.apiUrl));
-  final refreshDio = Dio(BaseOptions(baseUrl: AppConfig.apiUrl));
+  final publicDio = Dio(AppConfig.baseOptions);
+  final privateDio = Dio(AppConfig.baseOptions);
+  final refreshDio = Dio(AppConfig.baseOptions);
   final talker = TalkerFlutter.init();
   final storageService = StorageService();
   final tokenService = TokenService(storageService: storageService, talker: talker);

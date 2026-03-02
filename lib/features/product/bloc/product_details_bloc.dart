@@ -2,12 +2,13 @@ import 'package:dorimol/api/public_api_client.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dorimol/models/product_details.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
 
 part 'product_details_event.dart';
 part 'product_details_state.dart';
 
 class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> {
-  ProductDetailsBloc({required this.apiClient}) : super(ProductDetailsInitial()) {
+  ProductDetailsBloc() : super(ProductDetailsInitial()) {
     on<FetchProductDetails>((event, emit) async {
       try {
         emit(ProductDetailsLoading());
@@ -22,5 +23,5 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
     });
   }
 
-  final PublicApiClient apiClient;
+  final PublicApiClient apiClient = GetIt.I<PublicApiClient>();
 }

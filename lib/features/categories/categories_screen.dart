@@ -17,50 +17,46 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
-  void initState() {
-    BlocProvider.of<CategoriesBloc>(context).add(const FetchCategories());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 65),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const AppSearchBar(sliders: false),
-          const SizedBox(height: 16),
-          const Text("Категории", style: AppText.h1),
-          const SizedBox(height: 16),
-          BlocBuilder<CategoriesBloc, CategoriesState>(
-            bloc: BlocProvider.of<CategoriesBloc>(context),
-            builder: (context, state) {
-              if (state is CategoriesLoaded) {
-                return Expanded(
-                  child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 9,
-                      crossAxisSpacing: 9,
-                      childAspectRatio: 4 / 3,
+    return BlocProvider(
+      create: (context) => CategoriesBloc()..add(const FetchCategories()),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 65),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const AppSearchBar(sliders: false),
+            const SizedBox(height: 16),
+            const Text("Категории", style: AppText.h1),
+            const SizedBox(height: 16),
+            BlocBuilder<CategoriesBloc, CategoriesState>(
+              builder: (context, state) {
+                if (state is CategoriesLoaded) {
+                  return Expanded(
+                    child: GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 9,
+                        crossAxisSpacing: 9,
+                        childAspectRatio: 4 / 3,
+                      ),
+                      padding: EdgeInsets.zero,
+                      itemCount: state.categories.length,
+                      itemBuilder: (context, index) =>
+                          CategoryCard(category: state.categories[index], colorTheme: colorTheme),
                     ),
-                    padding: EdgeInsets.zero,
-                    itemCount: state.categories.length,
-                    itemBuilder: (context, index) =>
-                        CategoryCard(category: state.categories[index], colorTheme: colorTheme),
-                  ),
-                );
-              }
-              if (state is CategoriesFailure) {
-                AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
-              }
-              return const Expanded(child: Center(child: CircularProgressIndicator()));
-            },
-          ),
-        ],
+                  );
+                }
+                if (state is CategoriesFailure) {
+                  AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
+                }
+                return const Expanded(child: Center(child: CircularProgressIndicator()));
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
