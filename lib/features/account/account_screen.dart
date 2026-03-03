@@ -35,7 +35,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50, bottom: 20),
                   child: Column(
                     children: [
-                      AccountAppBar(colorTheme: colorTheme, name: state.user.name),
+                      AccountAppBar(colorTheme: colorTheme, user: state.user),
                       const SizedBox(height: 12),
                       AccountPersonalSale(colorTheme: colorTheme),
                       const SizedBox(height: 12),

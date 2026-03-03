@@ -1,4 +1,6 @@
 import 'package:dorimol/app.dart';
+import 'package:dorimol/data/app_config.dart';
+import 'package:dorimol/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 
@@ -6,11 +8,11 @@ class AccountAppBar extends StatelessWidget {
   const AccountAppBar({
     super.key,
     required this.colorTheme,
-    required this.name,
+    required this.user,
   });
 
   final AppColors colorTheme;
-  final String name;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +36,19 @@ class AccountAppBar extends StatelessWidget {
                 Container(
                   width: 100,
                   height: 100,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: Colors.grey[300]),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.grey[300],
+                    image: user.image_url != null ? DecorationImage(
+                      image: NetworkImage(
+                        Uri.parse(AppConfig.apiUrl).resolve(user.image_url!).toString(),
+                      ),
+                      fit: BoxFit.cover,
+                    ) : null,
+                  ),
                 ),
-                Text(name, style: AppText.h1.copyWith(color: colorTheme.textGray)),
-                Text("Оформлено заказов: 0", style: AppText.b1.copyWith(color: colorTheme.tips)),
+                Text(user.name, style: AppText.h1.copyWith(color: colorTheme.textGray)),
+                Text("Оформлено заказов: ${user.orders_amount}", style: AppText.b1.copyWith(color: colorTheme.tips)),
               ],
             ),
           ),
