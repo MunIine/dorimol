@@ -22,4 +22,7 @@ abstract class PrivateApiClient {
 
   @GET('/user/me')
   Future<User> getCurrentUser();
+
+  @GET('/user/me/orders')
+  Future<List<OrderPreview>> getUserOrders();
 }

@@ -15,13 +15,6 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   BlocProvider.of<AccountBloc>(
-  //     context,
-  //   ).add(const FetchAccountInfo()); // TODO: проверить насчсёт отсутствия перебилда при переходе с каталога
-  // }
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
