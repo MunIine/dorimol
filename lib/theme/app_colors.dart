@@ -1,3 +1,4 @@
+import 'package:dorimol/models/order_statuses.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -17,17 +18,8 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.formInput,
     required this.stripe,
     required this.exyBlue,
-    required this.popBlue,
-    required this.youBlue,
-    required this.skyBlue,
-    required this.electricGreen,
     required this.lopyGreen,
-    required this.dirtyGreen,
-    required this.freeGreen,
-    required this.tomatoRed,
     required this.mlineRed,
-    required this.rasberyRed,
-    required this.punchRed,
   });
 
   final Color seedColor;
@@ -44,17 +36,8 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color formInput;
   final Color stripe;
   final Color exyBlue;
-  final Color popBlue;
-  final Color youBlue;
-  final Color skyBlue;
-  final Color electricGreen;
   final Color lopyGreen;
-  final Color dirtyGreen;
-  final Color freeGreen;
-  final Color tomatoRed;
   final Color mlineRed;
-  final Color rasberyRed;
-  final Color punchRed;
 
   @override
   AppColors copyWith({
@@ -72,17 +55,8 @@ class AppColors extends ThemeExtension<AppColors> {
   Color? formInput,
   Color? stripe,
   Color? exyBlue,
-  Color? popBlue,
-  Color? youBlue,
-  Color? skyBlue,
-  Color? electricGreen,
   Color? lopyGreen,
-  Color? dirtyGreen,
-  Color? freeGreen,
-  Color? tomatoRed,
   Color? mlineRed,
-  Color? rasberyRed,
-  Color? punchRed,
   }) {
     return AppColors(
       seedColor: seedColor ?? this.seedColor,
@@ -99,17 +73,8 @@ class AppColors extends ThemeExtension<AppColors> {
       formInput: formInput ?? this.formInput,
       stripe: stripe ?? this.stripe,
       exyBlue: exyBlue ?? this.exyBlue,
-      popBlue: popBlue ?? this.popBlue,
-      youBlue: youBlue ?? this.youBlue,
-      skyBlue: skyBlue ?? this.skyBlue,
-      electricGreen: electricGreen ?? this.electricGreen,
       lopyGreen: lopyGreen ?? this.lopyGreen,
-      dirtyGreen: dirtyGreen ?? this.dirtyGreen,
-      freeGreen: freeGreen ?? this.freeGreen,
-      tomatoRed: tomatoRed ?? this.tomatoRed,
       mlineRed: mlineRed ?? this.mlineRed,
-      rasberyRed: rasberyRed ?? this.rasberyRed,
-      punchRed: punchRed ?? this.punchRed,
     );
   }
 
@@ -131,17 +96,29 @@ class AppColors extends ThemeExtension<AppColors> {
       formInput: Color.lerp(formInput, other.formInput, t)!,
       stripe: Color.lerp(stripe, other.stripe, t)!,
       exyBlue: Color.lerp(exyBlue, other.exyBlue, t)!,
-      popBlue: Color.lerp(popBlue, other.popBlue, t)!,
-      youBlue: Color.lerp(youBlue, other.youBlue, t)!,
-      skyBlue: Color.lerp(skyBlue, other.skyBlue, t)!,
-      electricGreen: Color.lerp(electricGreen, other.electricGreen, t)!,
       lopyGreen: Color.lerp(lopyGreen, other.lopyGreen, t)!,
-      dirtyGreen: Color.lerp(dirtyGreen, other.dirtyGreen, t)!,
-      freeGreen: Color.lerp(freeGreen, other.freeGreen, t)!,
-      tomatoRed: Color.lerp(tomatoRed, other.tomatoRed, t)!,
       mlineRed: Color.lerp(mlineRed, other.mlineRed, t)!,
-      rasberyRed: Color.lerp(rasberyRed, other.rasberyRed, t)!,
-      punchRed: Color.lerp(punchRed, other.punchRed, t)!,
     );
+  }
+
+  Color colorForOrderStatus(OrderStatus status) {
+    switch (status) {
+      case OrderStatus.pending:
+        return iconGray;
+      case OrderStatus.confirmed:
+        return exyBlue;
+      case OrderStatus.shipped:
+        return yellow;
+      case OrderStatus.delivered:
+        return lopyGreen;
+      case OrderStatus.cancelled:
+        return red;
+      case OrderStatus.unknown:
+        return iconGray;
+    }
+  }
+
+  Color backgroundForOrderStatus(OrderStatus status) {
+    return colorForOrderStatus(status).withAlpha(38);
   }
 }

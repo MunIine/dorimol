@@ -16,7 +16,7 @@ class InfoBlock extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                color: const Color(0xFFCDFFE4),
+                color: colorTheme.lopyGreen.withAlpha(38),
               ),
               child: Text("3%", style: AppText.b3.copyWith(color: colorTheme.seedColor)),
             ),
@@ -31,7 +31,7 @@ class InfoBlock extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                color: const Color(0xFFDAEFFF),
+                color: colorTheme.exyBlue.withAlpha(38),
               ),
               child: Text("5%", style: AppText.b3.copyWith(color: colorTheme.exyBlue)),
             ),
@@ -46,7 +46,7 @@ class InfoBlock extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                color: const Color(0xFFFFDCE8),
+                color: colorTheme.red.withAlpha(38),
               ),
               child: Text("7%", style: AppText.b3.copyWith(color: colorTheme.mlineRed)),
             ),

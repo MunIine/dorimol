@@ -1,3 +1,4 @@
+import 'package:dorimol/models/order_statuses.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'order_preview.g.dart';
@@ -17,9 +18,11 @@ class OrderPreview {
   Map<String, dynamic> toJson() => _$OrderPreviewToJson(this);
 
   final String id;
-  final String status;
   final String? city;
   final String? address;
+
+  @JsonKey(unknownEnumValue: OrderStatus.unknown)
+  final OrderStatus status;
 
   @JsonKey(name: "total_price")
   final double totalPrice;
