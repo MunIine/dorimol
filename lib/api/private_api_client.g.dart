@@ -130,7 +130,7 @@ class _PrivateApiClient implements PrivateApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'auth/refresh',
+            '/auth/refresh',
             queryParameters: queryParameters,
             data: _data,
           )

@@ -26,6 +26,6 @@ abstract class PrivateApiClient {
   @GET('/user/me/orders')
   Future<List<OrderPreview>> getUserOrders();
 
-  @POST('auth/refresh')
+  @POST('/auth/refresh')
   Future<JwtTokensAnwer> refreshToken();
 }
