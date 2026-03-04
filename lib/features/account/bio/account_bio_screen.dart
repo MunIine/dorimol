@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/data/text_input_formatters.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
+import 'package:dorimol/widgets/dropdowns/city_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/services.dart';
@@ -18,19 +19,33 @@ class AccountBIOScreen extends StatefulWidget {
 
 class _AccountBIOScreenState extends State<AccountBIOScreen> {
   final nameCtrl = TextEditingController();
-  final cityCtrl = TextEditingController();
   final addressCtrl = TextEditingController();
   final nameNotifier = ValueNotifier<String>('');
+  String? selectedCity;
+  final List<String> cities = [
+    "Тирасполь",
+    "Бендеры",
+    "Парканы",
+    "Екатеринбург",
+    "Казань",
+    "Нижний Новгород",
+    "Челябинск",
+    "Самара",
+    "Омск",
+    "Ростов-на-Дону",
+  ];
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
         if (state is AccountLoaded) {
-          nameNotifier.value = state.user.name;
-          nameCtrl.text = state.user.name;
-          cityCtrl.text = state.user.city ?? (state.editMode ? "" : "Не указан");
-          addressCtrl.text = state.user.address ?? (state.editMode ? "" : "Не указан");
+          if (!state.editMode){
+            nameNotifier.value = state.user.name;
+            nameCtrl.text = state.user.name;
+            addressCtrl.text = state.user.address ?? (state.editMode ? "" : "Не указан");
+            selectedCity = state.user.city;
+          }
 
           return Column(
             children: [
@@ -85,20 +100,28 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                       children: [
                         Text("Город", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
                         const SizedBox(height: 4),
-                        AccountBioField(
+                        !state.editMode ?
+                        Text(state.user.city ?? "Не указан", style: AppText.t5.copyWith(color: widget.colorTheme.textBlack)) :
+                        CityDropdown(
                           colorTheme: widget.colorTheme, 
-                          controller: cityCtrl, 
-                          editMode: state.editMode,
-                          limit: 15,
-                          hint: "Введите город",
+                          cities: cities, 
+                          selectedCity: selectedCity, 
+                          onChanged: (value) {
+                            setState(() {
+                              if (selectedCity == value) { //TODO: более оптимальная перерисовка при обновлении значения
+                                selectedCity = null;
+                                return;
+                              }
+                              selectedCity = value;
+                            });
+                            // _onTextChanged();
+                          },
                         )
                       ],
                     ),
                   ),
                   const SizedBox(width: 4),
-                  state.editMode ?
-                  Icon(SvgIcons.edit, color: widget.colorTheme.tips, size: 16) :
-                  Icon(Icons.done_rounded, color: widget.colorTheme.seedColor, size: 20),
+                  if (!state.editMode) Icon(Icons.done_rounded, color: widget.colorTheme.seedColor, size: 20),
                 ],
               ),
               Divider(color: widget.colorTheme.formInput),
@@ -147,7 +170,7 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                           onPressed: value.isNotEmpty ? () {
                             context.read<AccountBloc>().add(UpdateAccountBio(
                               name: nameCtrl.text,
-                              city: cityCtrl.text.isNotEmpty ? cityCtrl.text : null,
+                              city: selectedCity,
                               address: addressCtrl.text.isNotEmpty ? addressCtrl.text : null,
                             ));
                           } : null,

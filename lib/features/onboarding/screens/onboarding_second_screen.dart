@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/widgets/dropdowns/city_dropdown.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
@@ -79,66 +79,20 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
           const SizedBox(height: 30),
           Align(alignment: Alignment.centerLeft, child: Text("Ваш город", style: AppText.b1.copyWith(color: colorTheme.iconGray))),
           const SizedBox(height: 4),
-          DropdownButtonHideUnderline(
-            child: DropdownButton2<String>(
-              isExpanded: true,
-              items: cities.map((city) => DropdownMenuItem<String>(
-                value: city,
-                child: Row(
-                  children: [
-                    Icon(
-                      selectedCity == city ? SvgIcons.radioButtonOn : SvgIcons.radioButtonOff, 
-                      color: selectedCity == city ? colorTheme.seedColor : colorTheme.tips
-                    ),
-                    const SizedBox(width: 8),
-                    Text(city, style: AppText.t3.copyWith(color: colorTheme.tips)),
-                  ],
-                ),
-              )).toList(),
-              selectedItemBuilder: (context) {
-                return cities.map((city) =>
-                  DropdownMenuItem(
-                    value: city, 
-                    child: Text(city, style: AppText.t3.copyWith(color: colorTheme.tips))
-                  )
-                ).toList();
-              },
-              value: selectedCity,
-              onChanged: (value) {
-                setState(() {
-                  selectedCity = value;
-                });
-                _onTextChanged();
-              },
-              hint: Text("Ваш город", style: AppText.t3.copyWith(color: colorTheme.tips)),
-              dropdownStyleData: DropdownStyleData(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                maxHeight: 250,
-                elevation: 0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.white,
-                ),
-              ),
-              iconStyleData: IconStyleData(
-                icon: Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: Transform.rotate(
-                    angle: 1.5708,
-                    child: Icon(SvgIcons.back, color: colorTheme.iconGray, size: 16),
-                  ),
-                ),
-              ),
-              menuItemStyleData: const MenuItemStyleData(
-                padding: EdgeInsets.zero
-              ),
-              buttonStyleData: ButtonStyleData(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: colorTheme.formInput,
-                ),
-              ),
-            ),
+          CityDropdown(
+            colorTheme: colorTheme, 
+            cities: cities, 
+            selectedCity: selectedCity, 
+            onChanged: (value) {
+              setState(() {
+                if (selectedCity == value) {
+                  selectedCity = null;
+                  return;
+                }
+                selectedCity = value;
+              });
+              _onTextChanged();
+            },
           ),
           const SizedBox(height: 32),
           Align(alignment: Alignment.centerLeft, child: Text("Ваш адрес", style: AppText.b1.copyWith(color: colorTheme.iconGray))),
@@ -150,6 +104,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
             ),
             child: TextField(
               controller: addressController,
+              style: AppText.t5.copyWith(color: colorTheme.iconGray),
               decoration: const InputDecoration(
                 hintText: "Улица, дом, кв",
               ),

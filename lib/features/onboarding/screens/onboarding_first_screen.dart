@@ -59,7 +59,7 @@ class _OnboardingFirstScreenState extends State<OnboardingFirstScreen> {
             child: TextField(
               controller: controller,
               decoration: const InputDecoration(
-                hintText: "Донжуан",
+                hintText: "Ваше имя",
               ),
             ),
           ),
