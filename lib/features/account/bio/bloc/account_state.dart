@@ -12,12 +12,23 @@ final class AccountInitial extends AccountState {}
 final class AccountLoading extends AccountState {}
 
 final class AccountLoaded extends AccountState {
-  const AccountLoaded({required this.user});
+  const AccountLoaded({required this.user, this.editMode = false});
 
   final User user;
+  final bool editMode;
+
+  AccountLoaded copyWith({
+    User? user,
+    bool? editMode,
+  }) {
+    return AccountLoaded(
+      user: user ?? this.user,
+      editMode: editMode ?? this.editMode,
+    );
+  }
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [user, editMode];
 }
 
 final class AccountFailure extends AccountState {

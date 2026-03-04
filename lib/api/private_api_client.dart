@@ -15,7 +15,7 @@ abstract class PrivateApiClient {
   }
 
   @POST('/user/update')
-  Future<JwtTokensAnwer> updateUser(@Body() Map<String, dynamic> body);
+  Future<User> updateUser(@Body() Map<String, dynamic> body);
 
   @GET('/auth/validate')
   Future<void> validateToken();
@@ -25,4 +25,7 @@ abstract class PrivateApiClient {
 
   @GET('/user/me/orders')
   Future<List<OrderPreview>> getUserOrders();
+
+  @POST('auth/refresh')
+  Future<JwtTokensAnwer> refreshToken();
 }

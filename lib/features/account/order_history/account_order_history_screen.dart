@@ -20,6 +20,18 @@ class AccountOrderHistoryScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is AccountOrderHistoryLoaded){
             final orders = state.orders;
+            if (orders.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Оформите свой первый заказ", style: AppText.b7.copyWith(color: colorTheme.textBlack)),
+                    const SizedBox(height: 16),
+                    const SizedBox(width: 210, height: 210, child: Image(image: AssetImage("lib/assets/errors/no_items.png"))),
+                  ],
+                ),
+              );
+            }
 
             return RefreshIndicator(
               displacement: 15,
@@ -31,22 +43,6 @@ class AccountOrderHistoryScreen extends StatelessWidget {
                 itemCount: orders.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    // title: RichText(
-                    //   text: TextSpan(
-                    //     style: AppText.rostelecom,
-                    //     children: <TextSpan>[
-                    //       TextSpan(
-                    //         text: orders[index].status.label,
-                    //         style: AppText.t3.copyWith(color: colorTheme.colorForOrderStatus(orders[index].status)),
-                    //       ),
-                    //       const TextSpan(text: "  "),
-                    //       TextSpan(
-                    //         text: "Сумма: ${orders[index].totalPrice} руб",
-                    //         style: AppText.t3.copyWith(color: colorTheme.iconGray),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     title: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

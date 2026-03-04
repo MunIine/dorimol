@@ -18,6 +18,24 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         emit(AccountFailure(error: e));
       }
     });
+    on<ToggleEditMode>((event, emit) {
+      if (state is AccountLoaded) {
+        final currentState = state as AccountLoaded;
+        emit(currentState.copyWith(editMode: !currentState.editMode));
+      }
+    });
+    on<UpdateAccountBio>((event, emit) async {
+      try {
+        final user = await apiClient.updateUser({
+          "name": event.name.trim(),
+          "city": event.city?.trim(),
+          "address": event.address?.trim(),
+        });
+        emit(AccountLoaded(user: user));
+      } on Exception catch (e) {
+        emit(AccountFailure(error: e));
+      }
+    });
   }
 
   final PrivateApiClient apiClient = GetIt.I<PrivateApiClient>();

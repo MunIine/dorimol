@@ -35,13 +35,17 @@ class _AccountScreenState extends State<AccountScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50, bottom: 20),
                   child: Column(
                     children: [
-                      AccountAppBar(colorTheme: colorTheme, user: state.user),
+                      AccountAppBar(
+                        colorTheme: colorTheme, 
+                        user: state.user, 
+                        editMode: state.editMode
+                      ),
                       const SizedBox(height: 12),
                       AccountPersonalSale(colorTheme: colorTheme),
                       const SizedBox(height: 12),
                       Expanded(
                         child: AccountInfoBlock(tabsRouter: tabsRouter, colorTheme: colorTheme, child: child),
-                      ), //TOрDO: Подумать над этим отображением
+                      ),
                     ],
                   ),
                 );

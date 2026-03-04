@@ -1,17 +1,21 @@
 import 'package:dorimol/app.dart';
 import 'package:dorimol/data/app_config.dart';
+import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:dorimol/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AccountAppBar extends StatelessWidget {
   const AccountAppBar({
     super.key,
     required this.colorTheme,
+    required this.editMode,
     required this.user,
   });
 
   final AppColors colorTheme;
+  final bool editMode;
   final User user;
 
   @override
@@ -28,6 +32,14 @@ class AccountAppBar extends StatelessWidget {
               onPressed: () => context.findAncestorStateOfType<MyAppState>()?.logout(),
               style: IconButton.styleFrom(backgroundColor: Colors.transparent),
               icon: Icon(Icons.logout_rounded, color: colorTheme.red)
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: IconButton(
+              onPressed: () => context.read<AccountBloc>().add(const ToggleEditMode()),
+              style: IconButton.styleFrom(backgroundColor: Colors.transparent),
+              icon: Icon(editMode ? SvgIcons.x : SvgIcons.edit, color: colorTheme.tips)
             ),
           ),
           Center(

@@ -18,13 +18,13 @@ class _PrivateApiClient implements PrivateApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<JwtTokensAnwer> updateUser(Map<String, dynamic> body) async {
+  Future<User> updateUser(Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<JwtTokensAnwer>(
+    final _options = _setStreamType<User>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -35,9 +35,9 @@ class _PrivateApiClient implements PrivateApiClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late JwtTokensAnwer _value;
+    late User _value;
     try {
-      _value = JwtTokensAnwer.fromJson(_result.data!);
+      _value = User.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -113,6 +113,33 @@ class _PrivateApiClient implements PrivateApiClient {
       _value = _result.data!
           .map((dynamic i) => OrderPreview.fromJson(i as Map<String, dynamic>))
           .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<JwtTokensAnwer> refreshToken() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<JwtTokensAnwer>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'auth/refresh',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late JwtTokensAnwer _value;
+    try {
+      _value = JwtTokensAnwer.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

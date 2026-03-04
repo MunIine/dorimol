@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 class OnboardingService {
   Future<void> completeOnboarding(String name, String? city, String? address) async {
     final tokenService = GetIt.I<TokenService>();
+    final apiClient = GetIt.I<PrivateApiClient>();
     final data = {
       "name": name,
       "onboarding_completed": true,
@@ -15,8 +16,9 @@ class OnboardingService {
         "city": city,
       });
     }
-
-    final tokens = await GetIt.I<PrivateApiClient>().updateUser(data);
+  
+    await apiClient.updateUser(data);
+    final tokens = await apiClient.refreshToken();
     await tokenService.saveTokens(accessToken: tokens.accessToken, refreshToken: tokens.refreshToken);
   }
 }

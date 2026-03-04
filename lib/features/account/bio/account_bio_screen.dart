@@ -3,80 +3,165 @@ import 'package:dorimol/data/text_input_formatters.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class AccountBIOScreen extends StatelessWidget {
+class AccountBIOScreen extends StatefulWidget {
   const AccountBIOScreen({super.key, required this.colorTheme});
 
   final AppColors colorTheme;
+
+  @override
+  State<AccountBIOScreen> createState() => _AccountBIOScreenState();
+}
+
+class _AccountBIOScreenState extends State<AccountBIOScreen> {
+  final nameCtrl = TextEditingController();
+  final cityCtrl = TextEditingController();
+  final addressCtrl = TextEditingController();
+  final nameNotifier = ValueNotifier<String>('');
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
         if (state is AccountLoaded) {
+          nameNotifier.value = state.user.name;
+          nameCtrl.text = state.user.name;
+          cityCtrl.text = state.user.city ?? (state.editMode ? "" : "Не указан");
+          addressCtrl.text = state.user.address ?? (state.editMode ? "" : "Не указан");
+
           return Column(
             children: [
               Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Имя", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
-                      const SizedBox(height: 4),
-                      Text(state.user.name, style: AppText.t5.copyWith(color: colorTheme.textBlack)),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Имя", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
+                        const SizedBox(height: 4),
+                        AccountBioField(
+                          onChanged: (value) => nameNotifier.value = value,
+                          colorTheme: widget.colorTheme, 
+                          controller: nameCtrl, 
+                          editMode: state.editMode,
+                          limit: 15,
+                          hint: "Введите имя",
+                        )
+                      ],
+                    ),
                   ),
-                  const Spacer(),
-                  Icon(SvgIcons.edit, color: colorTheme.tips, size: 16),
+                  const SizedBox(width: 4),
+                  state.editMode ?
+                  Icon(SvgIcons.edit, color: widget.colorTheme.tips, size: 16) :
+                  Icon(Icons.done_rounded, color: widget.colorTheme.seedColor, size: 20),
                 ],
               ),
-              Divider(color: colorTheme.formInput),
+              Divider(color: widget.colorTheme.formInput),
               Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Телефон", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
-                      const SizedBox(height: 4),
-                      Text(formatPhoneNumber(state.user.phone), style: AppText.t5.copyWith(color: colorTheme.textBlack)),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Телефон", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
+                        const SizedBox(height: 4),
+                        Text(formatPhoneNumber(state.user.phone), style: AppText.t5.copyWith(color: widget.colorTheme.textBlack)),
+                      ],
+                    ),
                   ),
-                  const Spacer(),
-                  Icon(Icons.done_rounded, color: colorTheme.seedColor, size: 20),
+                  const SizedBox(width: 4),
+                  Icon(Icons.done_rounded, color: widget.colorTheme.seedColor, size: 20),
                 ],
               ),
-              Divider(color: colorTheme.formInput),
+              Divider(color: widget.colorTheme.formInput),
               Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Город", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
-                      const SizedBox(height: 4),
-                      Text(state.user.city ?? "Не указан", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Город", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
+                        const SizedBox(height: 4),
+                        AccountBioField(
+                          colorTheme: widget.colorTheme, 
+                          controller: cityCtrl, 
+                          editMode: state.editMode,
+                          limit: 15,
+                          hint: "Введите город",
+                        )
+                      ],
+                    ),
                   ),
-                  const Spacer(),
-                  Icon(SvgIcons.edit, color: colorTheme.tips, size: 16),
+                  const SizedBox(width: 4),
+                  state.editMode ?
+                  Icon(SvgIcons.edit, color: widget.colorTheme.tips, size: 16) :
+                  Icon(Icons.done_rounded, color: widget.colorTheme.seedColor, size: 20),
                 ],
               ),
-              Divider(color: colorTheme.formInput),
+              Divider(color: widget.colorTheme.formInput),
               Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Адрес", style: AppText.t2.copyWith(color: colorTheme.iconGray)),
-                      const SizedBox(height: 4),
-                      Text(state.user.address ?? "Не указан", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Адрес", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
+                        const SizedBox(height: 4),
+                        AccountBioField(
+                          colorTheme: widget.colorTheme, 
+                          controller: addressCtrl, 
+                          editMode: state.editMode,
+                          limit: 100,
+                          hint: "Введите адрес",
+                        )
+                      ],
+                    ),
                   ),
-                  const Spacer(),
-                  Icon(SvgIcons.edit, color: colorTheme.tips, size: 16),
+                  const SizedBox(width: 4),
+                  state.editMode ?
+                  Icon(SvgIcons.edit, color: widget.colorTheme.tips, size: 16) :
+                  Icon(Icons.done_rounded, color: widget.colorTheme.seedColor, size: 20),
                 ],
               ),
+              if (state.editMode) const SizedBox(height: 12),
+              if (state.editMode) Row(
+                spacing: 8,
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () => context.read<AccountBloc>().add(const ToggleEditMode()),
+                      style: TextButton.styleFrom(
+                        backgroundColor: widget.colorTheme.red.withAlpha(220)
+                      ),
+                      child: Text("Отменить", style: AppText.b6.copyWith(color: Colors.white))
+                    ),
+                  ),
+                  Expanded(
+                    child: ValueListenableBuilder(
+                      valueListenable: nameNotifier,
+                      builder: (_, value, _) {
+                        return TextButton(
+                          onPressed: value.isNotEmpty ? () {
+                            context.read<AccountBloc>().add(UpdateAccountBio(
+                              name: nameCtrl.text,
+                              city: cityCtrl.text.isNotEmpty ? cityCtrl.text : null,
+                              address: addressCtrl.text.isNotEmpty ? addressCtrl.text : null,
+                            ));
+                          } : null,
+                          style: TextButton.styleFrom(
+                            backgroundColor: widget.colorTheme.lopyGreen,
+                            disabledBackgroundColor: widget.colorTheme.tips
+                          ),
+                          child: Text("Сохранить", style: AppText.b6.copyWith(color: Colors.white))
+                        );
+                      }
+                    ),
+                  )
+                ],
+              )
             ],
           );
         }
@@ -84,6 +169,47 @@ class AccountBIOScreen extends StatelessWidget {
           child: CircularProgressIndicator()
         );
       }
+    );
+  }
+}
+
+class AccountBioField extends StatelessWidget {
+  const AccountBioField({
+    super.key,
+    required this.colorTheme,
+    required this.controller,
+    required this.editMode,
+    required this.limit,
+    this.hint,
+    this.onChanged,
+  });
+
+  final AppColors colorTheme;
+  final TextEditingController controller;
+  final bool editMode;
+  final int limit;
+  final String? hint;
+  final void Function(String)? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      readOnly: !editMode,
+      showCursor: editMode,
+      enableInteractiveSelection: editMode,
+      onChanged: onChanged,
+      style: AppText.t5.copyWith(color: colorTheme.textBlack),
+      inputFormatters: [LengthLimitingTextInputFormatter(limit)],
+      decoration:  InputDecoration(
+        border: InputBorder.none,
+        isDense: true,
+        contentPadding: EdgeInsets.zero,
+        hint: hint != null ? Text(
+          hint!,
+          style: AppText.t3.copyWith(color: colorTheme.tips),
+        ) : null
+      ),
     );
   }
 }
