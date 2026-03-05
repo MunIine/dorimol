@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/features/product/bloc/product_details_bloc.dart';
@@ -19,6 +20,21 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  late final NavBarController navBarController;
+
+  @override
+  void initState() {
+    super.initState();
+    navBarController = context.read<NavBarController>();
+    WidgetsBinding.instance.addPostFrameCallback((_) => navBarController.hide());
+  }
+
+  @override
+  void dispose() {
+    Future.microtask(() => navBarController.show()); 
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;

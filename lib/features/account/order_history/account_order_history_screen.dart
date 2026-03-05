@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/account/order_history/bloc/account_order_history_bloc.dart';
 import 'package:dorimol/models/order_statuses.dart';
 import 'package:dorimol/router/router.dart';
@@ -7,10 +8,26 @@ import 'package:dorimol/theme/export.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class AccountOrderHistoryScreen extends StatelessWidget {
+class AccountOrderHistoryScreen extends StatefulWidget {
   const AccountOrderHistoryScreen({super.key, required this.colorTheme});
 
   final AppColors colorTheme;
+
+  @override
+  State<AccountOrderHistoryScreen> createState() => _AccountOrderHistoryScreenState();
+}
+
+class _AccountOrderHistoryScreenState extends State<AccountOrderHistoryScreen> {
+  late final NavBarController navBarController;
+  final scrollController = ScrollController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    navBarController = context.read<NavBarController>();
+    navBarController.attachScrollController(scrollController);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +42,7 @@ class AccountOrderHistoryScreen extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("Оформите свой первый заказ", style: AppText.b7.copyWith(color: colorTheme.textBlack)),
+                    Text("Оформите свой первый заказ", style: AppText.b7.copyWith(color: widget.colorTheme.textBlack)),
                     const SizedBox(height: 16),
                     const SizedBox(width: 210, height: 210, child: Image(image: AssetImage("lib/assets/errors/no_items.png"))),
                   ],
@@ -35,10 +52,11 @@ class AccountOrderHistoryScreen extends StatelessWidget {
 
             return RefreshIndicator(
               displacement: 15,
-              backgroundColor: colorTheme.background,
-              color: colorTheme.seedColor,
+              backgroundColor: widget.colorTheme.background,
+              color: widget.colorTheme.seedColor,
               onRefresh: () async => context.read<AccountOrderHistoryBloc>().add(const FetchAccountOrders()),
               child: ListView.separated(
+                controller: scrollController,
                 padding: const EdgeInsets.only(bottom: 45),
                 itemCount: orders.length,
                 itemBuilder: (context, index) {
@@ -52,17 +70,17 @@ class AccountOrderHistoryScreen extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6),
-                                color: colorTheme.backgroundForOrderStatus(orders[index].status),
+                                color: widget.colorTheme.backgroundForOrderStatus(orders[index].status),
                               ),
                               child: Text(
                                 orders[index].status.label,
-                                style: AppText.t2.copyWith(color: colorTheme.colorForOrderStatus(orders[index].status)),
+                                style: AppText.t2.copyWith(color: widget.colorTheme.colorForOrderStatus(orders[index].status)),
                               ),
                             ),
                             const SizedBox(width: 8),
                             Text(
                               "Сумма: ${orders[index].totalPrice} руб",
-                              style: AppText.t3.copyWith(color: colorTheme.iconGray),
+                              style: AppText.t3.copyWith(color: widget.colorTheme.iconGray),
                             )
                           ],
                         ),
@@ -77,15 +95,15 @@ class AccountOrderHistoryScreen extends StatelessWidget {
                       }",
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: AppText.t5.copyWith(color: colorTheme.textBlack),
+                      style: AppText.t5.copyWith(color: widget.colorTheme.textBlack),
                     ),
-                    trailing: Icon(SvgIcons.back, color: colorTheme.iconGray),
+                    trailing: Icon(SvgIcons.back, color: widget.colorTheme.iconGray),
                     onTap: () {
                       // Navigate to order details
                     },
                   );
                 },
-                separatorBuilder: (context, index) => Divider(color: colorTheme.formInput, height: 1, endIndent: 25, indent: 18),
+                separatorBuilder: (context, index) => Divider(color: widget.colorTheme.formInput, height: 1, endIndent: 25, indent: 18),
               ),
             );
           }

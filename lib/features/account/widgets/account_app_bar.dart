@@ -1,5 +1,6 @@
 import 'package:dorimol/app.dart';
 import 'package:dorimol/data/app_config.dart';
+import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:dorimol/models/user.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,10 @@ class AccountAppBar extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: IconButton(
-              onPressed: () => context.read<AccountBloc>().add(const ToggleEditMode()),
+              onPressed: () {
+                context.read<AccountBloc>().add(const ToggleEditMode());
+                context.read<NavBarController>().toggle();
+              },
               style: IconButton.styleFrom(backgroundColor: Colors.transparent),
               icon: Icon(editMode ? SvgIcons.x : SvgIcons.edit, color: colorTheme.tips)
             ),

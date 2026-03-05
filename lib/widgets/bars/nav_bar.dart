@@ -28,17 +28,15 @@ class _NavBarState extends State<NavBar> {
     final iconSize = 56.0;
     final totalWidth = iconSize * count;
     
-    return Positioned(
-      left: 0,
-      right: 0,
-      bottom: 35,
-      child: Center(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35),
+      child: Align(
+        alignment: Alignment.bottomCenter,
         child: Container(
           decoration: BoxDecoration(
             color: widget.colorTheme.seedColor,
             borderRadius: BorderRadius.circular(50),
           ),
-          // padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: SizedBox(
             width: totalWidth,
             height: iconSize,
@@ -87,7 +85,7 @@ class _NavBarState extends State<NavBar> {
                 ),
               ],
             ),
-          ),
+          )
         ),
       ),
     );

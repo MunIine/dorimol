@@ -2,6 +2,7 @@ import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/data/services/auth_service.dart';
 import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/data/services/token_service.dart';
+import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/authorization/bloc/authorization_bloc.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/router/router.dart';
@@ -9,6 +10,7 @@ import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class MyApp extends StatefulWidget {
@@ -42,30 +44,29 @@ class MyAppState extends State<MyApp> {
 
     if (isOutdated(widget.currentVersion, serverConfig.minAppVersion)) {
       return const MaterialApp(
-        home: BlockedScreen(
-          message: "Требуется обновление приложения. Пожалуйста, установите последнюю версию.",
-        ),
+        home: BlockedScreen(message: "Требуется обновление приложения. Пожалуйста, установите последнюю версию."),
       );
     }
     if (serverConfig.maintenanceMode) {
-      return const MaterialApp(
-        home: BlockedScreen(
-          message: "Ведутся технические работы. Попробуйте позже.",
-        ),
-      );
+      return const MaterialApp(home: BlockedScreen(message: "Ведутся технические работы. Попробуйте позже."));
     }
 
     return MultiBlocProvider(
       key: _appKey,
       providers: [
         BlocProvider(create: (context) => CartBloc(apiClient: publicApiClient)),
-        BlocProvider(create: (context) => AuthorizationBloc(authService: authService, tokenService: tokenService)),
-      ],
-      child: MaterialApp.router(
-        theme: lightTheme,
-        routerConfig: _appRouter.config(
-          navigatorObservers: () => [TalkerRouteObserver(GetIt.I<Talker>())],
+        BlocProvider(
+          create: (context) => AuthorizationBloc(authService: authService, tokenService: tokenService),
         ),
+      ],
+      child: ChangeNotifierProvider(
+        create: (context) => NavBarController(),
+        builder: (context, state) {
+          return MaterialApp.router(
+            theme: lightTheme,
+            routerConfig: _appRouter.config(navigatorObservers: () => [TalkerRouteObserver(GetIt.I<Talker>())]),
+          );
+        },
       ),
     );
   }
@@ -79,7 +80,6 @@ class MyAppState extends State<MyApp> {
     }
     return false;
   }
-
 }
 
 class BlockedScreen extends StatelessWidget {
@@ -97,11 +97,7 @@ class BlockedScreen extends StatelessWidget {
             children: [
               const Icon(Icons.warning_amber_rounded, size: 64, color: Colors.orange),
               const SizedBox(height: 24),
-              Text(
-                message,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 20),
-              ),
+              Text(message, textAlign: TextAlign.center, style: const TextStyle(fontSize: 20)),
             ],
           ),
         ),
