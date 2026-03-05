@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/widgets/dropdowns/city_dropdown.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
+import 'package:get_it/get_it.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
@@ -23,22 +25,11 @@ class OnboardingSecondScreen extends StatefulWidget {
 }
 
 class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
+  final List<String> cities = GetIt.I<ConfigService>().serverConfig.deliveryCities;
+
   String? selectedCity;
   late final addressController;
   bool enabled = false;
-
-  final List<String> cities = [
-    "Тирасполь",
-    "Бендеры",
-    "Парканы",
-    "Екатеринбург",
-    "Казань",
-    "Нижний Новгород",
-    "Челябинск",
-    "Самара",
-    "Омск",
-    "Ростов-на-Дону",
-  ];
 
   @override
   void initState() {

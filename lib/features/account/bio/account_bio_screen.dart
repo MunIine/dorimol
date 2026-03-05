@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/data/text_input_formatters.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:dorimol/widgets/dropdowns/city_dropdown.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 @RoutePage()
 class AccountBIOScreen extends StatefulWidget {
@@ -21,19 +23,8 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
   final nameCtrl = TextEditingController();
   final addressCtrl = TextEditingController();
   final nameNotifier = ValueNotifier<String>('');
+  final List<String> cities = GetIt.I<ConfigService>().serverConfig.deliveryCities;
   String? selectedCity;
-  final List<String> cities = [
-    "Тирасполь",
-    "Бендеры",
-    "Парканы",
-    "Екатеринбург",
-    "Казань",
-    "Нижний Новгород",
-    "Челябинск",
-    "Самара",
-    "Омск",
-    "Ростов-на-Дону",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +36,9 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
             nameCtrl.text = state.user.name;
             addressCtrl.text = state.user.address ?? (state.editMode ? "" : "Не указан");
             selectedCity = state.user.city;
+          }
+          if (!cities.contains(selectedCity)) {
+            selectedCity = null;
           }
 
           return Column(
