@@ -26,7 +26,12 @@ class _CatalogScreenState extends State<CatalogScreen> {
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
     return BlocProvider(
-      create: (context) => CatalogBloc()..add(FetchCatalog(categoryId: widget.category!.id)),
+      create: (context){
+        if (widget.query != null){
+          return CatalogBloc()..add(FetchCatalogByQuery(idOrName: widget.query!));
+        }
+        return CatalogBloc()..add(FetchCatalog(categoryId: widget.category!.id));
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 24),
         child: Column(

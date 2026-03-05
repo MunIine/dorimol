@@ -28,10 +28,12 @@ class AppSearchBar extends StatelessWidget {
             controller: controller,
             onSubmitted: (value) {
               if (value.trim().isNotEmpty){
-                BlocProvider.of<CatalogBloc>(context).add(FetchCatalogByQuery(idOrName: value.trim()));
                 if (AutoRouter.of(context).current.name != CatalogRoute.name) {
                   AutoRouter.of(context).push(CatalogRoute(query: value));
                   controller.text = "";
+                }
+                else{
+                  BlocProvider.of<CatalogBloc>(context).add(FetchCatalogByQuery(idOrName: value.trim()));
                 }
               } 
             },
@@ -64,9 +66,13 @@ class BoxIconButton extends StatelessWidget {
       onPressed: () => showModalBottomSheet(
         backgroundColor: Theme.of(context).extension<AppColors>()!.background,
         isScrollControlled: true,
+        useRootNavigator: true,
         shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
         context: context,
-        builder: (context) => const SortingBottomSheet()
+        builder: (_) => BlocProvider.value(
+          value: context.read<CatalogBloc>(),
+          child: const SortingBottomSheet(),
+        )
       ),
       padding: const EdgeInsets.all(15),
       style: IconButton.styleFrom(
