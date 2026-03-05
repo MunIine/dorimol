@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/data/services/config_service.dart';
+import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/data/text_input_formatters.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:dorimol/widgets/dropdowns/city_dropdown.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/services.dart';
@@ -86,36 +88,53 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                 ],
               ),
               Divider(color: widget.colorTheme.formInput),
-              Row(
+              Stack(
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Город", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
-                        const SizedBox(height: 4),
-                        !state.editMode ?
-                        Text(state.user.city ?? "Не указан", style: AppText.t5.copyWith(color: widget.colorTheme.textBlack)) :
-                        CityDropdown(
-                          colorTheme: widget.colorTheme, 
-                          cities: cities, 
-                          selectedCity: selectedCity, 
-                          onChanged: (value) {
-                            setState(() {
-                              if (selectedCity == value) { //TODO: более оптимальная перерисовка при обновлении значения
-                                selectedCity = null;
-                                return;
-                              }
-                              selectedCity = value;
-                            });
-                            // _onTextChanged();
-                          },
-                        )
-                      ],
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Город", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
+                      const SizedBox(height: 4),
+                      CityDropdown(
+                        colorTheme: widget.colorTheme, 
+                        cities: cities, 
+                        selectedCity: selectedCity,
+                        hint: (selectedCity == null && !state.editMode) ?
+                          Text("Не указан", style: AppText.t5.copyWith(color: widget.colorTheme.textBlack)) : null,
+                        dropdownStyleData: DropdownStyleData(
+                          padding: EdgeInsets.zero,
+                          maxHeight: 150,
+                          elevation: 0,
+                          decoration: BoxDecoration(
+                            color: widget.colorTheme.background,
+                            borderRadius: BorderRadius.circular(16)
+                          ),
+                        ),
+                        iconStyleData: const IconStyleData(icon: SizedBox()),
+                        buttonStyleData: const ButtonStyleData(
+                          height: 22,
+                          padding: EdgeInsets.zero,
+                        ),
+                        onChanged: state.editMode ? (value) {
+                          setState(() {
+                            if (selectedCity == value) { //TODO: более оптимальная перерисовка при обновлении значения
+                              selectedCity = null;
+                              return;
+                            }
+                            selectedCity = value;
+                          });
+                        } : null,
+                      )
+                    ],    
                   ),
-                  const SizedBox(width: 4),
-                  if (!state.editMode) Icon(Icons.done_rounded, color: widget.colorTheme.seedColor, size: 20),
+                  Positioned(
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    child: state.editMode ?
+                    Transform.rotate(angle: -1.5708, child: Icon(Icons.arrow_back_ios_new_rounded, color: widget.colorTheme.tips, size: 20)) :
+                    Icon(Icons.done_rounded, color: widget.colorTheme.seedColor, size: 20)
+                  ),                
                 ],
               ),
               Divider(color: widget.colorTheme.formInput),
@@ -149,7 +168,10 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                 children: [
                   Expanded(
                     child: TextButton(
-                      onPressed: () => context.read<AccountBloc>().add(const ToggleEditMode()),
+                      onPressed: () {
+                        context.read<NavBarController>().show();
+                        context.read<AccountBloc>().add(const ToggleEditMode());
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: widget.colorTheme.red.withAlpha(220)
                       ),
@@ -162,6 +184,7 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                       builder: (_, value, _) {
                         return TextButton(
                           onPressed: value.isNotEmpty ? () {
+                            context.read<NavBarController>().show();
                             context.read<AccountBloc>().add(UpdateAccountBio(
                               name: nameCtrl.text,
                               city: selectedCity,

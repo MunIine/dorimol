@@ -3,12 +3,26 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 class CityDropdown extends StatelessWidget {
-  const CityDropdown({super.key, required this.colorTheme, required this.cities, required this.selectedCity, required this.onChanged});
+  const CityDropdown({
+    super.key, 
+    required this.colorTheme, 
+    required this.cities, 
+    required this.selectedCity, 
+    this.onChanged,
+    this.dropdownStyleData,
+    this.iconStyleData,
+    this.buttonStyleData,
+    this.hint
+  });
 
   final AppColors colorTheme;
   final List<String> cities;
   final String? selectedCity;
-  final void Function(String?) onChanged;
+  final void Function(String?)? onChanged;
+  final DropdownStyleData? dropdownStyleData;
+  final IconStyleData? iconStyleData;
+  final ButtonStyleData? buttonStyleData;
+  final Widget? hint;
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +43,12 @@ class CityDropdown extends StatelessWidget {
           ),
         )).toList(),
         selectedItemBuilder: (context) {
-          return cities.map((city) =>
-            DropdownMenuItem(
-              value: city, 
-              child: Text(city, style: AppText.t5.copyWith(color: colorTheme.iconGray))
-            )
-          ).toList();
+          return cities.map((city) => Text(city, style: AppText.t5.copyWith(color: colorTheme.iconGray))).toList();
         },
         value: selectedCity,
         onChanged: onChanged,
-        hint: Text("Ваш город", style: AppText.t3.copyWith(color: colorTheme.tips)),
-        dropdownStyleData: DropdownStyleData(
+        hint: hint ?? Text("Выберите город", style: AppText.t3.copyWith(color: colorTheme.tips)),
+        dropdownStyleData: dropdownStyleData ?? DropdownStyleData(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           maxHeight: 250,
           elevation: 0,
@@ -48,7 +57,7 @@ class CityDropdown extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        iconStyleData: IconStyleData(
+        iconStyleData: iconStyleData ?? IconStyleData(
           icon: Padding(
             padding: const EdgeInsets.only(right: 12),
             child: Transform.rotate(
@@ -60,7 +69,7 @@ class CityDropdown extends StatelessWidget {
         menuItemStyleData: const MenuItemStyleData(
           padding: EdgeInsets.zero
         ),
-        buttonStyleData: ButtonStyleData(
+        buttonStyleData: buttonStyleData ?? ButtonStyleData(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: colorTheme.formInput,
