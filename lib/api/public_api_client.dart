@@ -15,7 +15,7 @@ abstract class PublicApiClient {
   }
 
   @GET('/config')
-  Future<Map<String, String>> fetchConfig();
+  Future<AppConfigModel> fetchConfig();
 
   @GET('/categories')
   Future<List<Category>> fetchCategories();

@@ -1,5 +1,6 @@
 import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/data/services/auth_service.dart';
+import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/data/services/token_service.dart';
 import 'package:dorimol/features/authorization/bloc/authorization_bloc.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
@@ -11,9 +12,8 @@ import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key, required this.config, required this.currentVersion});
+  const MyApp({super.key, required this.currentVersion});
 
-  final Map<String, String> config;
   final String currentVersion;
 
   @override
@@ -38,17 +38,16 @@ class MyAppState extends State<MyApp> {
     final publicApiClient = GetIt.I<PublicApiClient>();
     final authService = GetIt.I<AuthService>();
     final tokenService = GetIt.I<TokenService>();
-    final minVersion = widget.config["min_app_version"] ?? "0.0.0";
-    final maintenance = bool.parse(widget.config["maintenance_mode"] ?? "false");
+    final serverConfig = GetIt.I<ConfigService>().serverConfig;
 
-    if (isOutdated(widget.currentVersion, minVersion)) {
+    if (isOutdated(widget.currentVersion, serverConfig.minAppVersion)) {
       return const MaterialApp(
         home: BlockedScreen(
           message: "Требуется обновление приложения. Пожалуйста, установите последнюю версию.",
         ),
       );
     }
-    if (maintenance) {
+    if (serverConfig.maintenanceMode) {
       return const MaterialApp(
         home: BlockedScreen(
           message: "Ведутся технические работы. Попробуйте позже.",

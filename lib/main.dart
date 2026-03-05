@@ -5,6 +5,7 @@ import 'package:dorimol/api/api_interceptors.dart';
 import 'package:dorimol/app.dart';
 import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/data/services/auth_service.dart';
+import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/data/services/storage_service.dart';
 import 'package:dorimol/data/services/token_service.dart';
 import 'package:dorimol/features/errors/error_screen.dart';
@@ -66,12 +67,12 @@ void main() async {
   GetIt.I.registerSingleton(AuthService(apiClient: GetIt.I<PublicApiClient>()));
 
   try {
-    final config = await GetIt.I<PublicApiClient>().fetchConfig();
+    final serverConfig = await GetIt.I<PublicApiClient>().fetchConfig();
+    GetIt.I.registerSingleton(ConfigService(serverConfig: serverConfig));
 
     final packageInfo = await PackageInfo.fromPlatform();
-    final currentVersion = packageInfo.version;
     
-    runApp(MyApp(config: config, currentVersion: currentVersion));
+    runApp(MyApp(currentVersion: packageInfo.version));
   } on Exception catch (e) {
     talker.error("Failed to fetch config: $e");
     runApp(
