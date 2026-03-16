@@ -217,8 +217,6 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
   }
 
   void submitForm (User user){
-    context.read<NavBarController>().show();
-
     final Map<String, String?> body = {};
     final File? avatar = widget.pendingAvatarNotifier.value;
 
@@ -238,11 +236,21 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
       context.read<AccountBloc>().add(const ToggleEditMode());
       return;
     }
-    context.read<AccountBloc>().add(UpdateAccountBio(
+
+    final bloc = context.read<AccountBloc>();
+    final navBarController = context.read<NavBarController>();
+
+    bloc.add(UpdateAccountBio(
       body: body, 
-      avatar: widget.pendingAvatarNotifier.value
+      avatar: avatar
     ));
-    widget.pendingAvatarNotifier.value = null;
+    bloc.stream.firstWhere(
+      (state) => state is AccountLoaded || state is AccountFailure
+    ).then((_) {
+       navBarController.show();
+       widget.pendingAvatarNotifier.value = null; 
+      }
+    );
   }
 }
 
