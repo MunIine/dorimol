@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/router/router.dart';
@@ -16,6 +17,8 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  final ValueNotifier<File?> pendingAvatarNotifier = ValueNotifier<File?>(null);
+
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
@@ -23,7 +26,7 @@ class _AccountScreenState extends State<AccountScreen> {
       create: (context) => AccountBloc()..add(const FetchAccountInfo()),
       child: AutoTabsRouter(
         routes: [
-          AccountBIORoute(colorTheme: colorTheme),
+          AccountBIORoute(colorTheme: colorTheme, pendingAvatarNotifier: pendingAvatarNotifier),
           AccountOrderHistoryRoute(colorTheme: colorTheme),
         ],
         builder: (context, child) {
@@ -39,7 +42,8 @@ class _AccountScreenState extends State<AccountScreen> {
                       AccountAppBar(
                         colorTheme: colorTheme, 
                         user: state.user, 
-                        editMode: state.editMode
+                        editMode: state.editMode,
+                        pendingAvatarNotifier: pendingAvatarNotifier
                       ),
                       const SizedBox(height: 12),
                       AccountPersonalSale(colorTheme: colorTheme),

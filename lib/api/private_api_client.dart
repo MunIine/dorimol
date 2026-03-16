@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dorimol/models/models.dart';
 import 'package:retrofit/retrofit.dart';
@@ -14,8 +15,12 @@ abstract class PrivateApiClient {
     return PrivateApiClient(dio);
   }
 
-  @POST('/user/update')
+  @PATCH('/user/update')
   Future<User> updateUser(@Body() Map<String, dynamic> body);
+
+  @MultiPart()
+  @POST('/user/update/avatar')
+  Future<User> updateUserAvatar(@Part(name: "avatar") File avatar);
 
   @GET('/auth/validate')
   Future<void> validateToken();

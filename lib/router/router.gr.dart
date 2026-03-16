@@ -16,10 +16,15 @@ class AccountBIORoute extends PageRouteInfo<AccountBIORouteArgs> {
   AccountBIORoute({
     Key? key,
     required AppColors colorTheme,
+    required ValueNotifier<File?> pendingAvatarNotifier,
     List<PageRouteInfo>? children,
   }) : super(
          AccountBIORoute.name,
-         args: AccountBIORouteArgs(key: key, colorTheme: colorTheme),
+         args: AccountBIORouteArgs(
+           key: key,
+           colorTheme: colorTheme,
+           pendingAvatarNotifier: pendingAvatarNotifier,
+         ),
          initialChildren: children,
        );
 
@@ -29,32 +34,45 @@ class AccountBIORoute extends PageRouteInfo<AccountBIORouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<AccountBIORouteArgs>();
-      return AccountBIOScreen(key: args.key, colorTheme: args.colorTheme);
+      return AccountBIOScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+        pendingAvatarNotifier: args.pendingAvatarNotifier,
+      );
     },
   );
 }
 
 class AccountBIORouteArgs {
-  const AccountBIORouteArgs({this.key, required this.colorTheme});
+  const AccountBIORouteArgs({
+    this.key,
+    required this.colorTheme,
+    required this.pendingAvatarNotifier,
+  });
 
   final Key? key;
 
   final AppColors colorTheme;
 
+  final ValueNotifier<File?> pendingAvatarNotifier;
+
   @override
   String toString() {
-    return 'AccountBIORouteArgs{key: $key, colorTheme: $colorTheme}';
+    return 'AccountBIORouteArgs{key: $key, colorTheme: $colorTheme, pendingAvatarNotifier: $pendingAvatarNotifier}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! AccountBIORouteArgs) return false;
-    return key == other.key && colorTheme == other.colorTheme;
+    return key == other.key &&
+        colorTheme == other.colorTheme &&
+        pendingAvatarNotifier == other.pendingAvatarNotifier;
   }
 
   @override
-  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+  int get hashCode =>
+      key.hashCode ^ colorTheme.hashCode ^ pendingAvatarNotifier.hashCode;
 }
 
 /// generated route for

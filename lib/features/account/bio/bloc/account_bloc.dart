@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dorimol/api/private_api_client.dart';
 import 'package:dorimol/models/user.dart';
@@ -26,7 +27,14 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     });
     on<UpdateAccountBio>((event, emit) async {
       try {
-        final user = await apiClient.updateUser(event.body);
+        User user = (state as AccountLoaded).user;
+
+        if (event.avatar != null) {
+          user = await apiClient.updateUserAvatar(event.avatar!);
+        };
+        if (event.body.isNotEmpty) {
+          user = await apiClient.updateUser(event.body);
+        }
         emit(AccountLoaded(user: user));
       } on Exception catch (e) {
         emit(AccountFailure(error: e));

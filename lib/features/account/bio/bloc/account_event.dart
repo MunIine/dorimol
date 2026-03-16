@@ -23,10 +23,12 @@ class ToggleEditMode extends AccountEvent {
 
 class UpdateAccountBio extends AccountEvent {
   const UpdateAccountBio({
-    required this.body
+    required this.body,
+    this.avatar
   });
 
   final Map<String, String?> body;
+  final File? avatar;
 
   @override
   List<Object> get props => [body];

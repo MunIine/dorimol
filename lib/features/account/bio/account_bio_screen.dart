@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/data/services/ui_service.dart';
@@ -14,9 +16,10 @@ import 'package:get_it/get_it.dart';
 
 @RoutePage()
 class AccountBIOScreen extends StatefulWidget {
-  const AccountBIOScreen({super.key, required this.colorTheme});
+  const AccountBIOScreen({super.key, required this.colorTheme, required this.pendingAvatarNotifier});
 
   final AppColors colorTheme;
+  final ValueNotifier<File?> pendingAvatarNotifier;
 
   @override
   State<AccountBIOScreen> createState() => _AccountBIOScreenState();
@@ -178,6 +181,7 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                       onPressed: () {
                         context.read<NavBarController>().show();
                         context.read<AccountBloc>().add(const ToggleEditMode());
+                        widget.pendingAvatarNotifier.value = null;
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: widget.colorTheme.red.withAlpha(220)
@@ -214,7 +218,10 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
 
   void submitForm (User user){
     context.read<NavBarController>().show();
+
     final Map<String, String?> body = {};
+    final File? avatar = widget.pendingAvatarNotifier.value;
+
     if (nameCtrl.text.trim() != user.name){
       body['name'] = nameCtrl.text.trim();
     }
@@ -227,11 +234,15 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
     if (addressCtrl.text.trim().isEmpty && null != user.address){
       body['address'] = null;
     }
-    if (body.isEmpty) {
+    if (body.isEmpty && avatar == null) {
       context.read<AccountBloc>().add(const ToggleEditMode());
       return;
     }
-    context.read<AccountBloc>().add(UpdateAccountBio(body: body));
+    context.read<AccountBloc>().add(UpdateAccountBio(
+      body: body, 
+      avatar: widget.pendingAvatarNotifier.value
+    ));
+    widget.pendingAvatarNotifier.value = null;
   }
 }
 
