@@ -108,6 +108,7 @@ class _AccountOrderHistoryScreenState extends State<AccountOrderHistoryScreen> {
             );
           }
           if (state is AccountOrderHistoryFailure) {
+            // TODO: Сделать картинку при ошибке загрузки
             AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
           }
           return const Center(child: CircularProgressIndicator());

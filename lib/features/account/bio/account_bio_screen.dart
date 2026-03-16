@@ -3,6 +3,7 @@ import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/data/text_input_formatters.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
+import 'package:dorimol/models/user.dart';
 import 'package:dorimol/widgets/dropdowns/city_dropdown.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,8 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
   final nameCtrl = TextEditingController();
   final addressCtrl = TextEditingController();
   final nameNotifier = ValueNotifier<String>('');
+  final cityNotifier = ValueNotifier<String?>(null);
   final List<String> cities = GetIt.I<ConfigService>().serverConfig.deliveryCities;
-  String? selectedCity;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +37,14 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
           if (!state.editMode){
             nameNotifier.value = state.user.name;
             nameCtrl.text = state.user.name;
-            addressCtrl.text = state.user.address ?? (state.editMode ? "" : "Не указан");
-            selectedCity = state.user.city;
+            addressCtrl.text = state.user.address ?? "Не указан";
+            cityNotifier.value = state.user.city;
           }
-          if (!cities.contains(selectedCity)) {
-            selectedCity = null;
+          if (state.editMode && addressCtrl.text == "Не указан"){
+            addressCtrl.text = "";
+          }
+          if (!cities.contains(cityNotifier.value)) {
+            cityNotifier.value = null;
           }
 
           return Column(
@@ -53,7 +57,7 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                       children: [
                         Text("Имя", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
                         const SizedBox(height: 4),
-                        AccountBioField(
+                        _AccountBioField(
                           onChanged: (value) => nameNotifier.value = value,
                           colorTheme: widget.colorTheme, 
                           controller: nameCtrl, 
@@ -95,35 +99,38 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                     children: [
                       Text("Город", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
                       const SizedBox(height: 4),
-                      CityDropdown(
-                        colorTheme: widget.colorTheme, 
-                        cities: cities, 
-                        selectedCity: selectedCity,
-                        hint: (selectedCity == null && !state.editMode) ?
-                          Text("Не указан", style: AppText.t5.copyWith(color: widget.colorTheme.textBlack)) : null,
-                        dropdownStyleData: DropdownStyleData(
-                          padding: EdgeInsets.zero,
-                          maxHeight: 150,
-                          elevation: 0,
-                          decoration: BoxDecoration(
-                            color: widget.colorTheme.background,
-                            borderRadius: BorderRadius.circular(16)
-                          ),
-                        ),
-                        iconStyleData: const IconStyleData(icon: SizedBox()),
-                        buttonStyleData: const ButtonStyleData(
-                          height: 22,
-                          padding: EdgeInsets.zero,
-                        ),
-                        onChanged: state.editMode ? (value) {
-                          setState(() {
-                            if (selectedCity == value) { //TODO: более оптимальная перерисовка при обновлении значения
-                              selectedCity = null;
-                              return;
-                            }
-                            selectedCity = value;
-                          });
-                        } : null,
+                      ValueListenableBuilder(
+                        valueListenable: cityNotifier, 
+                        builder: (_, selectedCity, _){
+                          return CityDropdown(
+                            colorTheme: widget.colorTheme, 
+                            cities: cities, 
+                            selectedCity: selectedCity,
+                            hint: (selectedCity == null && !state.editMode) ?
+                              Text("Не указан", style: AppText.t5.copyWith(color: widget.colorTheme.textBlack)) : null,
+                            dropdownStyleData: DropdownStyleData(
+                              padding: EdgeInsets.zero,
+                              maxHeight: 150,
+                              elevation: 0,
+                              decoration: BoxDecoration(
+                                color: widget.colorTheme.background,
+                                borderRadius: BorderRadius.circular(16)
+                              ),
+                            ),
+                            iconStyleData: const IconStyleData(icon: SizedBox()),
+                            buttonStyleData: const ButtonStyleData(
+                              height: 22,
+                              padding: EdgeInsets.zero,
+                            ),
+                            onChanged: state.editMode ? (value) {
+                              if (selectedCity == value) {
+                                cityNotifier.value = null;
+                                return;
+                              }
+                              cityNotifier.value = value;
+                            } : null
+                          );
+                        }
                       )
                     ],    
                   ),
@@ -146,7 +153,7 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                       children: [
                         Text("Адрес", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
                         const SizedBox(height: 4),
-                        AccountBioField(
+                        _AccountBioField(
                           colorTheme: widget.colorTheme, 
                           controller: addressCtrl, 
                           editMode: state.editMode,
@@ -183,14 +190,7 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                       valueListenable: nameNotifier,
                       builder: (_, value, _) {
                         return TextButton(
-                          onPressed: value.isNotEmpty ? () {
-                            context.read<NavBarController>().show();
-                            context.read<AccountBloc>().add(UpdateAccountBio(
-                              name: nameCtrl.text,
-                              city: selectedCity,
-                              address: addressCtrl.text.isNotEmpty ? addressCtrl.text : null,
-                            ));
-                          } : null,
+                          onPressed: value.isNotEmpty ? () => submitForm(state.user) : null,
                           style: TextButton.styleFrom(
                             backgroundColor: widget.colorTheme.lopyGreen,
                             disabledBackgroundColor: widget.colorTheme.tips
@@ -211,11 +211,32 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
       }
     );
   }
+
+  void submitForm (User user){
+    context.read<NavBarController>().show();
+    final Map<String, String?> body = {};
+    if (nameCtrl.text.trim() != user.name){
+      body['name'] = nameCtrl.text.trim();
+    }
+    if (cityNotifier.value?.trim() != user.city){
+      body['city'] = cityNotifier.value?.trim();
+    }
+    if (addressCtrl.text.trim().isNotEmpty && addressCtrl.text.trim() != user.address){
+      body['address'] = addressCtrl.text.trim();
+    }
+    if (addressCtrl.text.trim().isEmpty && null != user.address){
+      body['address'] = null;
+    }
+    if (body.isEmpty) {
+      context.read<AccountBloc>().add(const ToggleEditMode());
+      return;
+    }
+    context.read<AccountBloc>().add(UpdateAccountBio(body: body));
+  }
 }
 
-class AccountBioField extends StatelessWidget {
-  const AccountBioField({
-    super.key,
+class _AccountBioField extends StatelessWidget {
+  const _AccountBioField({
     required this.colorTheme,
     required this.controller,
     required this.editMode,

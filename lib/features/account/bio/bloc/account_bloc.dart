@@ -26,11 +26,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     });
     on<UpdateAccountBio>((event, emit) async {
       try {
-        final user = await apiClient.updateUser({
-          "name": event.name.trim(),
-          "city": event.city?.trim(),
-          "address": event.address?.trim(),
-        });
+        final user = await apiClient.updateUser(event.body);
         emit(AccountLoaded(user: user));
       } on Exception catch (e) {
         emit(AccountFailure(error: e));

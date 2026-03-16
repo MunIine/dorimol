@@ -23,15 +23,11 @@ class ToggleEditMode extends AccountEvent {
 
 class UpdateAccountBio extends AccountEvent {
   const UpdateAccountBio({
-    required this.name,
-    this.city,
-    this.address,
+    required this.body
   });
 
-  final String name;
-  final String? city;
-  final String? address;
+  final Map<String, String?> body;
 
   @override
-  List<Object> get props => [name, city ?? '', address ?? ''];
+  List<Object> get props => [body];
 }
