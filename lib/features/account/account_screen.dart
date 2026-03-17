@@ -46,7 +46,10 @@ class _AccountScreenState extends State<AccountScreen> {
                         pendingAvatarNotifier: pendingAvatarNotifier
                       ),
                       const SizedBox(height: 12),
-                      AccountPersonalSale(colorTheme: colorTheme),
+                      AccountPersonalSale(
+                        colorTheme: colorTheme,
+                        user: state.user
+                      ),
                       const SizedBox(height: 12),
                       Expanded(
                         child: AccountInfoBlock(tabsRouter: tabsRouter, colorTheme: colorTheme, child: child),

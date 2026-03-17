@@ -121,4 +121,10 @@ class AppColors extends ThemeExtension<AppColors> {
   Color backgroundForOrderStatus(OrderStatus status) {
     return colorForOrderStatus(status).withAlpha(38);
   }
+
+  Color colorForDiscountTier(int index) {
+    final colors = [seedColor, exyBlue, mlineRed];
+    if (index < 0 || index >= colors.length) return iconGray;
+    return colors[index];
+  }
 }

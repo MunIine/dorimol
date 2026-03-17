@@ -1,60 +1,49 @@
+import 'package:dorimol/data/utils.dart';
+import 'package:dorimol/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 
 class InfoBlock extends StatelessWidget {
-  const InfoBlock({super.key, required this.colorTheme});
+  const InfoBlock({super.key, required this.colorTheme, required this.user});
 
   final AppColors colorTheme;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: colorTheme.lopyGreen.withAlpha(38),
-              ),
-              child: Text("3%", style: AppText.b3.copyWith(color: colorTheme.seedColor)),
+    final discountTiers = user.discountTiers;
+
+    return SizedBox(
+      height: 68,
+      child: ListView.separated(
+        itemCount: discountTiers.length,
+        physics: const NeverScrollableScrollPhysics(),
+        separatorBuilder: (context, index) => const SizedBox(height: 4),
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          final color = colorTheme.colorForDiscountTier(index);
+          final tier = discountTiers[index];
+          final amount = tier.ordersRequired-user.orders_amount;
+          final child = Container(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: color.withAlpha(38),
             ),
-            const SizedBox(width: 10),
-            Text("Осталось 3 заказа", style: AppText.t3.copyWith(color: colorTheme.textGray))
-          ],
-        ),
-        const SizedBox(height: 4),
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: colorTheme.exyBlue.withAlpha(38),
-              ),
-              child: Text("5%", style: AppText.b3.copyWith(color: colorTheme.exyBlue)),
-            ),
-            const SizedBox(width: 10),
-            Text("Осталось 6 заказа", style: AppText.t3.copyWith(color: colorTheme.textGray))
-          ],
-        ),
-        const SizedBox(height: 4),
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: colorTheme.red.withAlpha(38),
-              ),
-              child: Text("7%", style: AppText.b3.copyWith(color: colorTheme.mlineRed)),
-            ),
-            const SizedBox(width: 10),
-            Text("Осталось 10 заказа", style: AppText.t3.copyWith(color: colorTheme.textGray))
-          ],
-        )
-      ],
+            child: Center(child: Text("${tier.percent}%", style: AppText.b3.copyWith(color: color))),
+          );
+
+          return Row(
+            children: user.orders_amount < tier.ordersRequired ? [
+              child,
+              const SizedBox(width: 10),
+              Text("Остал${pluralize(amount, 'ся', "ось", "ось")} ${amount} заказ${pluralize(amount, '', "а", "ов")}", style: AppText.t3.copyWith(color: colorTheme.textGray))
+            ] : [
+              Expanded(child: child)
+            ],
+          );
+        },
+      ),
     );
   }
 }

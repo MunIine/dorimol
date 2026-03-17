@@ -14,6 +14,8 @@ class User {
     required this.onboardingCompleted,
     required this.image_url,
     required this.orders_amount,
+    required this.current_discount,
+    required this.discountTiers
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -27,14 +29,37 @@ class User {
   @JsonKey(name: 'onboarding_completed')
   final bool onboardingCompleted;
   
+  @JsonKey(name: 'image_url')
+  final String? image_url;
+
   @JsonKey(name: 'phone_number')
   final String phone;
 
   @JsonKey(name: 'orders_amount')
   final int orders_amount;
 
-  @JsonKey(name: 'image_url')
-  final String? image_url;
+  @JsonKey(name: 'current_discount')
+  final int current_discount;
+
+  @JsonKey(name: 'discount_tiers')
+  final List<DiscountTier> discountTiers;
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
+}
+
+@JsonSerializable()
+class DiscountTier {
+  const DiscountTier({
+    required this.percent,
+    required this.ordersRequired,
+  });
+
+  factory DiscountTier.fromJson(Map<String, dynamic> json) => _$DiscountTierFromJson(json);
+
+  final int percent;
+
+  @JsonKey(name: 'orders_required')
+  final int ordersRequired;
+
+  Map<String, dynamic> toJson() => _$DiscountTierToJson(this);
 }
