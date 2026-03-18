@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/account/order_history/bloc/account_order_history_bloc.dart';
 import 'package:dorimol/models/order_statuses.dart';
-import 'package:dorimol/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -108,8 +107,30 @@ class _AccountOrderHistoryScreenState extends State<AccountOrderHistoryScreen> {
             );
           }
           if (state is AccountOrderHistoryFailure) {
-            // TODO: Сделать картинку при ошибке загрузки
-            AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
+            return  Padding(
+              padding: const EdgeInsets.only(top: 64),
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.error_outline_rounded, 
+                    size: 80,
+                    color: widget.colorTheme.red.withAlpha(220),
+                  ),
+                  const SizedBox(height: 3),
+                  Text("Что-то пошло не так", style: AppText.b7.copyWith(color: widget.colorTheme.textBlack)),
+                  const SizedBox(height: 3),
+                  TextButton(
+                    onPressed: () => context.read<AccountOrderHistoryBloc>().add(const FetchAccountOrders()),
+                    style: TextButton.styleFrom(
+                      backgroundColor: widget.colorTheme.iconGray, 
+                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 14)
+                    ),
+                    child: Text("Попробовать ещё раз", style: AppText.b7.copyWith(color: widget.colorTheme.background))
+                  )
+                ],
+              ),
+            );
+            // AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
           }
           return const Center(child: CircularProgressIndicator());
         },
