@@ -4,12 +4,15 @@ import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:dorimol/models/user.dart';
+import 'package:dorimol/widgets/pop_up/permission_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path/path.dart' as path;
+import 'package:talker_flutter/talker_flutter.dart';
 
 class AccountAppBar extends StatefulWidget {
   const AccountAppBar({
@@ -30,13 +33,19 @@ class AccountAppBar extends StatefulWidget {
 }
 
 class _AccountAppBarState extends State<AccountAppBar> {
+  double _defaultPadding = 20;
+  double _errorBottomPadding = 4;
   bool _isPicking = false;
+  String? _avatarErrorMessage;
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.editMode) _avatarErrorMessage = null;
+
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      // Предотвращает дерганье ui из-за изменения размера appbar
+      padding: EdgeInsets.all(_defaultPadding).copyWith(bottom: _avatarErrorMessage == null ? _defaultPadding : _errorBottomPadding), 
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: Stack(
         children: [
@@ -103,6 +112,7 @@ class _AccountAppBarState extends State<AccountAppBar> {
                     )
                   ]
                 ),
+                if (_avatarErrorMessage != null) Text(_avatarErrorMessage!, style: AppText.b3.copyWith(color: widget.colorTheme.red, height: 1.2)),
                 Text(widget.user.name, style: AppText.h1.copyWith(color: widget.colorTheme.textGray)),
                 Text("Оформлено заказов: ${widget.user.orders_amount}", style: AppText.b1.copyWith(color: widget.colorTheme.tips)),
               ],
@@ -119,8 +129,8 @@ class _AccountAppBarState extends State<AccountAppBar> {
     try{
       final status = await Permission.photos.request();
       if (!status.isGranted) {
-        // TODO: Ответ при отсутствии разрешения
-        print("Разрешение на доступ к фото не предоставлено");
+        GetIt.I<Talker>().info("Missing media permission");
+        showDialog(context: context, builder: (context) => const PermissionDialog());
         return;
       }
       final picker = ImagePicker();
@@ -130,16 +140,27 @@ class _AccountAppBarState extends State<AccountAppBar> {
 
       final ext = path.extension(file.path).replaceFirst('.', '').toLowerCase();
       if (!AppConfig.allowedUploadFileExtensions.contains(ext)) {
-        print("Неверный формат. Выберите PNG, JPG или WEBP.");
+        GetIt.I<Talker>().info("Incorrect image format");
+        setState(() {
+          _avatarErrorMessage = "Неверный формат изображения";
+        });
         return;
       }
 
       final sizeInBytes = await file.length();
       if (sizeInBytes > AppConfig.maxUploadFileSize) {
-        print("Файл слишком большой. Максимум 5 МБ.");
+        GetIt.I<Talker>().info("Image too large");
+        setState(() {
+          _avatarErrorMessage = "Файл слишком большой. Максимум 5 МБ";
+        });
         return;
       }
 
+      if (_avatarErrorMessage != null){
+        setState(() {
+          _avatarErrorMessage = null;
+        });
+      }
       widget.pendingAvatarNotifier.value = File(file.path);
     } finally{
       _isPicking = false;
