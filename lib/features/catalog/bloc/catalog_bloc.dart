@@ -8,64 +8,69 @@ import 'package:get_it/get_it.dart';
 
 part 'catalog_event.dart';
 part 'catalog_state.dart';
+part 'catalog_source.dart';
 
 class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
   CatalogBloc() : super(CatalogInitial(sorting: Sorting.defaultSorting)) {
     on<FetchCatalog>((event, emit) async {
-      await _fetchCatalog(event, emit);
+      await _fetchCatalog(event.categoryId, emit);
     });
     on<FetchCatalogByQuery>((event, emit) async {
-      await _fetchCatalogByQuery(event, emit);
+      await _fetchCatalogByQuery(event.idOrName, emit);
     });
-    // TODO: Изменить логику блока при изменении сортировки
     on<ChangeSortingMethod>((event, emit) async{
-      emit(state.copyWith(sorting: event.sorting));
-      if (prevEvent is FetchCatalog){
-        await _fetchCatalog(prevEvent as FetchCatalog, emit);
+      final source = state.source;
+      if (source == null) {
+        emit(state.copyWith(sorting: event.sorting));
+        return;
       }
-      if (prevEvent is FetchCatalogByQuery){
-        await _fetchCatalogByQuery(prevEvent as FetchCatalogByQuery, emit);
+
+      switch (source) {
+        case CategorySource(:final categoryId):
+          await _fetchCatalog(categoryId, emit, sortingOverride: event.sorting);
+        case QuerySource(:final query):
+          await _fetchCatalogByQuery(query, emit, sortingOverride: event.sorting);
       }
-    });
-    on<ResetCatalog>((event, emit) {
-      emit(CatalogInitial(sorting: state.sorting));
     });
   }
 
-  Future<void> _fetchCatalog(FetchCatalog event, Emitter<CatalogState> emit) async {
+  Future<void> _fetchCatalog(int categoryId, Emitter<CatalogState> emit, {Sorting? sortingOverride}) async {
+    final sorting = sortingOverride ?? state.sorting;
+    final source = CategorySource(categoryId);
+
     try {
-      prevEvent = event;
-      emit(CatalogLoading(sorting: state.sorting));
-      final products = await apiClient.fetchProductsByCategory(event.categoryId, state.sorting.value);
-      emit(CatalogLoaded(products: products, sorting: state.sorting));
+      emit(CatalogLoading(sorting: sorting, source: source));
+      final products = await apiClient.fetchProductsByCategory(categoryId, sorting.value);
+      emit(CatalogLoaded(products: products, sorting: sorting, source: source));
     } on Exception catch (e) {
-      emit(CatalogFailure(error: e, sorting: state.sorting));
+      emit(CatalogFailure(error: e, sorting: sorting, source: source));
     }
   }
 
-  Future<void> _fetchCatalogByQuery(FetchCatalogByQuery event, Emitter<CatalogState> emit) async {
+  Future<void> _fetchCatalogByQuery(String idOrName, Emitter<CatalogState> emit, {Sorting? sortingOverride}) async {
+    final sorting = sortingOverride ?? state.sorting;
+    final source = QuerySource(idOrName);
+
     try {
-      prevEvent = event;
-      emit(CatalogLoading(sorting: state.sorting));
+      emit(CatalogLoading(sorting: sorting, source: source));
       final List<Product> products;
-      if (int.tryParse(event.idOrName) != null){
-        products = await apiClient.fetchProductsById(event.idOrName, state.sorting.value);
+      if (int.tryParse(idOrName) != null){
+        products = await apiClient.fetchProductsById(idOrName, sorting.value);
       }
       else{
-        products = await apiClient.fetchProductsByName(event.idOrName, state.sorting.value);
+        products = await apiClient.fetchProductsByName(idOrName, sorting.value);
       }
-      emit(CatalogLoaded(products: products, sorting: state.sorting));
+      emit(CatalogLoaded(products: products, sorting: sorting, source: source));
     } on DioException catch (e){
       if (e.type == DioExceptionType.badResponse && e.response?.statusCode == 404){
-        emit(CatalogNotFound(sorting: state.sorting));
+        emit(CatalogNotFound(sorting: sorting, source: source));
         return;
       }
-      emit(CatalogFailure(error: e, sorting: state.sorting));
+      emit(CatalogFailure(error: e, sorting: sorting, source: source));
     } on Exception catch (e) {
-      emit(CatalogFailure(error: e, sorting: state.sorting));
+      emit(CatalogFailure(error: e, sorting: sorting, source: source));
     }
   }
 
   final PublicApiClient apiClient = GetIt.I<PublicApiClient>();
-  CatalogEvent? prevEvent;
 }

@@ -33,10 +33,3 @@ class ChangeSortingMethod extends CatalogEvent {
   @override
   List<Object> get props => [sorting];
 }
-
-class ResetCatalog extends CatalogEvent {
-  const ResetCatalog();
-
-  @override
-  List<Object> get props => [];
-}
