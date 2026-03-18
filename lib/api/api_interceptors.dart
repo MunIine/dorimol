@@ -22,14 +22,7 @@ class AuthInterceptor extends Interceptor{
         if (_isRefreshing){
           try{
             final accessToken = await _refreshCompleter!.future;
-            final options = err.requestOptions.copyWith(
-              headers: {
-                ...err.requestOptions.headers,
-                'Authorization': 'Bearer ${accessToken}',
-              }
-            );
-
-            final clone = await dio.fetch(options);
+            final clone = await _retryRequest(err.requestOptions, accessToken);
             return handler.resolve(clone);
           } catch (e){
             return handler.reject(err.copyWith(error: e));
@@ -55,23 +48,18 @@ class AuthInterceptor extends Interceptor{
         _refreshCompleter!.complete(tokens.accessToken);
         _isRefreshing = false;
 
-        final options = err.requestOptions.copyWith(
-          headers: {
-            ...err.requestOptions.headers,
-            'Authorization': 'Bearer ${tokens.accessToken}',
-          }
-        );
-
-        final clone = await dio.fetch(options);
+        final clone = await _retryRequest(err.requestOptions, tokens.accessToken);
         return handler.resolve(clone);
       } catch (newError) {
         if (newError is DioException && newError.response?.statusCode == 401){
           await tokenService.clearTokens();
-          final error = err.copyWith(error: TokenRefreshException(
-            err.response?.data?['detail'] ?? "Refresh token error",
-            originalRequest: err,
-            refreshRequest: newError
-          ));
+          final error = err.copyWith(
+            error: TokenRefreshException(
+              err.response?.data?['detail'] ?? "Refresh token error",
+              originalRequest: err,
+              refreshRequest: newError
+            )
+          );
 
           _isRefreshing = false;
           _refreshCompleter!.completeError(error);
@@ -92,5 +80,20 @@ class AuthInterceptor extends Interceptor{
     final token = tokenService.accessToken;
     options.headers["Authorization"] = "Bearer $token";
     handler.next(options);
+  }
+
+  Future<Response> _retryRequest(RequestOptions requestOptions, String accessToken) async {
+    final options = requestOptions.copyWith(
+      headers: {
+        ...requestOptions.headers,
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+
+    if (requestOptions.data is FormData) {
+      options.data = (requestOptions.data as FormData).clone();
+    }
+
+    return dio.fetch(options);
   }
 }
