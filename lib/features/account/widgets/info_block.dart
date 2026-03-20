@@ -23,7 +23,7 @@ class InfoBlock extends StatelessWidget {
         itemBuilder: (context, index) {
           final color = colorTheme.colorForDiscountTier(index);
           final tier = discountTiers[index];
-          final amount = tier.ordersRequired-user.orders_amount;
+          final amount = tier.ordersRequired-user.ordersAmount;
           final child = Container(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
             decoration: BoxDecoration(
@@ -34,11 +34,13 @@ class InfoBlock extends StatelessWidget {
           );
 
           return Row(
-            children: user.orders_amount < tier.ordersRequired ? [
+            children: user.ordersAmount < tier.ordersRequired ? [
               child,
               const SizedBox(width: 10),
-              Text("Остал${pluralize(amount, 'ся', "ось", "ось")} ${amount} заказ${pluralize(amount, '', "а", "ов")}", style: AppText.t3.copyWith(color: colorTheme.textGray))
-            ] : [
+              Text(
+                "Остал${pluralize(amount, 'ся', "ось", "ось")} $amount заказ${pluralize(amount, '', "а", "ов")}", 
+                style: AppText.t3.copyWith(color: colorTheme.textGray)
+              )] : [
               Expanded(child: child)
             ],
           );

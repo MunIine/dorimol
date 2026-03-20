@@ -42,7 +42,7 @@ class AuthInterceptor extends Interceptor{
           )
         );
 
-        final tokens = JwtTokensAnwer.fromJson(response.data);;
+        final tokens = JwtTokensAnwer.fromJson(response.data);
         tokenService.saveTokens(accessToken: tokens.accessToken, refreshToken: tokens.refreshToken);
 
         _refreshCompleter!.complete(tokens.accessToken);

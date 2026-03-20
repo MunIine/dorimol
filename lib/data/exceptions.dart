@@ -10,7 +10,7 @@ class TokenException implements Exception {
 }
 
 class TokenRefreshException extends TokenException {
-  const TokenRefreshException(String message, {required this.originalRequest, required this.refreshRequest}) : super(message);
+  const TokenRefreshException(super.message, {required this.originalRequest, required this.refreshRequest});
 
   final DioException originalRequest;
   final DioException? refreshRequest;

@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dorimol/models/access_token_payload.dart';
 import 'package:dorimol/models/jwt_tokens_anwer.dart';
 import 'package:dorimol/data/services/auth_service.dart';

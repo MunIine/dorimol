@@ -12,9 +12,9 @@ class User {
     required this.city,
     required this.address,
     required this.onboardingCompleted,
-    required this.image_url,
-    required this.orders_amount,
-    required this.current_discount,
+    required this.imageUrl,
+    required this.ordersAmount,
+    required this.currentDiscount,
     required this.discountTiers
   });
 
@@ -30,16 +30,16 @@ class User {
   final bool onboardingCompleted;
   
   @JsonKey(name: 'image_url')
-  final String? image_url;
+  final String? imageUrl;
 
   @JsonKey(name: 'phone_number')
   final String phone;
 
   @JsonKey(name: 'orders_amount')
-  final int orders_amount;
+  final int ordersAmount;
 
   @JsonKey(name: 'current_discount')
-  final int current_discount;
+  final int currentDiscount;
 
   @JsonKey(name: 'discount_tiers')
   final List<DiscountTier> discountTiers;

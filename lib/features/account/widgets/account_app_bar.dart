@@ -33,8 +33,8 @@ class AccountAppBar extends StatefulWidget {
 }
 
 class _AccountAppBarState extends State<AccountAppBar> {
-  double _defaultPadding = 20;
-  double _errorBottomPadding = 4;
+  final double _defaultPadding = 20;
+  final double _errorBottomPadding = 4;
   bool _isPicking = false;
   String? _avatarErrorMessage;
 
@@ -114,7 +114,7 @@ class _AccountAppBarState extends State<AccountAppBar> {
                 ),
                 if (_avatarErrorMessage != null) Text(_avatarErrorMessage!, style: AppText.b3.copyWith(color: widget.colorTheme.red, height: 1.2)),
                 Text(widget.user.name, style: AppText.h1.copyWith(color: widget.colorTheme.textGray)),
-                Text("Оформлено заказов: ${widget.user.orders_amount}", style: AppText.b1.copyWith(color: widget.colorTheme.tips)),
+                Text("Оформлено заказов: ${widget.user.ordersAmount}", style: AppText.b1.copyWith(color: widget.colorTheme.tips)),
               ],
             ),
           ),
@@ -130,6 +130,7 @@ class _AccountAppBarState extends State<AccountAppBar> {
       final status = await Permission.photos.request();
       if (!status.isGranted) {
         GetIt.I<Talker>().info("Missing media permission");
+        if (!mounted) return;
         showDialog(context: context, builder: (context) => const PermissionDialog());
         return;
       }
@@ -167,18 +168,18 @@ class _AccountAppBarState extends State<AccountAppBar> {
     }
   }
 
-  DecorationImage? getImage(pendingImage){
+  DecorationImage? getImage(File? pendingImage){
     if (widget.editMode){
-      return widget.user.image_url != null || pendingImage != null ? DecorationImage(
+      return widget.user.imageUrl != null || pendingImage != null ? DecorationImage(
         image: pendingImage != null ? FileImage(pendingImage) : NetworkImage(
-          Uri.parse(AppConfig.apiUrl).resolve(widget.user.image_url!).toString(),
+          Uri.parse(AppConfig.apiUrl).resolve(widget.user.imageUrl!).toString(),
         ),
         fit: BoxFit.cover,
       ) : null;
     }
-    return widget.user.image_url != null ? DecorationImage(
+    return widget.user.imageUrl != null ? DecorationImage(
       image: NetworkImage(
-        Uri.parse(AppConfig.apiUrl).resolve(widget.user.image_url!).toString(),
+        Uri.parse(AppConfig.apiUrl).resolve(widget.user.imageUrl!).toString(),
       ),
       fit: BoxFit.cover,
     ) : null;

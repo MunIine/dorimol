@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:bloc/bloc.dart';
 import 'package:dorimol/api/private_api_client.dart';
 import 'package:dorimol/models/user.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 part 'account_event.dart';
@@ -31,7 +31,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
         if (event.avatar != null) {
           user = await apiClient.updateUserAvatar(event.avatar!);
-        };
+        }
         if (event.body.isNotEmpty) {
           user = await apiClient.updateUser(event.body);
         }

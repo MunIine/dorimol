@@ -14,9 +14,9 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
   city: json['city'] as String?,
   address: json['address'] as String?,
   onboardingCompleted: json['onboarding_completed'] as bool,
-  image_url: json['image_url'] as String?,
-  orders_amount: (json['orders_amount'] as num).toInt(),
-  current_discount: (json['current_discount'] as num).toInt(),
+  imageUrl: json['image_url'] as String?,
+  ordersAmount: (json['orders_amount'] as num).toInt(),
+  currentDiscount: (json['current_discount'] as num).toInt(),
   discountTiers: (json['discount_tiers'] as List<dynamic>)
       .map((e) => DiscountTier.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -29,10 +29,10 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
   'city': instance.city,
   'address': instance.address,
   'onboarding_completed': instance.onboardingCompleted,
-  'image_url': instance.image_url,
+  'image_url': instance.imageUrl,
   'phone_number': instance.phone,
-  'orders_amount': instance.orders_amount,
-  'current_discount': instance.current_discount,
+  'orders_amount': instance.ordersAmount,
+  'current_discount': instance.currentDiscount,
   'discount_tiers': instance.discountTiers,
 };
 

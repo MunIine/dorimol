@@ -28,7 +28,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
   final List<String> cities = GetIt.I<ConfigService>().serverConfig.deliveryCities;
 
   String? selectedCity;
-  late final addressController;
+  late final TextEditingController addressController;
   bool enabled = false;
 
   @override

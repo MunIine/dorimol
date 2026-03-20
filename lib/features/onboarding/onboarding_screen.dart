@@ -17,11 +17,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final controllerSecondPage = TextEditingController();
 
   void endOnboarding(BuildContext context, String? city) async {
+    final router = AutoRouter.of(context);
     try {
       await OnboardingService().completeOnboarding(controllerFirstPage.text.trim(), city?.trim(), controllerSecondPage.text.trim());
-      AutoRouter.of(context).replace(const HomeRoute());
+      router.replace(const HomeRoute());
     } catch (e) {
-      AutoRouter.of(context).replace(ErrorRoute(exception: Exception("Произошла ошибка")));
+      router.replace(ErrorRoute(exception: Exception("Произошла ошибка")));
     }
   }
 

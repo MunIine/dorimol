@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dorimol/api/private_api_client.dart';
 import 'package:dorimol/models/order_preview.dart';
 import 'package:equatable/equatable.dart';

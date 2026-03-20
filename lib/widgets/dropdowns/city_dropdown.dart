@@ -12,7 +12,8 @@ class CityDropdown extends StatelessWidget {
     this.dropdownStyleData,
     this.iconStyleData,
     this.buttonStyleData,
-    this.hint
+    this.hint,
+    this.disabledHint
   });
 
   final AppColors colorTheme;
@@ -23,6 +24,7 @@ class CityDropdown extends StatelessWidget {
   final IconStyleData? iconStyleData;
   final ButtonStyleData? buttonStyleData;
   final Widget? hint;
+  final Widget? disabledHint;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class CityDropdown extends StatelessWidget {
         value: selectedCity,
         onChanged: onChanged,
         hint: hint ?? Text("Выберите город", style: AppText.t3.copyWith(color: colorTheme.tips)),
+        disabledHint: disabledHint ?? Text("Не указан", style: AppText.t5.copyWith(color: colorTheme.textBlack)),
         dropdownStyleData: dropdownStyleData ?? DropdownStyleData(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           maxHeight: 250,

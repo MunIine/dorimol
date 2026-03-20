@@ -18,7 +18,7 @@ class OnboardingFirstScreen extends StatefulWidget {
 }
 
 class _OnboardingFirstScreenState extends State<OnboardingFirstScreen> {
-  late final controller;
+  late final TextEditingController controller;
   bool enabled = false;
 
   @override
