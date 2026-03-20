@@ -26,6 +26,7 @@ class ProductDetails {
   });
 
   factory ProductDetails.fromJson(Map<String, dynamic> json) => _$ProductDetailsFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductDetailsToJson(this);
 
   final String id;
   final String name;
@@ -67,5 +68,7 @@ class ProductDetails {
     status: status,
     orderCount: orderCount,
   );
-  Map<String, dynamic> toJson() => _$ProductDetailsToJson(this);
+
+  @override
+  String toString() => 'ProductDetails(id: $id, name: $name, price: $price)';
 }

@@ -29,4 +29,7 @@ class OrderPreview {
   
   @JsonKey(name: "created_at")
   final DateTime createdAt;
+  
+  @override
+  String toString() => 'Order($id)';
 }

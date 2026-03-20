@@ -13,6 +13,7 @@ class ProductFeedback {
   });
 
   factory ProductFeedback.fromJson(Map<String, dynamic> json) => _$ProductFeedbackFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductFeedbackToJson(this);
 
   final int id;
   final int rating;
@@ -23,6 +24,4 @@ class ProductFeedback {
 
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
-
-  Map<String, dynamic> toJson() => _$ProductFeedbackToJson(this);
 }

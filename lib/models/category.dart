@@ -7,6 +7,7 @@ class Category {
   const Category({required this.id, required this.name, required this.imageUrl});
 
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
 
   final int id;
   final String name;
@@ -14,5 +15,6 @@ class Category {
   @JsonKey(name: 'image_url')
   final String imageUrl;
 
-  Map<String, dynamic> toJson() => _$CategoryToJson(this);
+  @override
+  String toString() => 'Category(id: $id, name: $name)';
 }

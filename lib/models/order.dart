@@ -1,5 +1,3 @@
-// ignore_for_file: sort_constructors_first
-
 import 'package:dorimol/models/product_in_cart.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -15,6 +13,9 @@ class Order {
     required this.items
   });
 
+  factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
+  Map<String, dynamic> toJson() => _$OrderToJson(this);
+
   final String? comment;
   final List<ProductInCart> items;
 
@@ -26,7 +27,4 @@ class Order {
   
   @JsonKey(name: 'delivery_address')
   final String? deliveryAddress;
-
-  factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
-  Map<String, dynamic> toJson() => _$OrderToJson(this);
 }
