@@ -92,7 +92,7 @@ class _AccountAppBarState extends State<AccountAppBar> {
                       opacity: widget.editMode ? 0.5 : 0.0,
                       duration: const Duration(milliseconds: 250),
                       child: GestureDetector(
-                        onTap: pickImage,
+                        onTap: widget.editMode ? pickImage : null,
                         child: Container(
                           width: 100,
                           height: 100,
