@@ -34,7 +34,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: AccountRoute.page,
           path: "account",
-          maintainState: false,
           children: [
             AutoRoute(page: AccountBIORoute.page, path: "bio"),
             AutoRoute(page: AccountOrderHistoryRoute.page, path: "order-history"),

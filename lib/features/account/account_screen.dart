@@ -22,50 +22,46 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).extension<AppColors>()!;
-    return BlocProvider(
-      create: (context) => AccountBloc()..add(const FetchAccountInfo()),
-      child: AutoTabsRouter(
-        routes: [
-          AccountBIORoute(colorTheme: colorTheme, pendingAvatarNotifier: pendingAvatarNotifier),
-          AccountOrderHistoryRoute(colorTheme: colorTheme),
-        ],
-        builder: (context, child) {
-          final tabsRouter = AutoTabsRouter.of(context);
-
-          return BlocBuilder<AccountBloc, AccountState>(
-            builder: (context, state) {
-              if (state is AccountLoaded) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50, bottom: 20),
-                  child: Column(
-                    children: [
-                      AccountAppBar(
-                        colorTheme: colorTheme, 
-                        user: state.user, 
-                        editMode: state.editMode,
-                        pendingAvatarNotifier: pendingAvatarNotifier
-                      ),
-                      const SizedBox(height: 12),
-                      AccountPersonalSale(
-                        colorTheme: colorTheme,
-                        user: state.user
-                      ),
-                      const SizedBox(height: 12),
-                      Expanded(
-                        child: AccountInfoBlock(tabsRouter: tabsRouter, colorTheme: colorTheme, child: child),
-                      ),
-                    ],
-                  ),
-                );
-              }
-              if (state is AccountFailure) {
-                AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
-              }
-              return const Center(child: CircularProgressIndicator());
-            },
-          );
-        },
-      ),
+    return AutoTabsRouter(
+      routes: [
+        AccountBIORoute(colorTheme: colorTheme, pendingAvatarNotifier: pendingAvatarNotifier),
+        AccountOrderHistoryRoute(colorTheme: colorTheme),
+      ],
+      builder: (context, child) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        return BlocBuilder<AccountBloc, AccountState>(
+          builder: (context, state) {
+            if (state is AccountLoaded) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 50, bottom: 20),
+                child: Column(
+                  children: [
+                    AccountAppBar(
+                      colorTheme: colorTheme, 
+                      user: state.user, 
+                      editMode: state.editMode,
+                      pendingAvatarNotifier: pendingAvatarNotifier
+                    ),
+                    const SizedBox(height: 12),
+                    AccountPersonalSale(
+                      colorTheme: colorTheme,
+                      user: state.user
+                    ),
+                    const SizedBox(height: 12),
+                    Expanded(
+                      child: AccountInfoBlock(tabsRouter: tabsRouter, colorTheme: colorTheme, child: child),
+                    ),
+                  ],
+                ),
+              );
+            }
+            if (state is AccountFailure) {
+              AutoRouter.of(context).replace(ErrorRoute(exception: state.error));
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        );
+      },
     );
   }
 }
