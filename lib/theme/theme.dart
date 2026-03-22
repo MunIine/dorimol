@@ -18,12 +18,13 @@ const stripeColor = Color(0xFFDEDEDE);
 const exyBlueColor = Color(0xFF2297F6);
 const lopyGreenColor = Color(0xFF00D06B);
 const mlineRedColor = Color(0xFFF50057);
+const scaffoldBackgroundColor = Color(0xFFF9F9F9);
 
 
 final lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(seedColor: seedColor),
-  scaffoldBackgroundColor: const Color(0xFFF9F9F9),
+  scaffoldBackgroundColor: scaffoldBackgroundColor,
   fontFamily: "Rostelecom",
   iconTheme: const IconThemeData(
     color: iconGrayColor
@@ -55,6 +56,9 @@ final lightTheme = ThemeData(
   ),
   dialogTheme: const DialogThemeData(
     backgroundColor: backgroundColor
+  ),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: scaffoldBackgroundColor,
   ),
   extensions: <ThemeExtension<dynamic>>[
     const AppColors(

@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({
@@ -66,7 +68,9 @@ class _NavBarState extends State<NavBar> {
                         onPressed: () {
                           // If cart push to screen
                           if (index == 2) {
-                            AutoRouter.of(context).root.push(const CartRoute());
+                            final state = context.read<AccountBloc>().state;
+                            if (state is! AccountLoaded) return;
+                            AutoRouter.of(context).root.push(const CartHomeRoute());
                             return;
                           }
                           widget.tabsRouter.setActiveIndex(index);

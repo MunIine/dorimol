@@ -1,9 +1,13 @@
+import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/features/cart/widgets/cart_content_block.dart';
 import 'package:dorimol/theme/export.dart';
+import 'package:dorimol/widgets/dropdowns/city_dropdown.dart';
 import 'package:dorimol/widgets/helpers/block_text_field.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class CartDeliveryBlock extends StatefulWidget {
   const CartDeliveryBlock({super.key, required this.colorTheme, required this.controller});
@@ -45,15 +49,48 @@ class _CartDeliveryBlockState extends State<CartDeliveryBlock> {
                 selected: delivery,
               ),
               const SizedBox(height: 8),
-              if (delivery)
-                BlockTextField(
-                  controller: widget.controller,
-                  colorTheme: widget.colorTheme,
-                  form: true,
-                  hint: "ГОРОД-УЛИЦА-ДОМ",
-                  useIcon: true,
-                  onSubmitted: (value) {},
+              if (delivery) CityDropdown(
+                colorTheme: widget.colorTheme, 
+                cities: GetIt.I<ConfigService>().serverConfig.deliveryCities, 
+                selectedCity: "Тирасполь",
+                // hint: (selectedCity == null && !state.editMode) ?
+                //   Text("Не указан", style: AppText.t5.copyWith(color: widget.colorTheme.textBlack)) : null,
+                dropdownStyleData: DropdownStyleData(
+                  padding: EdgeInsets.zero,
+                  maxHeight: 150,
+                  elevation: 0,
+                  decoration: BoxDecoration(
+                    color: widget.colorTheme.background,
+                    borderRadius: BorderRadius.circular(16)
+                  ),
                 ),
+                iconStyleData: const IconStyleData(icon: SizedBox()),
+                buttonStyleData: ButtonStyleData(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: widget.colorTheme.formInput
+                  ),
+                  height: 48,
+                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
+                ),
+                onChanged: (_){},
+                // onChanged: state.editMode ? (value) {
+                //   if (selectedCity == value) {
+                //     cityNotifier.value = null;
+                //     return;
+                //   }
+                //   cityNotifier.value = value;
+                // } : null
+              ),
+              if (delivery) const SizedBox(height: 8),
+              if (delivery) BlockTextField(
+                controller: widget.controller,
+                colorTheme: widget.colorTheme,
+                form: true,
+                hint: "Введите адрес",
+                useIcon: true,
+                onSubmitted: (value) {},
+              ),
             ],
           ),
         );

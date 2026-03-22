@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/features/cart/cart_home_screen.dart';
+import 'package:dorimol/features/cart/screens/export.dart';
 import 'package:dorimol/models/category.dart';
 import 'package:dorimol/router/router_guards.dart';
 import 'package:dorimol/features/account/account_screen.dart';
@@ -11,7 +13,6 @@ import 'package:dorimol/features/catalog/catalog_screen.dart';
 import 'package:dorimol/features/categories/categories_screen.dart';
 import 'package:dorimol/features/errors/error_screen.dart';
 import 'package:dorimol/features/home_screen.dart';
-import 'package:dorimol/features/cart/cart_screen.dart';
 import 'package:dorimol/features/onboarding/screens/export.dart';
 import 'package:dorimol/features/product/product_screen.dart';
 import 'package:dorimol/features/store/store_screen.dart';
@@ -76,7 +77,14 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: OnboardingSecondRoute.page, path: "second"),
       ]
     ),
-    AutoRoute(page: CartRoute.page, path: "/order"),
+    AutoRoute(
+      page: CartHomeRoute.page,
+      path: "/order",
+      children: [
+        AutoRoute(page: CartRoute.page, path: "cart"),
+        AutoRoute(page: CheckoutRoute.page, path: "checkout")
+      ]
+    ),
     AutoRoute(page: ErrorRoute.page, path: "/error"),
   ];
 }

@@ -17,6 +17,7 @@ class CartProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
           children: [
@@ -26,28 +27,24 @@ class CartProducts extends StatelessWidget {
               onTap: () => BlocProvider.of<CartBloc>(context).add(ClearCart()),
               child: Container(
                 color: Colors.transparent,
-                child: Row(
-                  children: [
-                    Text("Удалить", style: AppText.t3.copyWith(color: colorTheme.iconGray)),
-                    const SizedBox(width: 8),
-                    Icon(SvgIcons.trash, color: colorTheme.iconGray, size: 16),
-                  ],
-                ),
+                child: Text("Очистить", style: AppText.t3.copyWith(color: colorTheme.iconGray)),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 25),
-        ListView.separated(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: productsInCart.length,
-          separatorBuilder: (context, index) => const SizedBox(height: 10),
-          itemBuilder: (context, index) => CartProductCard(
-            colorTheme: colorTheme,
-            product: products[keys[index]]!,
-            quantity: productsInCart[keys[index]]!.quantity,
+        const SizedBox(height: 12),
+        Flexible(
+          fit: FlexFit.loose,
+          child: ListView.separated(
+            shrinkWrap: true, //TODO: FIX SCROLL BUG
+            padding: EdgeInsets.zero,
+            itemCount: productsInCart.length,
+            separatorBuilder: (context, index) => const SizedBox(height: 10),
+            itemBuilder: (context, index) => CartProductCard(
+              colorTheme: colorTheme,
+              product: products[keys[index]]!,
+              quantity: productsInCart[keys[index]]!.quantity,
+            ),
           ),
         ),
       ],

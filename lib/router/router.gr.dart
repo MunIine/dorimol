@@ -159,19 +159,66 @@ class AuthorizationRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CartHomeScreen]
+class CartHomeRoute extends PageRouteInfo<void> {
+  const CartHomeRoute({List<PageRouteInfo>? children})
+    : super(CartHomeRoute.name, initialChildren: children);
+
+  static const String name = 'CartHomeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CartHomeScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [CartScreen]
-class CartRoute extends PageRouteInfo<void> {
-  const CartRoute({List<PageRouteInfo>? children})
-    : super(CartRoute.name, initialChildren: children);
+class CartRoute extends PageRouteInfo<CartRouteArgs> {
+  CartRoute({
+    Key? key,
+    required AppColors colorTheme,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CartRoute.name,
+         args: CartRouteArgs(key: key, colorTheme: colorTheme),
+         initialChildren: children,
+       );
 
   static const String name = 'CartRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const CartScreen();
+      final args = data.argsAs<CartRouteArgs>();
+      return CartScreen(key: args.key, colorTheme: args.colorTheme);
     },
   );
+}
+
+class CartRouteArgs {
+  const CartRouteArgs({this.key, required this.colorTheme});
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  @override
+  String toString() {
+    return 'CartRouteArgs{key: $key, colorTheme: $colorTheme}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CartRouteArgs) return false;
+    return key == other.key && colorTheme == other.colorTheme;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode;
 }
 
 /// generated route for
@@ -246,6 +293,53 @@ class CategoriesRoute extends PageRouteInfo<void> {
       return const CategoriesScreen();
     },
   );
+}
+
+/// generated route for
+/// [CheckoutScreen]
+class CheckoutRoute extends PageRouteInfo<CheckoutRouteArgs> {
+  CheckoutRoute({
+    Key? key,
+    required AppColors colorTheme,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CheckoutRoute.name,
+         args: CheckoutRouteArgs(key: key, colorTheme: colorTheme),
+         initialChildren: children,
+       );
+
+  static const String name = 'CheckoutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CheckoutRouteArgs>();
+      return CheckoutScreen(key: args.key, colorTheme: args.colorTheme);
+    },
+  );
+}
+
+class CheckoutRouteArgs {
+  const CheckoutRouteArgs({this.key, required this.colorTheme});
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  @override
+  String toString() {
+    return 'CheckoutRouteArgs{key: $key, colorTheme: $colorTheme}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CheckoutRouteArgs) return false;
+    return key == other.key && colorTheme == other.colorTheme;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode;
 }
 
 /// generated route for
