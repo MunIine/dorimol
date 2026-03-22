@@ -4,8 +4,8 @@ import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChangeProductInCart extends StatelessWidget {
-  const ChangeProductInCart({
+class ChangeCartItems extends StatelessWidget {
+  const ChangeCartItems({
     super.key,
     required this.cartHeight, 
     required this.product, 
@@ -60,7 +60,7 @@ class ChangeProductInCart extends StatelessWidget {
                 color: color,
                 onTap: (){
                   if (quantity-product.step >= 0) {
-                    BlocProvider.of<CartBloc>(context).add(UpdateProductInCart(
+                    BlocProvider.of<CartBloc>(context).add(UpdateCartItems(
                       product: product,
                       step: -product.step
                     ));
@@ -96,7 +96,7 @@ class ChangeProductInCart extends StatelessWidget {
                 color: color,
                 onTap: () {
                   if (quantity + product.step <= product.stock) {
-                    BlocProvider.of<CartBloc>(context).add(UpdateProductInCart(
+                    BlocProvider.of<CartBloc>(context).add(UpdateCartItems(
                       product: product,
                       step: product.step
                     ));

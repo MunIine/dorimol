@@ -24,7 +24,7 @@ class AddProductToCart extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           if (product.step <= product.stock) {
-            BlocProvider.of<CartBloc>(context).add(UpdateProductInCart(
+            BlocProvider.of<CartBloc>(context).add(UpdateCartItems(
               product: product,
               step: product.step
             ));

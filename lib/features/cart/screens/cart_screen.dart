@@ -28,7 +28,7 @@ class CartScreen extends StatelessWidget {
                   child: CartContentBlock(
                     child: CartProducts(
                       colorTheme: colorTheme,
-                      productsInCart: state.productsInCart.values.toList()
+                      cartItems: state.cartItems.values.toList()
                     ),
                   ),
                 ),

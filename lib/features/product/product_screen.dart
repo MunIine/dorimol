@@ -62,7 +62,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       child: BlocSelector<CartBloc, CartState, double>(
                         selector: (state) => state.quantityOf(product.id),
                         builder: (context, quantity) {
-                          return ChangeProductInCart(
+                          return ChangeCartItems(
                             cartHeight: 50,
                             iconSize: 24,
                             equalWidth: true,

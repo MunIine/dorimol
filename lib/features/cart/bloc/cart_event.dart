@@ -7,8 +7,8 @@ sealed class CartEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class UpdateProductInCart extends CartEvent {
-  const UpdateProductInCart({required this.product, required this.step});
+class UpdateCartItems extends CartEvent {
+  const UpdateCartItems({required this.product, required this.step});
   final Product product;
   final double step;
 

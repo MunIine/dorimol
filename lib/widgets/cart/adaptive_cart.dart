@@ -1,7 +1,7 @@
 import 'package:dorimol/models/product.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/widgets/cart/add_product_to_cart.dart';
-import 'package:dorimol/widgets/cart/change_product_in_cart.dart';
+import 'package:dorimol/widgets/cart/change_cart_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +26,7 @@ class AdaptiveCart extends StatelessWidget {
             product: product,
           );
         }
-        return ChangeProductInCart(
+        return ChangeCartItems(
           cartHeight: cartHeight,  
           quantity: quantity,
           product: product,

@@ -12,20 +12,20 @@ class CartEmpty extends CartState {
 }
 
 class CartWithItems extends CartState {
-  const CartWithItems({required this.productsInCart});
+  const CartWithItems({required this.cartItems});
 
-  final Map<String, ProductInCart> productsInCart;
-  
-  double get totalPrice => productsInCart.values.fold(0, (sum, item) => sum + item.product.currentPrice(item.quantity) * item.quantity);
+  final Map<String, CartItem> cartItems;
+
+  double get totalPrice => cartItems.values.fold(0, (sum, item) => sum + item.product.currentPrice(item.quantity) * item.quantity);
 
   @override
-  List<Object> get props => [productsInCart];
+  List<Object> get props => [cartItems];
 }
 
 extension CartStateX on CartState {
   double quantityOf(String productId) {
     if (this is CartWithItems) {
-      return (this as CartWithItems).productsInCart[productId]?.quantity ?? 0.0;
+      return (this as CartWithItems).cartItems[productId]?.quantity ?? 0.0;
     }
     return 0.0;
   }

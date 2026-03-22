@@ -1,7 +1,7 @@
 import 'package:dorimol/models/product.dart';
 import 'package:dorimol/data/app_config.dart';
 import 'package:dorimol/theme/export.dart';
-import 'package:dorimol/widgets/cart/change_product_in_cart.dart';
+import 'package:dorimol/widgets/cart/change_cart_items.dart';
 import 'package:flutter/material.dart';
 
 class CartProductCard extends StatelessWidget {
@@ -44,7 +44,7 @@ class CartProductCard extends StatelessWidget {
         const Spacer(),
         SizedBox(
           width: 120,
-          child: ChangeProductInCart(
+          child: ChangeCartItems(
             cartHeight: 30,
             borderRadius: 10,
             dividers: false,

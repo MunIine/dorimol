@@ -1,4 +1,4 @@
-import 'package:dorimol/models/product_in_cart.dart';
+import 'package:dorimol/models/cart_item.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/features/cart/widgets/cart_product_card.dart';
 import 'package:dorimol/theme/export.dart';
@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartProducts extends StatelessWidget {
-  const CartProducts({super.key, required this.colorTheme, required this.productsInCart});
+  const CartProducts({super.key, required this.colorTheme, required this.cartItems});
 
   final AppColors colorTheme;
-  final List<ProductInCart> productsInCart;
+  final List<CartItem> cartItems;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class CartProducts extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text("Кол-во: ${productsInCart.length}", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
+            Text("Кол-во: ${cartItems.length}", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
             const Spacer(),
             GestureDetector(
               onTap: () => BlocProvider.of<CartBloc>(context).add(ClearCart()),
@@ -36,12 +36,12 @@ class CartProducts extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
-            itemCount: productsInCart.length,
+            itemCount: cartItems.length,
             separatorBuilder: (context, index) => const SizedBox(height: 10),
             itemBuilder: (context, index) => CartProductCard(
               colorTheme: colorTheme,
-              product: productsInCart[index].product,
-              quantity: productsInCart[index].quantity,
+              product: cartItems[index].product,
+              quantity: cartItems[index].quantity,
             ),
           ),
         ),
