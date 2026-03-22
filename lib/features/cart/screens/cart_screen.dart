@@ -23,12 +23,13 @@ class CartScreen extends StatelessWidget {
             children: [
               Text("Корзина", style: AppText.h1.copyWith(color: colorTheme.textBlack)),
               const SizedBox(height: 12),
-              Align(
-                alignment: Alignment.topCenter,
-                child: CartContentBlock(
-                  child: CartProducts(
-                    colorTheme: colorTheme,
-                    productsInCart: state.productsInCart.values.toList()
+              Expanded(
+                child: SingleChildScrollView(
+                  child: CartContentBlock(
+                    child: CartProducts(
+                      colorTheme: colorTheme,
+                      productsInCart: state.productsInCart.values.toList()
+                    ),
                   ),
                 ),
               ),

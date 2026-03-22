@@ -33,7 +33,8 @@ class CartProducts extends StatelessWidget {
         Flexible(
           fit: FlexFit.loose,
           child: ListView.separated(
-            shrinkWrap: true, //TODO: FIX SCROLL BUG
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
             itemCount: productsInCart.length,
             separatorBuilder: (context, index) => const SizedBox(height: 10),

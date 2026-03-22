@@ -15,8 +15,7 @@ class CartWithItems extends CartState {
   const CartWithItems({required this.productsInCart});
 
   final Map<String, ProductInCart> productsInCart;
-  // TODO: total price getter
-
+  
   double get totalPrice => productsInCart.values.fold(0, (sum, item) => sum + item.product.currentPrice(item.quantity) * item.quantity);
 
   @override
