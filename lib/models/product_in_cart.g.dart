@@ -8,14 +8,12 @@ part of 'product_in_cart.dart';
 
 ProductInCart _$ProductInCartFromJson(Map<String, dynamic> json) =>
     ProductInCart(
-      productId: json['product_id'] as String,
-      itemPrice: (json['item_price'] as num).toDouble(),
+      product: Product.fromJson(json['product'] as Map<String, dynamic>),
       quantity: (json['quantity'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$ProductInCartToJson(ProductInCart instance) =>
     <String, dynamic>{
+      'product': instance.product,
       'quantity': instance.quantity,
-      'product_id': instance.productId,
-      'item_price': instance.itemPrice,
     };

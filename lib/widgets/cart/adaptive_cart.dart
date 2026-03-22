@@ -17,19 +17,12 @@ class AdaptiveCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector(
-      bloc: BlocProvider.of<CartBloc>(context),
-      selector: (state) {
-        if (state is CartUpdated && state.productsInCart.containsKey(product.id)) {
-          return state.productsInCart[product.id]!.quantity;
-        }
-        return 0.0;
-      },
+    return BlocSelector<CartBloc, CartState, double>(
+      selector: (state) => state.quantityOf(product.id),
       builder: (context, quantity){
         if(quantity == 0) {
           return AddProductToCart(
             cartHeight: cartHeight, 
-            quantity: quantity,
             product: product,
           );
         }

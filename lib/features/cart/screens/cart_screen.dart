@@ -18,31 +18,24 @@ class CartScreen extends StatelessWidget {
     return BlocBuilder<CartBloc, CartState>(
       bloc: BlocProvider.of<CartBloc>(context),
       builder: (context, state) {
-        if (state is CartUpdated) {
-          final List<String> keys = state.products.keys.toList();
-          if (keys.isNotEmpty) {
-            return Column(
-              children: [
-                Text("Корзина", style: AppText.h1.copyWith(color: colorTheme.textBlack)),
-                const SizedBox(height: 12),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: CartContentBlock(
-                    child: CartProducts(
-                      colorTheme: colorTheme,
-                      keys: keys,
-                      products: state.products,
-                      productsInCart: state.productsInCart
-                    ),
+        if (state is CartWithItems) {
+          return Column(
+            children: [
+              Text("Корзина", style: AppText.h1.copyWith(color: colorTheme.textBlack)),
+              const SizedBox(height: 12),
+              Align(
+                alignment: Alignment.topCenter,
+                child: CartContentBlock(
+                  child: CartProducts(
+                    colorTheme: colorTheme,
+                    productsInCart: state.productsInCart.values.toList()
                   ),
                 ),
-              ],
-            );
-          }
-          return NoItemsInCart(colorTheme: colorTheme);
+              ),
+            ],
+          );
         }
-        if (state is CartInitial) return NoItemsInCart(colorTheme: colorTheme);
-        return const Center(child: Text("Товаров нет"));
+        return NoItemsInCart(colorTheme: colorTheme);
       },
     );
   }

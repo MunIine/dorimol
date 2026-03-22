@@ -35,9 +35,6 @@ abstract class PublicApiClient {
   @GET('/products/{id}')
   Future<ProductDetails> fetchProductDetails(@Path("id") String productId);
 
-  @POST('/orders/add')
-  Future<HttpResponse> placeOrder(@Body() Order body);
-
   @POST('/auth/firebase')
   Future<JwtTokensAnwer> createJwtToken(@Body() Map<String, String> body);
 }

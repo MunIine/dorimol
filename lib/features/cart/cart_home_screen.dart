@@ -53,8 +53,7 @@ class _CartHomeScreenState extends State<CartHomeScreen> {
 
   bool checkEnable(TabsRouter tabsRouter){
     if (tabsRouter.activeIndex == 0){
-      final state = context.read<CartBloc>().state;
-      if (state is CartUpdated && state.productsInCart.isNotEmpty) return true;
+      if (context.read<CartBloc>().state is CartWithItems) return true;
     }
     return false;
   }

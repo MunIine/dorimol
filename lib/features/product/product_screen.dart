@@ -60,12 +60,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     Padding(
                       padding: padding,
                       child: BlocSelector<CartBloc, CartState, double>(
-                        selector: (state) {
-                          if (state is CartUpdated && state.productsInCart.containsKey(product.id)) {
-                            return state.productsInCart[product.id]!.quantity;
-                          }
-                          return 0.0;
-                        },
+                        selector: (state) => state.quantityOf(product.id),
                         builder: (context, quantity) {
                           return ChangeProductInCart(
                             cartHeight: 50,

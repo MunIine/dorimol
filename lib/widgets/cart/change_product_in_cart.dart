@@ -8,6 +8,9 @@ class ChangeProductInCart extends StatelessWidget {
   const ChangeProductInCart({
     super.key,
     required this.cartHeight, 
+    required this.product, 
+    required this.quantity, 
+
     this.equalWidth = false,
     this.dividers = true,
     this.iconSize = 16, 
@@ -16,12 +19,12 @@ class ChangeProductInCart extends StatelessWidget {
     this.priceTextStyle,
     this.iconColor,
     this.color,
-
-    required this.product, 
-    required this.quantity, 
   });
 
+  final Product product;
+  final double quantity;
   final double cartHeight;
+
   final double iconSize;
   final double borderRadius;
   final bool equalWidth;
@@ -30,9 +33,6 @@ class ChangeProductInCart extends StatelessWidget {
   final TextStyle? priceTextStyle;
   final Color? color;
   final Color? iconColor;
-
-  final Product product;
-  final double quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +62,7 @@ class ChangeProductInCart extends StatelessWidget {
                   if (quantity-product.step >= 0) {
                     BlocProvider.of<CartBloc>(context).add(UpdateProductInCart(
                       product: product,
-                      price: product.currentPrice(quantity-product.step), 
-                      quantity: quantity-product.step
+                      step: -product.step
                     ));
                   }
                 }
@@ -98,9 +97,8 @@ class ChangeProductInCart extends StatelessWidget {
                 onTap: () {
                   if (quantity + product.step <= product.stock) {
                     BlocProvider.of<CartBloc>(context).add(UpdateProductInCart(
-                      product: product, 
-                      price: product.currentPrice(quantity+product.step), 
-                      quantity: quantity+product.step
+                      product: product,
+                      step: product.step
                     ));
                   }
                 }
