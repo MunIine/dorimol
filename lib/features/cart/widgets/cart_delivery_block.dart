@@ -8,20 +8,30 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class CartDeliveryBlock extends StatefulWidget {
-  const CartDeliveryBlock({super.key, required this.colorTheme, required this.controller});
+  const CartDeliveryBlock({
+    super.key, 
+    required this.colorTheme, 
+    required this.addressController, 
+    required this.cityNotifier, 
+    required this.deliveryNotifier
+  });
 
   final AppColors colorTheme;
-  final TextEditingController controller;
+  final TextEditingController addressController;
+  final ValueNotifier<String?> cityNotifier;
+  final ValueNotifier<bool> deliveryNotifier;
 
   @override
   State<CartDeliveryBlock> createState() => _CartDeliveryBlockState();
 }
 
 class _CartDeliveryBlockState extends State<CartDeliveryBlock> {
-  bool delivery = false;
+  final List<String> cities = GetIt.I<ConfigService>().serverConfig.deliveryCities;
 
   @override
   Widget build(BuildContext context) {
+    final delivery = widget.deliveryNotifier.value;
+
     return CartContentBlock(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,11 +43,7 @@ class _CartDeliveryBlockState extends State<CartDeliveryBlock> {
             deliveryMethod: 'Самовывоз',
             price: 'Бесплатно',
             selected: !delivery,
-            onTap: () {
-              setState(() {
-                delivery = false;
-              });
-            },
+            onTap: () => widget.deliveryNotifier.value = false,
           ),
           const SizedBox(height: 8),
           DeliverySelect(
@@ -45,17 +51,13 @@ class _CartDeliveryBlockState extends State<CartDeliveryBlock> {
             deliveryMethod: 'Курьером',
             price: 'от 30руб',
             selected: delivery,
-            onTap: () {
-              setState(() {
-                delivery = true;
-              });
-            },
+            onTap: () => widget.deliveryNotifier.value = true,
           ),
           const SizedBox(height: 8),
           if (delivery) CityDropdown(
             colorTheme: widget.colorTheme, 
-            cities: GetIt.I<ConfigService>().serverConfig.deliveryCities, 
-            selectedCity: "Тирасполь",
+            cities: cities, 
+            cityNotifier: widget.cityNotifier,
             dropdownStyleData: DropdownStyleData(
               padding: EdgeInsets.zero,
               maxHeight: 150,
@@ -74,22 +76,14 @@ class _CartDeliveryBlockState extends State<CartDeliveryBlock> {
               height: 48,
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
             ),
-            onChanged: (_){},
-            // onChanged: state.editMode ? (value) {
-            //   if (selectedCity == value) {
-            //     cityNotifier.value = null;
-            //     return;
-            //   }
-            //   cityNotifier.value = value;
-            // } : null
           ),
           if (delivery) const SizedBox(height: 8),
           if (delivery) BlockTextField(
-            controller: widget.controller,
+            controller: widget.addressController,
             colorTheme: widget.colorTheme,
             form: true,
             hint: "Введите адрес",
-            useIcon: true,
+            // useIcon: true,
             onSubmitted: (value) {},
           ),
         ],

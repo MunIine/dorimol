@@ -26,8 +26,7 @@ class OnboardingSecondScreen extends StatefulWidget {
 
 class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
   final List<String> cities = GetIt.I<ConfigService>().serverConfig.deliveryCities;
-
-  String? selectedCity;
+  final ValueNotifier<String?> cityNotifier = ValueNotifier(null);
   late final TextEditingController addressController;
   bool enabled = false;
 
@@ -39,7 +38,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
   }
 
   void _onTextChanged() {
-    final shouldEnable = addressController.text.trim().isNotEmpty && selectedCity != null;
+    final shouldEnable = addressController.text.trim().isNotEmpty && cityNotifier.value != null;
     if (shouldEnable != enabled) {
       setState(() {
         enabled = shouldEnable;
@@ -73,17 +72,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
           CityDropdown(
             colorTheme: colorTheme, 
             cities: cities, 
-            selectedCity: selectedCity, 
-            onChanged: (value) {
-              setState(() {
-                if (selectedCity == value) {
-                  selectedCity = null;
-                  return;
-                }
-                selectedCity = value;
-              });
-              _onTextChanged();
-            },
+            cityNotifier: cityNotifier, 
           ),
           const SizedBox(height: 32),
           Align(alignment: Alignment.centerLeft, child: Text("Ваш адрес", style: AppText.b1.copyWith(color: colorTheme.iconGray))),
@@ -106,7 +95,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
             children: [
               Expanded(
                 child: TextButton(
-                  onPressed: () => widget.endOnboarding(context, selectedCity),
+                  onPressed: () => widget.endOnboarding(context, cityNotifier.value),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -118,7 +107,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
               const SizedBox(width: 8),
               Expanded(
                 child: TextButton(
-                  onPressed: enabled ? () => widget.endOnboarding(context, selectedCity) : null,
+                  onPressed: enabled ? () => widget.endOnboarding(context, cityNotifier.value) : null,
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     backgroundColor: colorTheme.seedColor,

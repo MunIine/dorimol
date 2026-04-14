@@ -1,17 +1,23 @@
+import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/features/cart/widgets/cart_content_block.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartResultsBlock extends StatelessWidget {
   const CartResultsBlock({
     super.key,
     required this.colorTheme,
+    required this.discount
   });
 
   final AppColors colorTheme;
+  final int discount;
 
   @override
   Widget build(BuildContext context) {
+    final totalPrice = (context.read<CartBloc>().state as CartWithItems).totalPrice;
+
     return CartContentBlock(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +36,7 @@ class CartResultsBlock extends StatelessWidget {
                   children: [
                     Text("Без учета скидки", style: AppText.b3.copyWith(color: colorTheme.iconGray)),
                     const Spacer(),
-                    Text("12234 Руб", style: AppText.b3.copyWith(color: colorTheme.iconGray)),
+                    Text("$totalPrice Руб", style: AppText.b3.copyWith(color: colorTheme.iconGray)),
                   ],
                 ),
                 const Divider(
@@ -40,7 +46,7 @@ class CartResultsBlock extends StatelessWidget {
                   children: [
                     Text("С учетом скидки", style: AppText.b3.copyWith(color: colorTheme.seedColor)),
                     const Spacer(),
-                    Text("9234 Руб", style: AppText.b3.copyWith(color: colorTheme.seedColor)),
+                    Text("${totalPrice*(1-discount/100)} Руб", style: AppText.b3.copyWith(color: colorTheme.seedColor)),
                   ],
                 )
               ],

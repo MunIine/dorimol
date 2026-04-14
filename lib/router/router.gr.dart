@@ -301,10 +301,21 @@ class CheckoutRoute extends PageRouteInfo<CheckoutRouteArgs> {
   CheckoutRoute({
     Key? key,
     required AppColors colorTheme,
+    required ValueNotifier<String?> cityNotifier,
+    required TextEditingController addressController,
+    required TextEditingController commentController,
+    required ValueNotifier<bool> deliveryNotifier,
     List<PageRouteInfo>? children,
   }) : super(
          CheckoutRoute.name,
-         args: CheckoutRouteArgs(key: key, colorTheme: colorTheme),
+         args: CheckoutRouteArgs(
+           key: key,
+           colorTheme: colorTheme,
+           cityNotifier: cityNotifier,
+           addressController: addressController,
+           commentController: commentController,
+           deliveryNotifier: deliveryNotifier,
+         ),
          initialChildren: children,
        );
 
@@ -314,32 +325,65 @@ class CheckoutRoute extends PageRouteInfo<CheckoutRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<CheckoutRouteArgs>();
-      return CheckoutScreen(key: args.key, colorTheme: args.colorTheme);
+      return CheckoutScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+        cityNotifier: args.cityNotifier,
+        addressController: args.addressController,
+        commentController: args.commentController,
+        deliveryNotifier: args.deliveryNotifier,
+      );
     },
   );
 }
 
 class CheckoutRouteArgs {
-  const CheckoutRouteArgs({this.key, required this.colorTheme});
+  const CheckoutRouteArgs({
+    this.key,
+    required this.colorTheme,
+    required this.cityNotifier,
+    required this.addressController,
+    required this.commentController,
+    required this.deliveryNotifier,
+  });
 
   final Key? key;
 
   final AppColors colorTheme;
 
+  final ValueNotifier<String?> cityNotifier;
+
+  final TextEditingController addressController;
+
+  final TextEditingController commentController;
+
+  final ValueNotifier<bool> deliveryNotifier;
+
   @override
   String toString() {
-    return 'CheckoutRouteArgs{key: $key, colorTheme: $colorTheme}';
+    return 'CheckoutRouteArgs{key: $key, colorTheme: $colorTheme, cityNotifier: $cityNotifier, addressController: $addressController, commentController: $commentController, deliveryNotifier: $deliveryNotifier}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! CheckoutRouteArgs) return false;
-    return key == other.key && colorTheme == other.colorTheme;
+    return key == other.key &&
+        colorTheme == other.colorTheme &&
+        cityNotifier == other.cityNotifier &&
+        addressController == other.addressController &&
+        commentController == other.commentController &&
+        deliveryNotifier == other.deliveryNotifier;
   }
 
   @override
-  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+  int get hashCode =>
+      key.hashCode ^
+      colorTheme.hashCode ^
+      cityNotifier.hashCode ^
+      addressController.hashCode ^
+      commentController.hashCode ^
+      deliveryNotifier.hashCode;
 }
 
 /// generated route for

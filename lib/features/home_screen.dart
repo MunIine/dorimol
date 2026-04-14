@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AccountBloc()..add(const FetchAccountInfo())),
+        BlocProvider(lazy: false, create: (context) => AccountBloc()..add(const FetchAccountInfo())),
         BlocProvider(create: (context) => CartBloc()),
       ],
       child: AutoTabsRouter(

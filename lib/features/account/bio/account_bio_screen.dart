@@ -102,38 +102,26 @@ class _AccountBIOScreenState extends State<AccountBIOScreen> {
                     children: [
                       Text("Город", style: AppText.t2.copyWith(color: widget.colorTheme.iconGray)),
                       const SizedBox(height: 4),
-                      ValueListenableBuilder(
-                        valueListenable: cityNotifier, 
-                        builder: (_, selectedCity, _){
-                          return CityDropdown(
-                            colorTheme: widget.colorTheme, 
-                            cities: cities, 
-                            selectedCity: selectedCity,
-                            hint: (selectedCity == null && !state.editMode) ?
-                              Text("Не указан", style: AppText.t5.copyWith(color: widget.colorTheme.textBlack)) : null,
-                            dropdownStyleData: DropdownStyleData(
-                              padding: EdgeInsets.zero,
-                              maxHeight: 150,
-                              elevation: 0,
-                              decoration: BoxDecoration(
-                                color: widget.colorTheme.background,
-                                borderRadius: BorderRadius.circular(16)
-                              ),
-                            ),
-                            iconStyleData: const IconStyleData(icon: SizedBox()),
-                            buttonStyleData: const ButtonStyleData(
-                              height: 22,
-                              padding: EdgeInsets.zero,
-                            ),
-                            onChanged: state.editMode ? (value) {
-                              if (selectedCity == value) {
-                                cityNotifier.value = null;
-                                return;
-                              }
-                              cityNotifier.value = value;
-                            } : null
-                          );
-                        }
+                      CityDropdown(
+                        colorTheme: widget.colorTheme, 
+                        cities: cities, 
+                        cityNotifier: cityNotifier,
+                        disabledHint: Text("Не указан", style: AppText.t5.copyWith(color: widget.colorTheme.textBlack)),
+                        enabled: state.editMode,
+                        dropdownStyleData: DropdownStyleData(
+                          padding: EdgeInsets.zero,
+                          maxHeight: 150,
+                          elevation: 0,
+                          decoration: BoxDecoration(
+                            color: widget.colorTheme.background,
+                            borderRadius: BorderRadius.circular(16)
+                          ),
+                        ),
+                        iconStyleData: const IconStyleData(icon: SizedBox()),
+                        buttonStyleData: const ButtonStyleData(
+                          height: 22,
+                          padding: EdgeInsets.zero,
+                        ),
                       )
                     ],    
                   ),

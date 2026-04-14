@@ -6,9 +6,11 @@ class CartDiscountBlock extends StatelessWidget {
   const CartDiscountBlock({
     super.key,
     required this.colorTheme,
+    required this.discount
   });
 
   final AppColors colorTheme;
+  final int discount;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class CartDiscountBlock extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           color: colorTheme.seedColor
         ),
-        child: Center(child: Text("Скидка 3%", style: AppText.b3.copyWith(color: Colors.white))),
+        child: Center(child: Text("Скидка $discount%", style: AppText.b3.copyWith(color: Colors.white))),
       )
     );
   }
