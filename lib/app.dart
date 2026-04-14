@@ -1,10 +1,8 @@
-import 'package:dorimol/api/public_api_client.dart';
 import 'package:dorimol/data/services/auth_service.dart';
 import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/data/services/token_service.dart';
 import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/authorization/bloc/authorization_bloc.dart';
-import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +35,6 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final publicApiClient = GetIt.I<PublicApiClient>();
     final authService = GetIt.I<AuthService>();
     final tokenService = GetIt.I<TokenService>();
     final serverConfig = GetIt.I<ConfigService>().serverConfig;
@@ -51,14 +48,9 @@ class MyAppState extends State<MyApp> {
       return const MaterialApp(home: BlockedScreen(message: "Ведутся технические работы. Попробуйте позже."));
     }
 
-    return MultiBlocProvider(
+    return BlocProvider(
       key: _appKey,
-      providers: [
-        BlocProvider(create: (context) => CartBloc(apiClient: publicApiClient)),
-        BlocProvider(
-          create: (context) => AuthorizationBloc(authService: authService, tokenService: tokenService),
-        ),
-      ],
+      create: (context) => AuthorizationBloc(authService: authService, tokenService: tokenService),
       child: ChangeNotifierProvider(
         create: (context) => NavBarController(),
         builder: (context, state) {

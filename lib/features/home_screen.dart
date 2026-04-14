@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
+import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/bars/nav_bar.dart';
@@ -18,8 +19,11 @@ class HomeScreen extends StatelessWidget {
 
     final icons = [SvgIcons.user, SvgIcons.groceryBasket, SvgIcons.shoppingCartFilled];
 
-    return BlocProvider(
-      create: (context) => AccountBloc()..add(const FetchAccountInfo()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AccountBloc()..add(const FetchAccountInfo())),
+        BlocProvider(create: (context) => CartBloc()),
+      ],
       child: AutoTabsRouter(
         routes: [const AccountRoute(), const StoreRoute()],
         builder: (context, child) {

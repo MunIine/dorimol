@@ -3,12 +3,13 @@ import 'package:dorimol/models/product.dart';
 import 'package:dorimol/models/cart_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc({required this.apiClient}) : super(const CartEmpty()) {
+  CartBloc() : super(const CartEmpty()) {
     on<UpdateCartItems>((event, emit) {
       final product = event.product;
       final cartItems = Map<String, CartItem>.from(
@@ -43,5 +44,5 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     });
   }
 
-  final PublicApiClient apiClient;
+  final PublicApiClient apiClient = GetIt.I<PublicApiClient>();
 }
