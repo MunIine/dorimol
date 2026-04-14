@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
-import 'package:dorimol/router/router.dart';
+import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,12 +65,9 @@ class _NavBarState extends State<NavBar> {
                       height: iconSize,
                       child: IconButton(
                         onPressed: () {
-                          // If cart push to screen
+                          // If cart hide navbar
                           if (index == 2) {
-                            final state = context.read<AccountBloc>().state;
-                            if (state is! AccountLoaded) return;
-                            AutoRouter.of(context).root.push(const CartHomeRoute());
-                            return;
+                            context.read<NavBarController>().hide(animation: NavBarAnimation.hard);
                           }
                           widget.tabsRouter.setActiveIndex(index);
                         },

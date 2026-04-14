@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartButton extends StatelessWidget {
   const CartButton({
@@ -33,7 +35,9 @@ class CartButton extends StatelessWidget {
                     tabsRouter.setActiveIndex(tabsRouter.activeIndex-1);
                     return;
                   }
-                  AutoRouter.of(context).pop();
+                  final router = AutoTabsRouter.of(context).parent()! as TabsRouter;
+                  router.setActiveIndex(router.previousIndex!);
+                  context.read<NavBarController>().show();
                 },
                 style: IconButton.styleFrom(
                   padding: const EdgeInsets.all(16),

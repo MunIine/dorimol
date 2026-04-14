@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
         BlocProvider(create: (context) => CartBloc()),
       ],
       child: AutoTabsRouter(
-        routes: [const AccountRoute(), const StoreRoute()],
+        routes: [const AccountRoute(), const StoreRoute(), const CartHomeRoute()],
         builder: (context, child) {
           final tabsRouter = AutoTabsRouter.of(context);
 
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             extendBody: true,
             bottomNavigationBar: Consumer<NavBarController>(
               builder: (context, controller, child) => AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
+                duration: Duration(milliseconds: controller.animation == NavBarAnimation.soft ? 250 : 0),
                 transform: Matrix4.translationValues(0, controller.isVisible ? 0 : 120, 0),
                 child: NavBar(colorTheme: colorTheme, icons: icons, tabsRouter: tabsRouter),
               ),

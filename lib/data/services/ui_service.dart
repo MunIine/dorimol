@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+enum NavBarAnimation{
+  hard,
+  soft
+}
 class NavBarController extends ChangeNotifier{
+  NavBarAnimation _animation = NavBarAnimation.soft;
+  NavBarAnimation get animation => _animation;
+
   bool _isVisible = true;
   bool get isVisible => _isVisible;
 
-  void toggle(){
+  void toggle({NavBarAnimation animation = NavBarAnimation.soft}){
     _isVisible = !_isVisible;
+    _animation = animation;
     notifyListeners();
   }
 
-  void show(){
+  void show({NavBarAnimation animation = NavBarAnimation.soft}){
     if (_isVisible != true){
       _isVisible = true;
+      _animation = animation;
       notifyListeners();
     }
   }
 
-  void hide(){
+  void hide({NavBarAnimation animation = NavBarAnimation.soft}){
     if (_isVisible != false){
       _isVisible = false;
+      _animation = animation;
       notifyListeners();
     }
   }

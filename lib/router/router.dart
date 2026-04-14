@@ -66,6 +66,14 @@ class AppRouter extends RootStackRouter {
             ),
           ],
         ),
+        AutoRoute(
+          page: CartHomeRoute.page,
+          path: "order",
+          children: [
+            AutoRoute(page: CartRoute.page, path: "cart"),
+            AutoRoute(page: CheckoutRoute.page, path: "checkout")
+          ]
+        ),
       ]
     ),
     AutoRoute(page: AuthorizationRoute.page, path: "/auth"),
@@ -75,14 +83,6 @@ class AppRouter extends RootStackRouter {
       children: [
         AutoRoute(page: OnboardingFirstRoute.page, path: "first"),
         AutoRoute(page: OnboardingSecondRoute.page, path: "second"),
-      ]
-    ),
-    AutoRoute(
-      page: CartHomeRoute.page,
-      path: "/order",
-      children: [
-        AutoRoute(page: CartRoute.page, path: "cart"),
-        AutoRoute(page: CheckoutRoute.page, path: "checkout")
       ]
     ),
     AutoRoute(page: ErrorRoute.page, path: "/error"),

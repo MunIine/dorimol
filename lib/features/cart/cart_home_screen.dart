@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/features/cart/widgets/cart_button.dart';
 import 'package:dorimol/router/router.dart';
@@ -24,8 +25,13 @@ class _CartHomeScreenState extends State<CartHomeScreen> {
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return PopScope(
-          canPop: tabsRouter.activeIndex == 0,
+          canPop: false,
           onPopInvokedWithResult: (didPop, result) {
+            if (!didPop && tabsRouter.activeIndex == 0) {
+              final router = AutoTabsRouter.of(context).parent()! as TabsRouter;
+              router.setActiveIndex(router.previousIndex!);
+              context.read<NavBarController>().show();
+            }
             if (!didPop && tabsRouter.activeIndex == 1) {
               tabsRouter.setActiveIndex(0);
             }
