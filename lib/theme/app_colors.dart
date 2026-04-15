@@ -1,4 +1,4 @@
-import 'package:dorimol/models/order_statuses.dart';
+import 'package:dorimol/data/constants.dart';
 import 'package:flutter/material.dart';
 
 @immutable

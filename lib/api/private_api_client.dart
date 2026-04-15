@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dorimol/models/models.dart';
+import 'package:dorimol/models/order_add.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'private_api_client.g.dart';
@@ -15,6 +16,12 @@ abstract class PrivateApiClient {
     return PrivateApiClient(dio);
   }
 
+  @GET('/user/me')
+  Future<User> getCurrentUser();
+
+  @GET('/user/me/orders')
+  Future<List<OrderPreview>> getUserOrders();
+
   @PATCH('/user/update')
   Future<User> updateUser(@Body() Map<String, dynamic> body);
 
@@ -22,14 +29,11 @@ abstract class PrivateApiClient {
   @POST('/user/update/avatar')
   Future<User> updateUserAvatar(@Part(name: "avatar") File avatar);
 
+  @POST('/orders/add')
+  Future<void> addOrder(@Body() OrderAdd body);
+
   @GET('/auth/validate')
   Future<void> validateToken();
-
-  @GET('/user/me')
-  Future<User> getCurrentUser();
-
-  @GET('/user/me/orders')
-  Future<List<OrderPreview>> getUserOrders();
 
   @POST('/auth/refresh')
   Future<JwtTokensAnwer> refreshToken();

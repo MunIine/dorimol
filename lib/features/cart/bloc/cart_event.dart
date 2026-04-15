@@ -17,3 +17,21 @@ class UpdateCartItems extends CartEvent {
 }
 
 class ClearCart extends CartEvent {}
+
+class AddOrder extends CartEvent {
+  const AddOrder({
+    required this.deliveryType, 
+    required this.city, 
+    required this.address, 
+    required this.comment
+  });
+
+
+  final DeliveryType deliveryType;
+  final String? city;
+  final String? address;
+  final String? comment;
+
+  @override
+  List<Object> get props => [deliveryType, city ?? '', address ?? '', comment ?? ''];
+}

@@ -304,7 +304,7 @@ class CheckoutRoute extends PageRouteInfo<CheckoutRouteArgs> {
     required ValueNotifier<String?> cityNotifier,
     required TextEditingController addressController,
     required TextEditingController commentController,
-    required ValueNotifier<bool> deliveryNotifier,
+    required ValueNotifier<DeliveryType> deliveryNotifier,
     List<PageRouteInfo>? children,
   }) : super(
          CheckoutRoute.name,
@@ -357,7 +357,7 @@ class CheckoutRouteArgs {
 
   final TextEditingController commentController;
 
-  final ValueNotifier<bool> deliveryNotifier;
+  final ValueNotifier<DeliveryType> deliveryNotifier;
 
   @override
   String toString() {

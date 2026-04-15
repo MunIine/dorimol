@@ -5,19 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartResultsBlock extends StatelessWidget {
-  const CartResultsBlock({
-    super.key,
-    required this.colorTheme,
-    required this.discount
-  });
+  const CartResultsBlock({super.key, required this.colorTheme, required this.discount});
 
   final AppColors colorTheme;
   final int discount;
 
   @override
   Widget build(BuildContext context) {
-    final totalPrice = (context.read<CartBloc>().state as CartWithItems).totalPrice;
-
     return CartContentBlock(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,34 +20,44 @@ class CartResultsBlock extends StatelessWidget {
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: const Color(0xFFFBFBFB)
-            ),
-            child: Column(
-              children: [
-                Row(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: const Color(0xFFFBFBFB)),
+            child: BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                late final double totalPrice;
+                
+                if (state is CartWithItems){
+                  totalPrice = (state).totalPrice;
+                } else {
+                  totalPrice = 0.0;
+                }
+
+                return Column(
                   children: [
-                    Text("Без учета скидки", style: AppText.b3.copyWith(color: colorTheme.iconGray)),
-                    const Spacer(),
-                    Text("$totalPrice Руб", style: AppText.b3.copyWith(color: colorTheme.iconGray)),
+                    Row(
+                      children: [
+                        Text("Без учета скидки", style: AppText.b3.copyWith(color: colorTheme.iconGray)),
+                        const Spacer(),
+                        Text("$totalPrice Руб", style: AppText.b3.copyWith(color: colorTheme.iconGray)),
+                      ],
+                    ),
+                    const Divider(color: Color(0xFFF2F2F2)),
+                    Row(
+                      children: [
+                        Text("С учетом скидки", style: AppText.b3.copyWith(color: colorTheme.seedColor)),
+                        const Spacer(),
+                        Text(
+                          "${totalPrice * (1 - discount / 100)} Руб",
+                          style: AppText.b3.copyWith(color: colorTheme.seedColor),
+                        ),
+                      ],
+                    ),
                   ],
-                ),
-                const Divider(
-                  color: Color(0xFFF2F2F2),
-                ),
-                Row(
-                  children: [
-                    Text("С учетом скидки", style: AppText.b3.copyWith(color: colorTheme.seedColor)),
-                    const Spacer(),
-                    Text("${totalPrice*(1-discount/100)} Руб", style: AppText.b3.copyWith(color: colorTheme.seedColor)),
-                  ],
-                )
-              ],
+                );
+              },
             ),
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 }

@@ -1,4 +1,6 @@
-import 'package:dorimol/api/public_api_client.dart';
+import 'package:dorimol/api/private_api_client.dart';
+import 'package:dorimol/data/constants.dart';
+import 'package:dorimol/models/order_add.dart';
 import 'package:dorimol/models/product.dart';
 import 'package:dorimol/models/cart_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +44,27 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<ClearCart>((event, emit){
       emit(const CartEmpty());
     });
+
+    on<AddOrder>((event, emit) async{
+      if (state is! CartWithItems) return;
+      final cartItems = (state as CartWithItems).cartItems;
+      try {
+        await apiClient.addOrder(OrderAdd(
+          deliveryType: event.deliveryType,
+          city: event.city,
+          address: event.address,
+          comment: event.comment,
+          expectedTotalPrice: (state as CartWithItems).totalPrice, 
+          items: (state as CartWithItems).cartItems.values.map((item) => item.toOrderItemAdd()).toList()
+        ));
+        emit(OrderPlaced());
+        emit(const CartEmpty());
+      } on Exception catch (e) {
+        emit(OrderFailure(error: e));
+        emit(CartWithItems(cartItems: cartItems));
+      }
+    });
   }
 
-  final PublicApiClient apiClient = GetIt.I<PublicApiClient>();
+  final PrivateApiClient apiClient = GetIt.I<PrivateApiClient>();
 }

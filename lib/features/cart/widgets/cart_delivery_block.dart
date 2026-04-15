@@ -1,3 +1,4 @@
+import 'package:dorimol/data/constants.dart';
 import 'package:dorimol/data/services/config_service.dart';
 import 'package:dorimol/features/cart/widgets/cart_content_block.dart';
 import 'package:dorimol/theme/export.dart';
@@ -19,7 +20,7 @@ class CartDeliveryBlock extends StatefulWidget {
   final AppColors colorTheme;
   final TextEditingController addressController;
   final ValueNotifier<String?> cityNotifier;
-  final ValueNotifier<bool> deliveryNotifier;
+  final ValueNotifier<DeliveryType> deliveryNotifier;
 
   @override
   State<CartDeliveryBlock> createState() => _CartDeliveryBlockState();
@@ -42,19 +43,19 @@ class _CartDeliveryBlockState extends State<CartDeliveryBlock> {
             colorTheme: widget.colorTheme,
             deliveryMethod: 'Самовывоз',
             price: 'Бесплатно',
-            selected: !delivery,
-            onTap: () => widget.deliveryNotifier.value = false,
+            selected: delivery == DeliveryType.pickup,
+            onTap: () => widget.deliveryNotifier.value = DeliveryType.pickup,
           ),
           const SizedBox(height: 8),
           DeliverySelect(
             colorTheme: widget.colorTheme,
             deliveryMethod: 'Курьером',
             price: 'от 30руб',
-            selected: delivery,
-            onTap: () => widget.deliveryNotifier.value = true,
+            selected: delivery == DeliveryType.courier,
+            onTap: () => widget.deliveryNotifier.value = DeliveryType.courier,
           ),
           const SizedBox(height: 8),
-          if (delivery) CityDropdown(
+          if (delivery == DeliveryType.courier) CityDropdown(
             colorTheme: widget.colorTheme, 
             cities: cities, 
             cityNotifier: widget.cityNotifier,
@@ -77,8 +78,8 @@ class _CartDeliveryBlockState extends State<CartDeliveryBlock> {
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
             ),
           ),
-          if (delivery) const SizedBox(height: 8),
-          if (delivery) BlockTextField(
+          if (delivery == DeliveryType.courier) const SizedBox(height: 8),
+          if (delivery == DeliveryType.courier) BlockTextField(
             controller: widget.addressController,
             colorTheme: widget.colorTheme,
             form: true,

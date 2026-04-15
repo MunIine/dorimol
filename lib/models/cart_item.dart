@@ -1,3 +1,4 @@
+import 'package:dorimol/models/order_item_add.dart';
 import 'package:dorimol/models/product.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -16,5 +17,10 @@ class CartItem {
   CartItem copyWith({double? quantity}) => CartItem(
     product: product,
     quantity: quantity ?? this.quantity,
+  );
+
+  OrderItemAdd toOrderItemAdd() => OrderItemAdd(
+    productId: product.id,
+    quantity: quantity,
   );
 }

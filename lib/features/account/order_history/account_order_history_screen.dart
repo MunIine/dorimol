@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/data/constants.dart';
 import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/account/order_history/bloc/account_order_history_bloc.dart';
-import 'package:dorimol/models/order_statuses.dart';
 import 'package:flutter/material.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

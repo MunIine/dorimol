@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dorimol/data/constants.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:dorimol/features/cart/widgets/export.dart';
 import 'package:dorimol/theme/export.dart';
@@ -18,7 +19,7 @@ class CheckoutScreen extends StatelessWidget {
 
   final AppColors colorTheme;
   final ValueNotifier<String?> cityNotifier;
-  final ValueNotifier<bool> deliveryNotifier;
+  final ValueNotifier<DeliveryType> deliveryNotifier;
   final TextEditingController addressController;
   final TextEditingController commentController;
 

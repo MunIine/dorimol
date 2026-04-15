@@ -22,6 +22,17 @@ class CartWithItems extends CartState {
   List<Object> get props => [cartItems];
 }
 
+class OrderFailure extends CartState {
+  const OrderFailure({required this.error});
+
+  final Exception error;
+
+  @override
+  List<Object> get props => [error];
+}
+
+class OrderPlaced extends CartState{}
+
 extension CartStateX on CartState {
   double quantityOf(String productId) {
     if (this is CartWithItems) {
