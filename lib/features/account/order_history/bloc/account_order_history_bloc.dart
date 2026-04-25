@@ -1,3 +1,4 @@
+import 'package:dorimol/data/app_config.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dorimol/api/private_api_client.dart';
 import 'package:dorimol/models/order_preview.dart';
@@ -11,9 +12,15 @@ class AccountOrderHistoryBloc extends Bloc<AccountOrderHistoryEvent, AccountOrde
   AccountOrderHistoryBloc() : super(AccountOrderHistoryInitial()) {
     on<FetchAccountOrders>((event, emit) async {
       try {
-        emit(AccountOrderHistoryLoading());
-        final orders = await apiClient.getUserOrders();
-        emit(AccountOrderHistoryLoaded(orders: orders));
+        List<OrderPreview> orders = [];
+        if (state is AccountOrderHistoryLoaded && event.offset != 0){
+          orders = (state as AccountOrderHistoryLoaded).orders;
+        }else{
+          emit(AccountOrderHistoryLoading());
+        }
+        final response = await apiClient.getUserOrders(event.offset, event.limit);
+        orders.addAll(response.orders);
+        emit(AccountOrderHistoryLoaded(orders: orders, nextOffset: response.nextOffset));
       }
       on Exception catch (e) {
         emit(AccountOrderHistoryFailure(error: e));

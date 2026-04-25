@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/features/cart/widgets/cart_content_block.dart';
 import 'package:dorimol/theme/export.dart';
@@ -31,6 +32,11 @@ class CartResultsBlock extends StatelessWidget {
                   totalPrice = 0.0;
                 }
 
+                final totalPriceWithDiscout = (
+                  Decimal.parse(totalPrice.toString()) *
+                  (Decimal.fromInt(100 - discount) / Decimal.fromInt(100))
+                  .toDecimal(scaleOnInfinitePrecision: 10)).toDouble();
+
                 return Column(
                   children: [
                     Row(
@@ -46,7 +52,7 @@ class CartResultsBlock extends StatelessWidget {
                         Text("С учетом скидки", style: AppText.b3.copyWith(color: colorTheme.seedColor)),
                         const Spacer(),
                         Text(
-                          "${totalPrice * (1 - discount / 100)} Руб",
+                          "$totalPriceWithDiscout Руб",
                           style: AppText.b3.copyWith(color: colorTheme.seedColor),
                         ),
                       ],

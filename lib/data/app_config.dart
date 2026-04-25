@@ -9,8 +9,9 @@ class AppConfig {
     receiveTimeout: const Duration(seconds: 10),
     sendTimeout: const Duration(seconds: 10),
   );
-  static final maxUploadFileSize = 5 * 1024 * 1024; // 5 MB
-  static final allowedUploadFileExtensions = ['png', 'jpg', 'jpeg', 'webp'];
+  static const maxUploadFileSize = 5 * 1024 * 1024; // 5 MB
+  static const allowedUploadFileExtensions = ['png', 'jpg', 'jpeg', 'webp'];
+  static const userOrdersLimit = 5;
   double stepInCart (String unit) {
     switch (unit) {
       case "кг":

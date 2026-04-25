@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dorimol/models/models.dart';
-import 'package:dorimol/models/order_add.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'private_api_client.g.dart';
@@ -20,7 +19,7 @@ abstract class PrivateApiClient {
   Future<User> getCurrentUser();
 
   @GET('/user/me/orders')
-  Future<List<OrderPreview>> getUserOrders();
+  Future<UserOrdersResponse> getUserOrders(@Query("offset") int offset, @Query("limit") int limit);
 
   @PATCH('/user/update')
   Future<User> updateUser(@Body() Map<String, dynamic> body);

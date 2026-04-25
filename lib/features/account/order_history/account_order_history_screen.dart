@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/data/constants.dart';
 import 'package:dorimol/data/services/ui_service.dart';
@@ -17,6 +19,8 @@ class AccountOrderHistoryScreen extends StatefulWidget {
 }
 
 class _AccountOrderHistoryScreenState extends State<AccountOrderHistoryScreen> {
+  late final AccountOrderHistoryBloc _bloc;
+  late final StreamSubscription _blocSubscription;
   late final NavBarController navBarController;
   final scrollController = ScrollController();
 
@@ -24,14 +28,48 @@ class _AccountOrderHistoryScreenState extends State<AccountOrderHistoryScreen> {
   @override
   void initState() {
     super.initState();
+    _bloc = AccountOrderHistoryBloc()..add(const FetchAccountOrders());
+    _blocSubscription = _bloc.stream.listen((state) {
+      if (state is! AccountOrderHistoryLoaded) return;
+      if (state.nextOffset == null) return;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!scrollController.hasClients) return;
+        if (scrollController.position.maxScrollExtent == 0) {
+          _bloc.add(FetchAccountOrders(offset: state.nextOffset!));
+        }
+      });
+    });
+
     navBarController = context.read<NavBarController>();
     navBarController.attachScrollController(scrollController);
+
+    scrollController.addListener((){
+      if (scrollController.position.atEdge && scrollController.position.maxScrollExtent != 0) loadNext();
+    });
+  }
+
+  void loadNext(){
+    final state = _bloc.state;
+    
+    if (state is! AccountOrderHistoryLoaded) return;
+    if (state.nextOffset == null) return;
+    
+    _bloc.add(FetchAccountOrders(offset: state.nextOffset!));
+  }
+
+  @override
+  void dispose() {
+    _blocSubscription.cancel();
+    scrollController.dispose();
+    _bloc.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AccountOrderHistoryBloc()..add(const FetchAccountOrders()),
+    return BlocProvider.value(
+      value: _bloc,
       child: BlocBuilder<AccountOrderHistoryBloc, AccountOrderHistoryState>(
         builder: (context, state) {
           if (state is AccountOrderHistoryLoaded){
@@ -56,6 +94,7 @@ class _AccountOrderHistoryScreenState extends State<AccountOrderHistoryScreen> {
               onRefresh: () async => context.read<AccountOrderHistoryBloc>().add(const FetchAccountOrders()),
               child: ListView.separated(
                 controller: scrollController,
+                physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.only(bottom: 45),
                 itemCount: orders.length,
                 itemBuilder: (context, index) {

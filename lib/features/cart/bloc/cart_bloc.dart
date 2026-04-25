@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:dorimol/api/private_api_client.dart';
 import 'package:dorimol/data/constants.dart';
 import 'package:dorimol/models/order_add.dart';
@@ -49,12 +50,16 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       if (state is! CartWithItems) return;
       final cartItems = (state as CartWithItems).cartItems;
       try {
+        final expectedTotalPrice = (
+          Decimal.parse((state as CartWithItems).totalPrice.toString()) *
+          (Decimal.fromInt(100 - event.discount) / Decimal.fromInt(100))
+          .toDecimal(scaleOnInfinitePrecision: 10)).toDouble();
         await apiClient.addOrder(OrderAdd(
           deliveryType: event.deliveryType,
           city: event.city,
           address: event.address,
           comment: event.comment,
-          expectedTotalPrice: (state as CartWithItems).totalPrice * (1 - event.discount / 100), 
+          expectedTotalPrice: expectedTotalPrice, 
           items: (state as CartWithItems).cartItems.values.map((item) => item.toOrderItemAdd()).toList()
         ));
         emit(OrderPlaced());

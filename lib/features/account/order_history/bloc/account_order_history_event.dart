@@ -8,5 +8,11 @@ sealed class AccountOrderHistoryEvent extends Equatable {
 }
 
 class FetchAccountOrders extends AccountOrderHistoryEvent {
-  const FetchAccountOrders();
+  const FetchAccountOrders({
+    this.offset = 0,
+    this.limit = AppConfig.userOrdersLimit
+  });
+
+  final int offset;
+  final int limit;
 }
