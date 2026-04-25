@@ -21,6 +21,7 @@ class ClearCart extends CartEvent {}
 class AddOrder extends CartEvent {
   const AddOrder({
     required this.deliveryType, 
+    required this.discount,
     required this.city, 
     required this.address, 
     required this.comment
@@ -28,6 +29,7 @@ class AddOrder extends CartEvent {
 
 
   final DeliveryType deliveryType;
+  final int discount;
   final String? city;
   final String? address;
   final String? comment;

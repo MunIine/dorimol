@@ -182,9 +182,14 @@ class _CartHomeScreenState extends State<CartHomeScreen> {
                         tabsRouter.setActiveIndex(1);
                         return;
                       }
+
+                      final accountState = context.read<AccountBloc>().state;
+                      if (accountState is! AccountLoaded) return;
+
                       context.read<CartBloc>().add(
                         AddOrder(
                           deliveryType: deliveryNotifier.value,
+                          discount: accountState.user.currentDiscount,
                           city: cityNotifier.value,
                           address: addressController.text.trim().isEmpty ? null : addressController.text.trim(),
                           comment: commentController.text.trim().isEmpty ? null : commentController.text.trim(),

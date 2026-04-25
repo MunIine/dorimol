@@ -54,7 +54,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           city: event.city,
           address: event.address,
           comment: event.comment,
-          expectedTotalPrice: (state as CartWithItems).totalPrice, 
+          expectedTotalPrice: (state as CartWithItems).totalPrice * (1 - event.discount / 100), 
           items: (state as CartWithItems).cartItems.values.map((item) => item.toOrderItemAdd()).toList()
         ));
         emit(OrderPlaced());

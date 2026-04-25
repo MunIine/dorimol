@@ -88,7 +88,7 @@ class _AccountOrderHistoryScreenState extends State<AccountOrderHistoryScreen> {
                     ),
                     subtitle: Text(
                       "${orders[index].createdAt.day}.${orders[index].createdAt.month}.${orders[index].createdAt.year} | ${
-                        orders[index].city != null && orders[index].address != null ? 
+                        orders[index].deliveryType == DeliveryType.courier ? 
                         '${orders[index].city}, ${orders[index].address}' :
                         'Самовывоз'
                       }",

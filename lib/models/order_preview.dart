@@ -9,6 +9,7 @@ class OrderPreview {
     required this.id,
     required this.status,
     required this.totalPrice,
+    required this.deliveryType,
     required this.createdAt,
     this.city,
     this.address,
@@ -23,6 +24,9 @@ class OrderPreview {
 
   @JsonKey(unknownEnumValue: OrderStatus.unknown)
   final OrderStatus status;
+
+  @JsonKey(name: "delivery_type")
+  final DeliveryType deliveryType;
 
   @JsonKey(name: "total_price")
   final double totalPrice;
