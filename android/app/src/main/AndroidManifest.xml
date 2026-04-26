@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
     <application
-        android:label="Эко База"
+        android:label="Дори"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

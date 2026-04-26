@@ -2,7 +2,7 @@
 	<img src="./lib/assets/repo/icon.png" alt="Icon" width="128"/>
 </p>
 
-Ecobaza(dorimol) — мобильное приложение на Flutter для онлайн-рынка ПМР. В проекте используются современные подходы к архитектуре, управление состоянием через BLoC, DI через get_it, а также интеграция с REST API через Dio и Retrofit.
+Дори — мобильное приложение на Flutter для онлайн-рынка ПМР. В проекте используются современные подходы к архитектуре, управление состоянием через BLoC, DI через get_it, а также интеграция с REST API через Dio и Retrofit.
 
 | ![screen1](./lib/assets/repo/categories.png) | ![screen2](./lib/assets/repo/catalog.png) |
 | :------------: | :------------: | 
