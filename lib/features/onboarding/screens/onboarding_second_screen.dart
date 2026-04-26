@@ -35,6 +35,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
     super.initState();
     addressController = widget.controller;
     addressController.addListener(_onTextChanged);
+    cityNotifier.addListener(_onTextChanged);
   }
 
   void _onTextChanged() {
@@ -72,7 +73,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
           CityDropdown(
             colorTheme: colorTheme, 
             cities: cities, 
-            cityNotifier: cityNotifier, 
+            cityNotifier: cityNotifier,
           ),
           const SizedBox(height: 32),
           Align(alignment: Alignment.centerLeft, child: Text("Ваш адрес", style: AppText.b1.copyWith(color: colorTheme.iconGray))),
@@ -129,7 +130,7 @@ class _OnboardingSecondScreenState extends State<OnboardingSecondScreen> {
                 TextSpan(
                   text: "персональных данных", 
                   style: TextStyle(color: colorTheme.seedColor),
-                  recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse("https://ecobaza.github.io/EcoBaza_policy/"))
+                  recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse("https://MunIine.github.io/dorimol/privacy-policy.html"))
                 ),
               ]
             )

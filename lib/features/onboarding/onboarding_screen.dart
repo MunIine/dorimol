@@ -41,7 +41,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         final tabsRouter = AutoTabsRouter.of(context);
 
         return Scaffold(
-          appBar: ProgressAppBar(tabsRouter: tabsRouter, activeColor: colorTheme.iconGray,),
+          appBar: ProgressAppBar(tabsRouter: tabsRouter, activeColor: colorTheme.iconGray),
+          backgroundColor: colorTheme.background,
           body: child,
         );
       },

@@ -48,7 +48,7 @@ class CityDropdown extends StatelessWidget {
               ),
             )).toList(),
             selectedItemBuilder: (context) {
-              return cities.map((city) => Text(city, style: AppText.t5.copyWith(color: colorTheme.iconGray))).toList();
+              return cities.map((city) => Align(alignment: AlignmentGeometry.centerLeft, child: Text(city, style: AppText.t5.copyWith(color: colorTheme.textBlack)))).toList();
             },
             value: selectedCity,
             onChanged: enabled ? (value){

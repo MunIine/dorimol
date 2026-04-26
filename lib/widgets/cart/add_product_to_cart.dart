@@ -22,16 +22,15 @@ class AddProductToCart extends StatelessWidget {
       width: double.infinity,
       height: cartHeight,
       child: TextButton(
-        onPressed: () {
-          if (product.step <= product.stock) {
-            BlocProvider.of<CartBloc>(context).add(UpdateCartItems(
-              product: product,
-              step: product.step
-            ));
-          }
-        },
+        onPressed: product.step <= product.stock ? 
+        () => BlocProvider.of<CartBloc>(context).add(UpdateCartItems(
+          product: product,
+          step: product.step
+          )
+        ): null,
         style: TextButton.styleFrom(
           backgroundColor: colorTheme.seedColor,
+          disabledBackgroundColor: colorTheme.tips,
           padding: const EdgeInsets.symmetric(vertical: 9),
         ),
         child: Row(
