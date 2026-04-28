@@ -6,6 +6,7 @@ import 'package:dorimol/data/services/ui_service.dart';
 import 'package:dorimol/features/account/bio/bloc/account_bloc.dart';
 import 'package:dorimol/features/cart/bloc/cart_bloc.dart';
 import 'package:dorimol/features/cart/widgets/cart_button.dart';
+import 'package:dorimol/features/cart/widgets/order_dialog.dart';
 import 'package:dorimol/router/router.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/bars/progress_appbar.dart';
@@ -31,6 +32,7 @@ class _CartHomeScreenState extends State<CartHomeScreen> {
   final activeIndexNotifier = ValueNotifier<int>(0);
   final enableButtonNotifier = ValueNotifier<bool>(false);
   late StreamSubscription _cartBlocSubscription;
+  TabsRouter? _tabsRouter;
 
   @override
   void initState() {
@@ -57,6 +59,7 @@ class _CartHomeScreenState extends State<CartHomeScreen> {
   @override
   void dispose() {
     super.dispose();
+    _tabsRouter?.removeListener(_onTabChanged);
     _cartBlocSubscription.cancel();
   }
   // -----------------------------
@@ -77,7 +80,12 @@ class _CartHomeScreenState extends State<CartHomeScreen> {
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-        tabsRouter.addListener(() => activeIndexNotifier.value = tabsRouter.activeIndex);
+        if (_tabsRouter != tabsRouter) {
+          _tabsRouter?.removeListener(_onTabChanged);
+          _tabsRouter = tabsRouter;
+          _tabsRouter!.addListener(_onTabChanged);
+        }
+        // tabsRouter.addListener(() => activeIndexNotifier.value = tabsRouter.activeIndex);
         return PopScope(
           canPop: false,
           onPopInvokedWithResult: (didPop, result) {
@@ -92,77 +100,18 @@ class _CartHomeScreenState extends State<CartHomeScreen> {
           },
           child: BlocListener<CartBloc, CartState>(
             listener: (context, state) {
-              if (state is OrderPlaced) {
+              if (state is OrderLoading) {
                 showDialog(
                   context: context,
-                  builder: (_) => AlertDialog(
-                    title: Center(
-                      child: Text('Заказ оформлен', style: AppText.h1.copyWith(color: colorTheme.seedColor))
+                  barrierDismissible: false,
+                  builder: (_) => BlocProvider.value(
+                    value: context.read<CartBloc>(),
+                    child: OrderDialog(
+                      context: context,
+                      colorTheme: colorTheme, 
+                      tabsRouter: tabsRouter, 
+                      reset: _reset
                     ),
-                    content: const Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image(
-                          image: AssetImage("lib/assets/errors/order_successful.png"),
-                          width: 150,
-                        ),
-                      ],
-                    ),
-                    actions: [
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: colorTheme.seedColor.withAlpha(40)
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            final router = AutoTabsRouter.of(context).parent()! as TabsRouter;
-                            router.setActiveIndex(router.previousIndex!);
-                            context.read<NavBarController>().show();
-                            tabsRouter.setActiveIndex(0);
-                            context.read<AccountBloc>().add(const FetchAccountInfo());
-                            _reset();
-                          },
-                          child: Text('На главную', style: AppText.b7.copyWith(color: colorTheme.seedColor)),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-                return;
-              } 
-              if (state is OrderFailure) {
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                    title: Center(
-                      child: Text('Что-то пошло не так', style: AppText.h1.copyWith(color: colorTheme.seedColor))
-                    ),
-                    content: const Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image(
-                          image: AssetImage("lib/assets/errors/error.png"),
-                          width: 150,
-                        ),
-                      ],
-                    ),
-                    actions: [
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: colorTheme.seedColor.withAlpha(40)
-                        ),
-                        child: TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text('Вернуться в корзину', style: AppText.b7.copyWith(color: colorTheme.seedColor)),
-                        ),
-                      ),
-                    ],
                   ),
                 );
               }
@@ -209,6 +158,10 @@ class _CartHomeScreenState extends State<CartHomeScreen> {
     );
   }
 
+  void _onTabChanged(){
+    activeIndexNotifier.value = _tabsRouter!.activeIndex;
+  }
+
   void _reset() {
     cityNotifier.value = null;
     addressController.clear();
@@ -218,15 +171,16 @@ class _CartHomeScreenState extends State<CartHomeScreen> {
   }
 
   bool checkEnable() {
+    final state = context.read<CartBloc>().state;
     if (activeIndexNotifier.value == 0) {
-      if (context.read<CartBloc>().state is CartWithItems) return true;
+      if (state is CartWithItems) return true;
     }
     if (activeIndexNotifier.value == 1) {
       if (deliveryNotifier.value == DeliveryType.courier) {
         // Delivery on
-        return addressController.text.trim().isNotEmpty && cityNotifier.value != null;
+        return addressController.text.trim().isNotEmpty && cityNotifier.value != null && state is! OrderLoading;
       }
-      return true;
+      return state is! OrderLoading;
     }
     return false;
   }

@@ -33,6 +33,8 @@ class OrderFailure extends CartState {
 
 class OrderPlaced extends CartState{}
 
+class OrderLoading extends CartState{}
+
 extension CartStateX on CartState {
   double quantityOf(String productId) {
     if (this is CartWithItems) {

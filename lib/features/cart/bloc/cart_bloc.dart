@@ -54,13 +54,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           Decimal.parse((state as CartWithItems).totalPrice.toString()) *
           (Decimal.fromInt(100 - event.discount) / Decimal.fromInt(100))
           .toDecimal(scaleOnInfinitePrecision: 10)).toDouble();
+        final items = (state as CartWithItems).cartItems.values.map((item) => item.toOrderItemAdd()).toList();
+        emit(OrderLoading());
         await apiClient.addOrder(OrderAdd(
           deliveryType: event.deliveryType,
           city: event.city,
           address: event.address,
           comment: event.comment,
           expectedTotalPrice: expectedTotalPrice, 
-          items: (state as CartWithItems).cartItems.values.map((item) => item.toOrderItemAdd()).toList()
+          items: items
         ));
         emit(OrderPlaced());
         emit(const CartEmpty());
