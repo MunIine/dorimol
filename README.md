@@ -97,8 +97,8 @@ API_URL=https://api.example.com:port
 1. Создайте проект на [Firebase Console](https://console.firebase.google.com).
 2. Подключите приложение через [FlutterFire CLI](https://firebase.flutter.dev/docs/cli):
 ```bash
-   dart pub global activate flutterfire_cli
-   flutterfire configure
+dart pub global activate flutterfire_cli
+flutterfire configure
 ```
    Команда сгенерирует файл `lib/firebase_options.dart` и разместит
    `google-services.json` (Android) и `GoogleService-Info.plist` (iOS)
