@@ -11,6 +11,217 @@
 part of 'router.dart';
 
 /// generated route for
+/// [AccountBIOScreen]
+class AccountBIORoute extends PageRouteInfo<AccountBIORouteArgs> {
+  AccountBIORoute({
+    Key? key,
+    required AppColors colorTheme,
+    required ValueNotifier<File?> pendingAvatarNotifier,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AccountBIORoute.name,
+         args: AccountBIORouteArgs(
+           key: key,
+           colorTheme: colorTheme,
+           pendingAvatarNotifier: pendingAvatarNotifier,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'AccountBIORoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AccountBIORouteArgs>();
+      return AccountBIOScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+        pendingAvatarNotifier: args.pendingAvatarNotifier,
+      );
+    },
+  );
+}
+
+class AccountBIORouteArgs {
+  const AccountBIORouteArgs({
+    this.key,
+    required this.colorTheme,
+    required this.pendingAvatarNotifier,
+  });
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  final ValueNotifier<File?> pendingAvatarNotifier;
+
+  @override
+  String toString() {
+    return 'AccountBIORouteArgs{key: $key, colorTheme: $colorTheme, pendingAvatarNotifier: $pendingAvatarNotifier}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AccountBIORouteArgs) return false;
+    return key == other.key &&
+        colorTheme == other.colorTheme &&
+        pendingAvatarNotifier == other.pendingAvatarNotifier;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ colorTheme.hashCode ^ pendingAvatarNotifier.hashCode;
+}
+
+/// generated route for
+/// [AccountOrderHistoryScreen]
+class AccountOrderHistoryRoute
+    extends PageRouteInfo<AccountOrderHistoryRouteArgs> {
+  AccountOrderHistoryRoute({
+    Key? key,
+    required AppColors colorTheme,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AccountOrderHistoryRoute.name,
+         args: AccountOrderHistoryRouteArgs(key: key, colorTheme: colorTheme),
+         initialChildren: children,
+       );
+
+  static const String name = 'AccountOrderHistoryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AccountOrderHistoryRouteArgs>();
+      return AccountOrderHistoryScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+      );
+    },
+  );
+}
+
+class AccountOrderHistoryRouteArgs {
+  const AccountOrderHistoryRouteArgs({this.key, required this.colorTheme});
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  @override
+  String toString() {
+    return 'AccountOrderHistoryRouteArgs{key: $key, colorTheme: $colorTheme}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AccountOrderHistoryRouteArgs) return false;
+    return key == other.key && colorTheme == other.colorTheme;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+}
+
+/// generated route for
+/// [AccountScreen]
+class AccountRoute extends PageRouteInfo<void> {
+  const AccountRoute({List<PageRouteInfo>? children})
+    : super(AccountRoute.name, initialChildren: children);
+
+  static const String name = 'AccountRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AccountScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [AuthorizationScreen]
+class AuthorizationRoute extends PageRouteInfo<void> {
+  const AuthorizationRoute({List<PageRouteInfo>? children})
+    : super(AuthorizationRoute.name, initialChildren: children);
+
+  static const String name = 'AuthorizationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AuthorizationScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [CartHomeScreen]
+class CartHomeRoute extends PageRouteInfo<void> {
+  const CartHomeRoute({List<PageRouteInfo>? children})
+    : super(CartHomeRoute.name, initialChildren: children);
+
+  static const String name = 'CartHomeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CartHomeScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [CartScreen]
+class CartRoute extends PageRouteInfo<CartRouteArgs> {
+  CartRoute({
+    Key? key,
+    required AppColors colorTheme,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CartRoute.name,
+         args: CartRouteArgs(key: key, colorTheme: colorTheme),
+         initialChildren: children,
+       );
+
+  static const String name = 'CartRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CartRouteArgs>();
+      return CartScreen(key: args.key, colorTheme: args.colorTheme);
+    },
+  );
+}
+
+class CartRouteArgs {
+  const CartRouteArgs({this.key, required this.colorTheme});
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  @override
+  String toString() {
+    return 'CartRouteArgs{key: $key, colorTheme: $colorTheme}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CartRouteArgs) return false;
+    return key == other.key && colorTheme == other.colorTheme;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode;
+}
+
+/// generated route for
 /// [CatalogScreen]
 class CatalogRoute extends PageRouteInfo<CatalogRouteArgs> {
   CatalogRoute({
@@ -85,15 +296,111 @@ class CategoriesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CheckoutScreen]
+class CheckoutRoute extends PageRouteInfo<CheckoutRouteArgs> {
+  CheckoutRoute({
+    Key? key,
+    required AppColors colorTheme,
+    required ValueNotifier<String?> cityNotifier,
+    required TextEditingController addressController,
+    required TextEditingController commentController,
+    required ValueNotifier<DeliveryType> deliveryNotifier,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CheckoutRoute.name,
+         args: CheckoutRouteArgs(
+           key: key,
+           colorTheme: colorTheme,
+           cityNotifier: cityNotifier,
+           addressController: addressController,
+           commentController: commentController,
+           deliveryNotifier: deliveryNotifier,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'CheckoutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CheckoutRouteArgs>();
+      return CheckoutScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+        cityNotifier: args.cityNotifier,
+        addressController: args.addressController,
+        commentController: args.commentController,
+        deliveryNotifier: args.deliveryNotifier,
+      );
+    },
+  );
+}
+
+class CheckoutRouteArgs {
+  const CheckoutRouteArgs({
+    this.key,
+    required this.colorTheme,
+    required this.cityNotifier,
+    required this.addressController,
+    required this.commentController,
+    required this.deliveryNotifier,
+  });
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  final ValueNotifier<String?> cityNotifier;
+
+  final TextEditingController addressController;
+
+  final TextEditingController commentController;
+
+  final ValueNotifier<DeliveryType> deliveryNotifier;
+
+  @override
+  String toString() {
+    return 'CheckoutRouteArgs{key: $key, colorTheme: $colorTheme, cityNotifier: $cityNotifier, addressController: $addressController, commentController: $commentController, deliveryNotifier: $deliveryNotifier}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CheckoutRouteArgs) return false;
+    return key == other.key &&
+        colorTheme == other.colorTheme &&
+        cityNotifier == other.cityNotifier &&
+        addressController == other.addressController &&
+        commentController == other.commentController &&
+        deliveryNotifier == other.deliveryNotifier;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^
+      colorTheme.hashCode ^
+      cityNotifier.hashCode ^
+      addressController.hashCode ^
+      commentController.hashCode ^
+      deliveryNotifier.hashCode;
+}
+
+/// generated route for
 /// [ErrorScreen]
 class ErrorRoute extends PageRouteInfo<ErrorRouteArgs> {
   ErrorRoute({
     Key? key,
     required Exception exception,
+    bool disabledButton = false,
     List<PageRouteInfo>? children,
   }) : super(
          ErrorRoute.name,
-         args: ErrorRouteArgs(key: key, exception: exception),
+         args: ErrorRouteArgs(
+           key: key,
+           exception: exception,
+           disabledButton: disabledButton,
+         ),
          initialChildren: children,
        );
 
@@ -103,32 +410,211 @@ class ErrorRoute extends PageRouteInfo<ErrorRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ErrorRouteArgs>();
-      return ErrorScreen(key: args.key, exception: args.exception);
+      return ErrorScreen(
+        key: args.key,
+        exception: args.exception,
+        disabledButton: args.disabledButton,
+      );
     },
   );
 }
 
 class ErrorRouteArgs {
-  const ErrorRouteArgs({this.key, required this.exception});
+  const ErrorRouteArgs({
+    this.key,
+    required this.exception,
+    this.disabledButton = false,
+  });
 
   final Key? key;
 
   final Exception exception;
 
+  final bool disabledButton;
+
   @override
   String toString() {
-    return 'ErrorRouteArgs{key: $key, exception: $exception}';
+    return 'ErrorRouteArgs{key: $key, exception: $exception, disabledButton: $disabledButton}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! ErrorRouteArgs) return false;
-    return key == other.key && exception == other.exception;
+    return key == other.key &&
+        exception == other.exception &&
+        disabledButton == other.disabledButton;
   }
 
   @override
-  int get hashCode => key.hashCode ^ exception.hashCode;
+  int get hashCode =>
+      key.hashCode ^ exception.hashCode ^ disabledButton.hashCode;
+}
+
+/// generated route for
+/// [HomeScreen]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
+    : super(HomeRoute.name, initialChildren: children);
+
+  static const String name = 'HomeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HomeScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [OnboardingFirstScreen]
+class OnboardingFirstRoute extends PageRouteInfo<OnboardingFirstRouteArgs> {
+  OnboardingFirstRoute({
+    Key? key,
+    required AppColors colorTheme,
+    required TextEditingController controller,
+    List<PageRouteInfo>? children,
+  }) : super(
+         OnboardingFirstRoute.name,
+         args: OnboardingFirstRouteArgs(
+           key: key,
+           colorTheme: colorTheme,
+           controller: controller,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'OnboardingFirstRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<OnboardingFirstRouteArgs>();
+      return OnboardingFirstScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+        controller: args.controller,
+      );
+    },
+  );
+}
+
+class OnboardingFirstRouteArgs {
+  const OnboardingFirstRouteArgs({
+    this.key,
+    required this.colorTheme,
+    required this.controller,
+  });
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  final TextEditingController controller;
+
+  @override
+  String toString() {
+    return 'OnboardingFirstRouteArgs{key: $key, colorTheme: $colorTheme, controller: $controller}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! OnboardingFirstRouteArgs) return false;
+    return key == other.key &&
+        colorTheme == other.colorTheme &&
+        controller == other.controller;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode ^ controller.hashCode;
+}
+
+/// generated route for
+/// [OnboardingScreen]
+class OnboardingRoute extends PageRouteInfo<void> {
+  const OnboardingRoute({List<PageRouteInfo>? children})
+    : super(OnboardingRoute.name, initialChildren: children);
+
+  static const String name = 'OnboardingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OnboardingScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [OnboardingSecondScreen]
+class OnboardingSecondRoute extends PageRouteInfo<OnboardingSecondRouteArgs> {
+  OnboardingSecondRoute({
+    Key? key,
+    required AppColors colorTheme,
+    required TextEditingController controller,
+    required void Function(BuildContext, String?) endOnboarding,
+    List<PageRouteInfo>? children,
+  }) : super(
+         OnboardingSecondRoute.name,
+         args: OnboardingSecondRouteArgs(
+           key: key,
+           colorTheme: colorTheme,
+           controller: controller,
+           endOnboarding: endOnboarding,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'OnboardingSecondRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<OnboardingSecondRouteArgs>();
+      return OnboardingSecondScreen(
+        key: args.key,
+        colorTheme: args.colorTheme,
+        controller: args.controller,
+        endOnboarding: args.endOnboarding,
+      );
+    },
+  );
+}
+
+class OnboardingSecondRouteArgs {
+  const OnboardingSecondRouteArgs({
+    this.key,
+    required this.colorTheme,
+    required this.controller,
+    required this.endOnboarding,
+  });
+
+  final Key? key;
+
+  final AppColors colorTheme;
+
+  final TextEditingController controller;
+
+  final void Function(BuildContext, String?) endOnboarding;
+
+  @override
+  String toString() {
+    return 'OnboardingSecondRouteArgs{key: $key, colorTheme: $colorTheme, controller: $controller, endOnboarding: $endOnboarding}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! OnboardingSecondRouteArgs) return false;
+    return key == other.key &&
+        colorTheme == other.colorTheme &&
+        controller == other.controller;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ colorTheme.hashCode ^ controller.hashCode;
 }
 
 /// generated route for
@@ -173,4 +659,20 @@ class ProductRouteArgs {
 
   @override
   int get hashCode => key.hashCode ^ id.hashCode;
+}
+
+/// generated route for
+/// [StoreScreen]
+class StoreRoute extends PageRouteInfo<void> {
+  const StoreRoute({List<PageRouteInfo>? children})
+    : super(StoreRoute.name, initialChildren: children);
+
+  static const String name = 'StoreRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const StoreScreen();
+    },
+  );
 }

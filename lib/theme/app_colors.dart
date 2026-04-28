@@ -1,3 +1,4 @@
+import 'package:dorimol/data/constants.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -15,35 +16,47 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.background,
     required this.block,
     required this.formInput,
+    required this.stripe,
+    required this.exyBlue,
+    required this.lopyGreen,
+    required this.mlineRed,
   });
 
-    final Color seedColor;
-    final Color textBlack;
-    final Color textGray;
-    final Color iconGray;
-    final Color tips;
-    final Color blue;
-    final Color red;
-    final Color yellow;
-    final Color accint;
-    final Color background;
-    final Color block;
-    final Color formInput;
+  final Color seedColor;
+  final Color textBlack;
+  final Color textGray;
+  final Color iconGray;
+  final Color tips;
+  final Color blue;
+  final Color red;
+  final Color yellow;
+  final Color accint;
+  final Color background;
+  final Color block;
+  final Color formInput;
+  final Color stripe;
+  final Color exyBlue;
+  final Color lopyGreen;
+  final Color mlineRed;
 
   @override
   AppColors copyWith({
-    Color? seedColor,
-    Color? textBlack,
-    Color? textGray,
-    Color? iconGray,
-    Color? tips,
-    Color? blue,
-    Color? red,
-    Color? yellow,
-    Color? accint,
-    Color? background,
-    Color? block,
-    Color? formInput,
+  Color? seedColor,
+  Color? textBlack,
+  Color? textGray,
+  Color? iconGray,
+  Color? tips,
+  Color? blue,
+  Color? red,
+  Color? yellow,
+  Color? accint,
+  Color? background,
+  Color? block,
+  Color? formInput,
+  Color? stripe,
+  Color? exyBlue,
+  Color? lopyGreen,
+  Color? mlineRed,
   }) {
     return AppColors(
       seedColor: seedColor ?? this.seedColor,
@@ -58,6 +71,10 @@ class AppColors extends ThemeExtension<AppColors> {
       background: background ?? this.background,
       block: block ?? this.block,
       formInput: formInput ?? this.formInput,
+      stripe: stripe ?? this.stripe,
+      exyBlue: exyBlue ?? this.exyBlue,
+      lopyGreen: lopyGreen ?? this.lopyGreen,
+      mlineRed: mlineRed ?? this.mlineRed,
     );
   }
 
@@ -77,6 +94,37 @@ class AppColors extends ThemeExtension<AppColors> {
       background: Color.lerp(background, other.background, t)!,
       block: Color.lerp(block, other.block, t)!,
       formInput: Color.lerp(formInput, other.formInput, t)!,
+      stripe: Color.lerp(stripe, other.stripe, t)!,
+      exyBlue: Color.lerp(exyBlue, other.exyBlue, t)!,
+      lopyGreen: Color.lerp(lopyGreen, other.lopyGreen, t)!,
+      mlineRed: Color.lerp(mlineRed, other.mlineRed, t)!,
     );
+  }
+
+  Color colorForOrderStatus(OrderStatus status) {
+    switch (status) {
+      case OrderStatus.pending:
+        return iconGray;
+      case OrderStatus.confirmed:
+        return exyBlue;
+      case OrderStatus.shipped:
+        return yellow;
+      case OrderStatus.delivered:
+        return lopyGreen;
+      case OrderStatus.cancelled:
+        return red;
+      case OrderStatus.unknown:
+        return iconGray;
+    }
+  }
+
+  Color backgroundForOrderStatus(OrderStatus status) {
+    return colorForOrderStatus(status).withAlpha(38);
+  }
+
+  Color colorForDiscountTier(int index) {
+    final colors = [seedColor, exyBlue, mlineRed];
+    if (index < 0 || index >= colors.length) return iconGray;
+    return colors[index];
   }
 }

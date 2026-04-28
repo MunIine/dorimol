@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dorimol/router/router.dart';
-import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
+import 'package:dorimol/features/catalog/bloc/catalog_bloc.dart';
 import 'package:dorimol/theme/export.dart';
 import 'package:dorimol/widgets/bars/sorting_bottom_sheet.dart';
 import 'package:dorimol/widgets/helpers/block_text_field.dart';
@@ -28,18 +28,20 @@ class AppSearchBar extends StatelessWidget {
             controller: controller,
             onSubmitted: (value) {
               if (value.trim().isNotEmpty){
-                BlocProvider.of<CatalogBloc>(context).add(FetchCatalogByQuery(idOrName: value.trim()));
                 if (AutoRouter.of(context).current.name != CatalogRoute.name) {
                   AutoRouter.of(context).push(CatalogRoute(query: value));
                   controller.text = "";
+                }
+                else{
+                  BlocProvider.of<CatalogBloc>(context).add(FetchCatalogByQuery(idOrName: value.trim()));
                 }
               } 
             },
           )
         ),
         if(sliders)...[
-          SizedBox(width: 4),
-          BoxIconButton(icon: SvgIcons.sliders)
+          const SizedBox(width: 4),
+          const BoxIconButton(icon: SvgIcons.sliders)
         ],
       ],
     );
@@ -64,11 +66,15 @@ class BoxIconButton extends StatelessWidget {
       onPressed: () => showModalBottomSheet(
         backgroundColor: Theme.of(context).extension<AppColors>()!.background,
         isScrollControlled: true,
+        useRootNavigator: true,
         shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
         context: context,
-        builder: (context) => SortingBottomSheet()
+        builder: (_) => BlocProvider.value(
+          value: context.read<CatalogBloc>(),
+          child: const SortingBottomSheet(),
+        )
       ),
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       style: IconButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(12)

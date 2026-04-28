@@ -17,8 +17,8 @@ class NotFound extends StatelessWidget {
             color: colorTheme.seedColor,
           ),
         ),
-        SizedBox(height: 18),
-        Image(image: AssetImage("lib/assets/errors/404.png")),
+        const SizedBox(height: 18),
+        const Image(image: AssetImage("lib/assets/errors/404.png")),
       ],
     );
   }

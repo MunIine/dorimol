@@ -14,14 +14,19 @@ const redColor = Color(0xFFFF0032);
 const yellowColor = Color(0xFFFFC300);
 const accintColor = Color(0xFFA7DDBC);
 const formInputColor = Color(0xFFF7F7F7);
+const stripeColor = Color(0xFFDEDEDE);
+const exyBlueColor = Color(0xFF2297F6);
+const lopyGreenColor = Color(0xFF00D06B);
+const mlineRedColor = Color(0xFFF50057);
+const scaffoldBackgroundColor = Color(0xFFF9F9F9);
 
 
 final lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(seedColor: seedColor),
-  scaffoldBackgroundColor: backgroundColor,
+  scaffoldBackgroundColor: scaffoldBackgroundColor,
   fontFamily: "Rostelecom",
-  iconTheme: IconThemeData(
+  iconTheme: const IconThemeData(
     color: iconGrayColor
   ),
   iconButtonTheme: IconButtonThemeData(
@@ -46,14 +51,17 @@ final lightTheme = ThemeData(
     focusedBorder: InputBorder.none,
     hintStyle: AppText.t3.copyWith(color: tipsColor),
   ),
-  progressIndicatorTheme: ProgressIndicatorThemeData(
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: seedColor,
   ),
-  dialogTheme: DialogThemeData(
+  dialogTheme: const DialogThemeData(
     backgroundColor: backgroundColor
   ),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: scaffoldBackgroundColor,
+  ),
   extensions: <ThemeExtension<dynamic>>[
-    AppColors(
+    const AppColors(
       seedColor: seedColor,
       textBlack: textBlackColor,
       textGray: textGrayColor,
@@ -65,7 +73,11 @@ final lightTheme = ThemeData(
       accint: accintColor,
       background: backgroundColor,
       block: blockColor, 
-      formInput: formInputColor
+      formInput: formInputColor,
+      stripe: stripeColor,
+      exyBlue: exyBlueColor,
+      lopyGreen: lopyGreenColor,
+      mlineRed: mlineRedColor,
     )
   ]
 );

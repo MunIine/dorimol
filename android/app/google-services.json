@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1028752678591",
+    "project_id": "dorimol-pmr",
+    "storage_bucket": "dorimol-pmr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028752678591:android:2a45ebd85284b00929300a",
+        "android_client_info": {
+          "package_name": "com.youmy.dorimol"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbEjaSbPEQpGfDj1-cZyDypF4b43TB1CE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

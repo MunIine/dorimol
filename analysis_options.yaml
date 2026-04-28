@@ -7,4 +7,4 @@ linter:
     always_use_package_imports: true
     avoid_relative_lib_imports: true
     use_full_hex_values_for_flutter_colors: true
-    file_names: lower_case
+    file_names: true

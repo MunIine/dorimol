@@ -1,62 +1,64 @@
-import 'package:dorimol/api/api.dart';
-import 'package:dorimol/bloc/cart_bloc/cart_bloc.dart';
+import 'package:dorimol/data/services/auth_service.dart';
+import 'package:dorimol/data/services/config_service.dart';
+import 'package:dorimol/data/services/token_service.dart';
+import 'package:dorimol/data/services/ui_service.dart';
+import 'package:dorimol/features/authorization/bloc/authorization_bloc.dart';
 import 'package:dorimol/router/router.dart';
-import 'package:dorimol/screens/catalog/bloc/catalog_bloc.dart';
-import 'package:dorimol/screens/categories/bloc/categories_bloc.dart';
-import 'package:dorimol/screens/product/bloc/product_details_bloc.dart';
 import 'package:dorimol/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key, required this.config, required this.currentVersion});
+  const MyApp({super.key, required this.currentVersion});
 
-  final Map<String, String> config;
   final String currentVersion;
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MyApp> createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   final _appRouter = AppRouter();
+  Key _appKey = UniqueKey();
+
+  void logout() async {
+    final tokenService = GetIt.I<TokenService>();
+    await tokenService.clearTokens();
+    setState(() {
+      _appKey = UniqueKey();
+    });
+    _appRouter.replaceAll([const AuthorizationRoute()]);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final apiClient = GetIt.I<DorimolApiClient>();
-    final minVersion = widget.config["min_app_version"] ?? "0.0.0";
-    final maintenance = bool.parse(widget.config["maintenance_mode"] ?? "false");
+    final authService = GetIt.I<AuthService>();
+    final tokenService = GetIt.I<TokenService>();
+    final serverConfig = GetIt.I<ConfigService>().serverConfig;
 
-    if (isOutdated(widget.currentVersion, minVersion)) {
-      return MaterialApp(
-        home: BlockedScreen(
-          message: "Требуется обновление приложения. Пожалуйста, установите последнюю версию.",
-        ),
+    if (isOutdated(widget.currentVersion, serverConfig.minAppVersion)) {
+      return const MaterialApp(
+        home: BlockedScreen(message: "Требуется обновление приложения. Пожалуйста, установите последнюю версию."),
       );
     }
-    if (maintenance) {
-      return MaterialApp(
-        home: BlockedScreen(
-          message: "Ведутся технические работы. Попробуйте позже.",
-        ),
-      );
+    if (serverConfig.maintenanceMode) {
+      return const MaterialApp(home: BlockedScreen(message: "Ведутся технические работы. Попробуйте позже."));
     }
-    
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => CategoriesBloc(apiClient: apiClient)),
-        BlocProvider(create: (context) => CatalogBloc(apiClient: apiClient)),
-        BlocProvider(create: (context) => ProductDetailsBloc(apiClient: apiClient)),
-        BlocProvider(create: (context) => CartBloc(apiClient: apiClient)),
-      ],
-      child: MaterialApp.router(
-        theme: lightTheme,
-        routerConfig: _appRouter.config(
-          navigatorObservers: () => [TalkerRouteObserver(GetIt.I<Talker>())],
-        ),
+    return BlocProvider(
+      key: _appKey,
+      create: (context) => AuthorizationBloc(authService: authService, tokenService: tokenService),
+      child: ChangeNotifierProvider(
+        create: (context) => NavBarController(),
+        builder: (context, state) {
+          return MaterialApp.router(
+            theme: lightTheme,
+            routerConfig: _appRouter.config(navigatorObservers: () => [TalkerRouteObserver(GetIt.I<Talker>())]),
+          );
+        },
       ),
     );
   }
@@ -70,12 +72,11 @@ class _MyAppState extends State<MyApp> {
     }
     return false;
   }
-
 }
 
 class BlockedScreen extends StatelessWidget {
-  final String message;
   const BlockedScreen({super.key, required this.message});
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +87,9 @@ class BlockedScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.warning_amber_rounded, size: 64, color: Colors.orange),
-              SizedBox(height: 24),
-              Text(
-                message,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
-              ),
+              const Icon(Icons.warning_amber_rounded, size: 64, color: Colors.orange),
+              const SizedBox(height: 24),
+              Text(message, textAlign: TextAlign.center, style: const TextStyle(fontSize: 20)),
             ],
           ),
         ),

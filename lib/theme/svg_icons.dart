@@ -19,4 +19,9 @@ class SvgIcons {
   static const IconData radioButtonOff = IconData(0xe913, fontFamily: _fontFamily);
   static const IconData radioButtonOn = IconData(0xe914, fontFamily: _fontFamily);
   static const IconData package = IconData(0xe915, fontFamily: _fontFamily);
+  static const IconData user = IconData(0xe916, fontFamily: _fontFamily);
+  static const IconData groceryBasket = IconData(0xe917, fontFamily: _fontFamily);
+  static const IconData shoppingCartNotification = IconData(0xe919, fontFamily: _fontFamily);
+  static const IconData edit = IconData(0xe920, fontFamily: _fontFamily);
+  static const IconData doubleChevron = IconData(0xe921, fontFamily: _fontFamily);
 }

@@ -9,16 +9,19 @@ class NoItemsInCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text("Корзина пуста", style: AppText.b3.copyWith(color: colorTheme.textBlack)),
-        SizedBox(height: 25),
-        Center(
+        const SizedBox(height: 8),
+        Text("Корзина пуста", style: AppText.h1.copyWith(color: colorTheme.textBlack)),
+        const Spacer(),
+        const Center(
           child: SizedBox(
-            width: 120,
+            width: 300,
             child: Image(image: AssetImage("lib/assets/errors/no_items.png"))
           ),
         ),
+        const Spacer(),
       ],
     );
   }
