@@ -26,92 +26,91 @@
   <img src="./lib/assets/repo/Screen 3.png"/>
 </p>
 
-Дори (Dorimol) - мобильное Flutter-приложение онлайн-магазина. Проект реализует полный пользовательский поток: авторизация по номеру телефона, каталог, поиск и сортировка товаров, корзина и оформление заказа (доставка/самовывоз), профиль и история заказов.
+Dori (Dorimol) is a mobile Flutter e-commerce application. The project implements a complete user flow: phone number authentication, catalog, product search and sorting, cart and order placement (delivery/pickup), profile, and order history.
+ 
+## Project History
+ 
+Originally, the app was developed by me from scratch (as the sole Flutter & Backend developer) and was successfully launched to production (Google Play and App Store) at the MVP stage. Later, the business side froze further product development, after which I purchased the rights to the source code. The project went through a rebranding stage and was brought to a logical conclusion. It now serves as a large-scale pet project with a real production history.
+ 
+## Key Features
+ 
+- Phone number authentication via Firebase Auth (SMS OTP).
+- Communication with a custom backend and JWT token handling.
+- User profile editing.
+- Product search by name and SKU.
+- Catalog sorting and product card viewing.
+- Order placement with delivery or pickup selection.
+- Personal discounts based on order count.
+- Onboarding for first launch.
 
-## О проекте
 
-Изначально приложение разрабатывалось мною с нуля (в роли единственного Flutter & Backend разработчика) и было успешно запущено в production (Google Play и App Store) на стадии MVP. Позже развитие продукта со стороны бизнеса было заморожено, после чего я выкупил права на исходный код. Проект прошёл стадию ребрендинга и был доведён до логической точки. Сейчас он выступает в роли масштабного pet-проекта с реальной production-историей.
-
-## Ключевой функционал
-
-- Авторизация по номеру телефона через Firebase Auth (SMS OTP).
-- Обмен с собственным backend и работа с JWT-токенами.
-- Редактирование профиля пользователя.
-- Поиск товаров по названию и артикулу.
-- Сортировка каталога и просмотр карточки товара.
-- Оформление заказа с выбором доставки или самовывоза.
-- Персональные скидки в зависимости от количества заказов.
-- Онбординг для первого запуска.
-
-## Технологический стек
-
+## Tech Stack
+ 
 - Flutter, Dart.
 - State management: `flutter_bloc`.
-- Маршрутизация: `auto_route`.
-- Сеть: `dio`, `retrofit`.
-- Сериализация: `json_serializable`.
-- Авторизация: `firebase_auth`.
+- Routing: `auto_route`.
+- Networking: `dio`, `retrofit`.
+- Serialization: `json_serializable`.
+- Authentication: `firebase_auth`.
 - DI: `get_it`.
-- Логирование: `talker_flutter`.
-
-## Архитектура
-
-Проект организован в формате `features-first`:
-
-- `features/` - бизнес-фичи (экраны, BLoC, локальные виджеты).
-- `models/` - доменные и API-модели.
-- `api/` - API-клиенты и интерсепторы.
-- `data/` - сервисы, конфигурация, константы и утилиты.
-- `router/` - навигация и guard-логика.
-- `theme/` - дизайн-система приложения.
-- `widgets/` - переиспользуемые UI-компоненты.
-
-Каждая основная фича включает:
-
-- `screen`/`screens` для UI-слоя.
-- `bloc` (`event/state/bloc`) для управления состоянием.
-- `widgets` для локальных компонентов.
-
-## API и сервисы
-
-- `public_api_client` - запросы без авторизации.
-- `private_api_client` - запросы с JWT.
-- Сервисы: `auth_service`, `token_service`, `storage_service`, `config_service`, `ui_service`.
+- Logging: `talker_flutter`.
+## Architecture
+ 
+The project is organized in a `features-first` format:
+ 
+- `features/` — business features (screens, BLoC, local widgets).
+- `models/` — domain and API models.
+- `api/` — API clients and interceptors.
+- `data/` — services, configuration, constants, and utilities.
+- `router/` — navigation and guard logic.
+- `theme/` — app design system.
+- `widgets/` — reusable UI components.
+Each main feature includes:
+ 
+- `screen`/`screens` for the UI layer.
+- `bloc` (`event/state/bloc`) for state management.
+- `widgets` for local components.
+## API & Services
+ 
+- `public_api_client` — unauthenticated requests.
+- `private_api_client` — requests with JWT.
+- Services: `auth_service`, `token_service`, `storage_service`, `config_service`, `ui_service`.
 
 
-## Настройка и запуск
 
-#### Переменные окружения
-
-Создайте файл `.env` в корне проекта и добавьте необходимые переменные:
-
+## Setup & Launch
+ 
+#### Environment Variables
+ 
+Create a `.env` file in the project root and add the required variables:
+ 
 ```
 API_URL=https://api.example.com:port
 ```
-
-#### Настройка Firebase
-
-Проект использует Firebase Authentication (SMS OTP).
-Для локального запуска необходимо подключить собственный Firebase-проект:
-
-1. Создайте проект на [Firebase Console](https://console.firebase.google.com).
-2. Подключите приложение через [FlutterFire CLI](https://firebase.flutter.dev/docs/cli):
-```bash
-dart pub global activate flutterfire_cli
-flutterfire configure
-```
-   Команда сгенерирует файл `lib/firebase_options.dart` и разместит
-   `google-services.json` (Android) и `GoogleService-Info.plist` (iOS)
-   в нужные директории автоматически.
-3. Включите метод входа `Phone` в разделе Authentication → Sign-in method.
-
-#### Запуск проекта
-
+ 
+#### Firebase Setup
+ 
+The project uses Firebase Authentication (SMS OTP).
+To run locally, you need to connect your own Firebase project:
+ 
+1. Create a project on [Firebase Console](https://console.firebase.google.com).
+2. Connect the app via [FlutterFire CLI](https://firebase.flutter.dev/docs/cli):
+   ```bash
+   dart pub global activate flutterfire_cli
+   flutterfire configure
+   ```
+   The command will generate `lib/firebase_options.dart` and place
+   `google-services.json` (Android) and `GoogleService-Info.plist` (iOS)
+   in the correct directories automatically.
+3. Enable the `Phone` sign-in method under Authentication → Sign-in method.
+ 
+#### Running the Project
+ 
 ```bash
 flutter pub get
 flutter run
 ```
-
-## Лицензия
-
-Проект распространяется по лицензии **All Rights Reserved**. Подробные условия: `LICENCE.md`.
+ 
+## License
+ 
+The project is distributed under the **All Rights Reserved** license. Full terms: `LICENCE.md`.
